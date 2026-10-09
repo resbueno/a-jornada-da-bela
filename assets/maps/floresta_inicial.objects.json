@@ -1,0 +1,59 @@
+[
+  {
+    "kind": "sign",
+    "tile": [
+      26,
+      14
+    ],
+    "name": "Placa",
+    "lines": [
+      "Vilarejo escondido da Floresta Sussurrante. A Princesa Olívia espera junto ao lago."
+    ]
+  },
+  {
+    "kind": "npc",
+    "tile": [
+      29,
+      12
+    ],
+    "name": "Olívia",
+    "sprite": "olivia",
+    "gives": "boat",
+    "lines": [
+      "Isabela! A profecia falava de você. Eu guardo o primeiro insumo: o Barco Sagrado.",
+      "Escolha o barco no inventário quando estiver na margem do lago. Ele vai te levar até a ilha da Lara."
+    ],
+    "after": [
+      "O Grande Lago é seu, Isabela. Siga para a ilha."
+    ]
+  },
+  {
+    "kind": "npc",
+    "tile": [
+      38,
+      5
+    ],
+    "name": "Lara",
+    "sprite": "lara",
+    "gives": "unicorn",
+    "lines": [
+      "Você chegou! Sou Lara, guardiã do segundo insumo.",
+      "O Unicórnio Lendário é seu. Ele salta sobre fendas e penhascos.",
+      "Escolha o unicórnio no inventário e aperte A de frente para a fenda para saltar. A entrada da caverna está além dela."
+    ],
+    "after": [
+      "Fique de frente para a fenda e aperte A com o unicórnio. Boa sorte, Isabela!"
+    ]
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      32,
+      13
+    ],
+    "name": "Placa",
+    "lines": [
+      "Ilha de Lara, no meio do Lago de Cristal. Cuidado com as criaturas corrompidas nas águas!"
+    ]
+  }
+]

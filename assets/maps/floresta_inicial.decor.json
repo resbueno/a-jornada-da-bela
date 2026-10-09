@@ -1,0 +1,12 @@
+[
+  {"kind": "rainbow", "tile": [6, 8]},
+  {"kind": "bird",    "tile": [16, 11]},
+  {"kind": "bird",    "tile": [38, 13]},
+  {"kind": "bird",    "tile": [27, 9]},
+  {"kind": "animal",  "tile": [10, 20]},
+  {"kind": "animal",  "tile": [30, 28]},
+  {"kind": "animal",  "tile": [18, 6]},
+  {"kind": "fish",    "tile": [36, 6]},
+  {"kind": "fish",    "tile": [40, 8]},
+  {"kind": "fish",    "tile": [33, 10]}
+]

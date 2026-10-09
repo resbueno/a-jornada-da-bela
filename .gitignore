@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+dist/
+art/preview/
+.DS_Store
+# especifico da infraestrutura do autor
+tools/patch_gateway_bela.py
