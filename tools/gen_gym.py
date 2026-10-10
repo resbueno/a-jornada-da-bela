@@ -14,7 +14,7 @@ from gen_characters import Grid
 
 OUT = Path(__file__).resolve().parent.parent / "art" / "src"
 
-BAR_Y = (11, 5, 1)      # altura da barra em cada quadro
+BAR_Y = (11, 5, 2)      # altura da barra em cada quadro
 
 PEOPLE = {
     "tia_dani": dict(
@@ -76,9 +76,10 @@ def figure(c, pose):
     # barra e anilhas
     g.rect(2, by, 13, by, "d")
     for x0p in (0, 14):
-        g.rect(x0p, by - 1, x0p + 1, by + 2, "c")
-        g.rect(x0p, by - 1, x0p + 1, by - 1, "d")
-    g.px(0, by, "b"); g.px(0, by + 1, "b"); g.px(15, by, "b"); g.px(15, by + 1, "b")
+        g.rect(x0p, by - 2, x0p + 1, by + 3, "c")                               # anilha grande: 2x6
+        g.rect(x0p, by - 2, x0p + 1, by - 2, "d")
+        edge = x0p if x0p == 0 else x0p + 1
+        g.rect(edge, by - 1, edge, by + 3, "b")
     hand_y = by
     for x in (2, 3, 12, 13) if pose else (3, 4, 11, 12):
         g.px(x, hand_y, c["skin"] if x in (2, 13, 3, 12) else c["skin_sh"])
