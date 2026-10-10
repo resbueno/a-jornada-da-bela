@@ -3,7 +3,8 @@ from dataclasses import dataclass
 
 from src.world.terrain import Terrain
 
-LAND = frozenset({Terrain.GRASS, Terrain.TALL_GRASS, Terrain.DIRT, Terrain.STONE, Terrain.CASTLE, Terrain.CAVE})
+LAND = frozenset({Terrain.GRASS, Terrain.TALL_GRASS, Terrain.DIRT, Terrain.STONE, Terrain.CASTLE, Terrain.CAVE,
+                  Terrain.EXIT, Terrain.GATE})
 
 
 @dataclass(frozen=True)

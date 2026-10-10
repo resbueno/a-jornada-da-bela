@@ -167,3 +167,17 @@ derrota**; o enredo entra como conteúdo.
   nela encerra o capítulo 2 (tela de fim de capítulo).
 - **Arte:** veículos 32x32 com a Isabela montada (`tools/gen_vehicles.py`), chuva e
   caverna com relevo.
+
+## Revisão 4 — Capítulo 3 implementado (Cavernas de Quartzo)
+
+- **Vários mapas:** `src/maps.py` registra os mapas e as passagens (`CAVE` na ilha leva
+  às cavernas; `EXIT` volta à ilha). Inventário e transporte são mantidos na troca.
+- **Caverna escura:** `src/lighting.py` escurece a cena e abre halos de luz em degraus ao
+  redor da Isabela, dos cristais de quartzo (tremulam) e das NPCs.
+- **Abismos:** `x` no mapa. Largura 1 ou 2 tiles; só o unicórnio salta (mesma mecânica
+  das fendas do capítulo 2). A pé ou de carro não atravessam.
+- **Lana:** entrega o Carro Rosa (3º insumo) na câmara de cristais. O carro só anda em
+  trilhas de terra, então não circula dentro da caverna.
+- **Fim do capítulo 3:** portal luminoso (`G`) depois da Lana. O capítulo 4 ainda não existe.
+- **Novos terrenos:** parede (`W`), cristal (`q`), saída (`O`), portal (`G`).
+- **Cartão de capítulo** no começo de cada mapa que o define.

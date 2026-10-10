@@ -6,7 +6,7 @@ publicado no navegador com **pygbag** (WebAssembly).
 A Princesa Isabela ("Bela") precisa reunir os Quatro Insumos Ancestrais (barco, unicórnio,
 carro rosa e dragão) para libertar o castelo da Sombra Cinzenta. Veja `STORY.md`.
 
-**Estado:** capítulos 1 (floresta) e 2 (lago e ilha) jogáveis; capítulo 3 em construção.
+**Estado:** capítulos 1 (floresta), 2 (lago e ilha) e 3 (cavernas) jogáveis; capítulo 4 em construção.
 
 ## Controles
 

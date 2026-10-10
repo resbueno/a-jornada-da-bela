@@ -254,6 +254,69 @@ def _cave_entrance(tx, ty, left, right):
     return s
 
 
+def _cave_wall(tx, ty, below_open):
+    """Parede de caverna: topo escuro (bem distinto do piso); com chao abaixo, mostra a face frontal."""
+    rng = random.Random(_h(tx, ty, 31))
+    s = _surface()
+    s.fill(P["rocha_contorno"])
+    for _ in range(14):
+        c = "contorno" if rng.random() < 0.55 else "rocha"
+        s.set_at((rng.randrange(T), rng.randrange(T)), P[c])
+    if below_open:
+        for y in range(6, T):
+            for x in range(T):
+                c = "rocha" if (x * 3 + y) % 7 == 0 else "rocha_contorno"
+                if y > 11:
+                    c = "contorno" if (x + y) % 4 else "rocha_contorno"
+                s.set_at((x, y), P[c])
+        for x in range(T):
+            s.set_at((x, 5), P["rocha_clara"])
+            s.set_at((x, 6), P["rocha"])
+    return s
+
+
+def _crystal(tx, ty, floor):
+    """Aglomerado de quartzo sobre o piso."""
+    s = floor.copy()
+    rng = random.Random(_h(tx, ty, 41))
+    spikes = [(4, 13, 8), (8, 14, 11), (11, 13, 7)]
+    for x, base, h in spikes:
+        x += rng.randint(-1, 1)
+        for k in range(h):
+            y = base - k
+            w = 2 if k < h - 3 else 1
+            for dx in range(w):
+                c = "branco" if (dx == 0 and k % 3 == 1) else ("ceu" if (x + k) % 2 else "roxo")
+                s.set_at(((x + dx) % T, y % T), P[c])
+        s.set_at((x % T, (base - h) % T), P["branco"])
+    for x in range(2, 14):
+        s.set_at((x, 14), P["contorno"])
+    return s
+
+
+def _exit_tile():
+    s = _surface()
+    s.fill(P["contorno"])
+    for y in range(T):
+        for x in range(2, T - 2):
+            c = "branco" if y < 5 else ("ceu" if y < 11 else "agua_clara")
+            if (x + y) % 5 or y > 11:
+                s.set_at((x, y), P[c])
+    return s
+
+
+def _gate_tile(frame):
+    s = _surface()
+    s.fill(P["contorno"])
+    for y in range(1, T - 1):
+        for x in range(2, T - 2):
+            d = abs(x - 7.5) + abs(y - 7.5) * 0.6
+            if d < 6:
+                c = "branco" if d < 2 + frame else ("roxo" if int(d) % 2 else "ceu")
+                s.set_at((x, y), P[c])
+    return s
+
+
 # --------------------------------------------------------------- agua
 def _water(frame, tx, ty):
     s = _surface()
@@ -342,7 +405,7 @@ class MapArt:
     def _stone_tile(self, tx, ty):
         """Piso de caverna com paredes em relevo onde faz fronteira com outro terreno."""
         s = self.stone[_h(tx, ty) % 2].copy()
-        grp = {Terrain.STONE}
+        grp = {Terrain.STONE, Terrain.WALL, Terrain.CRYSTAL, Terrain.FISSURE, Terrain.EXIT, Terrain.GATE}
         n = self._same(tx, ty - 1, grp)
         so = self._same(tx, ty + 1, grp)
         w = self._same(tx - 1, ty, grp)
@@ -394,6 +457,15 @@ class MapArt:
                     tile = self._water_tile(tx, ty, frame)
                 elif kind is Terrain.STONE:
                     tile = self._stone_tile(tx, ty)
+                elif kind is Terrain.WALL:
+                    below = self._kind(tx, ty + 1)
+                    tile = _cave_wall(tx, ty, below is not None and below is not Terrain.WALL)
+                elif kind is Terrain.CRYSTAL:
+                    tile = _crystal(tx, ty, self._stone_tile(tx, ty))
+                elif kind is Terrain.EXIT:
+                    tile = _exit_tile()
+                elif kind is Terrain.GATE:
+                    tile = _gate_tile(frame)
                 elif kind is Terrain.FISSURE:
                     tile = _fissure(tx, ty, True, True)
                 elif kind is Terrain.CAVE:

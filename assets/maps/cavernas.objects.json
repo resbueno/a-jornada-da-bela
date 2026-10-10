@@ -1,0 +1,32 @@
+[
+  {
+    "kind": "npc",
+    "tile": [
+      24,
+      4
+    ],
+    "name": "Lana",
+    "sprite": "lana",
+    "gives": "pink_car",
+    "lines": [
+      "Isabela! Que bom que o unicórnio te trouxe até aqui. Sou Lana.",
+      "Eu estudo a energia dos minérios destas cavernas. O terceiro insumo é meu: o Carro Rosa, movido a quartzo purificado.",
+      "A Sombra Cinzenta está acelerando o feitiço eclipse no castelo. Você vai precisar da velocidade do carro para cruzar a última fronteira a tempo.",
+      "Ele só anda em estradas de terra. Escolha o carro no inventário quando estiver numa trilha."
+    ],
+    "after": [
+      "Siga pelo portal brilhante, Isabela. A Estrada do Pôr do Sol te espera!"
+    ]
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      4,
+      18
+    ],
+    "name": "Placa",
+    "lines": [
+      "Cavernas de Quartzo. Os abismos só podem ser saltados com o unicórnio."
+    ]
+  }
+]

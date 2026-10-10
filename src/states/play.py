@@ -1,7 +1,11 @@
 """Estado Jogando: mundo, camera, a Bela com colisao, inventario e dialogos."""
+import pygame
+
 from src import config
 from src.entities.player import Player
 from src.input import Action
+from src.lighting import Darkness
+from src.maps import MAPS, TRANSITIONS
 from src.inventory import Inventory
 from src.states.base import State
 from src.states.chapter_end import ChapterEnd
@@ -17,26 +21,36 @@ from src.world.objects import load_creatures, load_decor, load_objects
 from src.world.terrain import Terrain
 from src.world.tilemap import Tilemap
 
-START_TILE = (24, 15)  # no caminho principal
-MAP = "assets/maps/floresta_inicial"
+START_TILE = (24, 15)  # no caminho principal da floresta (usado pelos testes)
+CARD_TICKS = 150
 
 
 class Play(State):
-    def __init__(self):
+    def __init__(self, map_id="floresta_inicial", spawn=None, inventory=None, transport=None):
         super().__init__()
-        self.world = Tilemap.load(MAP + ".map.txt")
-        self.objects = load_objects(MAP + ".objects.json")
-        self.decor = load_decor(MAP + ".decor.json")
-        self.creatures = load_creatures(MAP + ".creatures.json")
+        spec = MAPS[map_id]
+        self.map_id = map_id
+        base = spec["base"]
+        self.world = Tilemap.load(base + ".map.txt")
+        self.objects = load_objects(base + ".objects.json")
+        self.decor = load_decor(base + ".decor.json")
+        self.creatures = load_creatures(base + ".creatures.json")
         self.toast = ""
         self.toast_ticks = 0
         for obj in self.objects:
             self.world.solid_tiles.add(obj.tile)
         self.camera = Camera(self.world.pixel_w, self.world.pixel_h)
-        self.player = Player(START_TILE[0] * config.TILE, START_TILE[1] * config.TILE)
-        self.inventory = Inventory()
+        sx, sy = spawn or spec["spawn"]
+        self.player = Player(sx * config.TILE, sy * config.TILE)
+        if transport is not None:
+            self.player.transport = transport
+        self.inventory = inventory or Inventory()
         self.ticks = 0
-        self.rain = Rain() if config.WEATHER == "rain" else None
+        self.rain = Rain() if (spec["weather"] == "rain" and config.WEATHER == "rain") else None
+        self.darkness = Darkness() if spec["dark"] else None
+        self.card = spec["card"]
+        self.crystals = [(tx, ty) for ty in range(self.world.rows) for tx in range(self.world.cols)
+                         if self.world.grid[ty][tx] is Terrain.CRYSTAL]
         self.camera.follow(*self.player.center)
 
     def update(self, dt, inp):
@@ -74,15 +88,46 @@ class Play(State):
             d.update(self.player.center)
         hx, hy, hw, hh = self.player.hitbox
         here = self.world.terrain_at_pixel(hx + hw / 2, hy + hh / 2)
+        dest = TRANSITIONS.get((self.map_id, here))
         if here is Terrain.CASTLE:
             self.manager.change(Victory())
-        elif here is Terrain.CAVE:
+        elif dest:
+            self.manager.change(Play(dest[0], dest[1], self.inventory, self.player.transport))
+        elif here is Terrain.GATE:
             self.manager.change(ChapterEnd(
-                "Capítulo 2 concluído",
-                ["Isabela saltou a fenda e chegou à entrada",
-                 "das Cavernas de Quartzo.",
-                 "A Princesa Lana espera lá dentro...",
-                 "(o capítulo 3 ainda será construído)"]))
+                "Capítulo 3 concluído",
+                ["Com o Carro Rosa de quartzo, Isabela segue",
+                 "rumo à Estrada do Pôr do Sol.",
+                 "A Princesa Sara aguarda nos portões do castelo...",
+                 "(o capítulo 4 ainda será construído)"]))
+
+    def _lights(self):
+        """Luzes em coordenadas de tela: Isabela, cristais visiveis e NPCs."""
+        cam = self.camera
+        px, py = self.player.center
+        lights = [(px - cam.x, py - cam.y, 46, False)]
+        half = config.TILE // 2
+        for tx, ty in self.crystals:
+            x = tx * config.TILE + half - cam.x
+            y = ty * config.TILE + half - cam.y
+            if -48 < x < config.LOGICAL_W + 48 and -48 < y < config.LOGICAL_H + 48:
+                lights.append((x, y, 38, True))
+        for obj in self.objects:
+            if obj.kind == "npc":
+                lights.append((obj.rect.centerx - cam.x, obj.rect.centery - cam.y, 26, False))
+        return lights
+
+    def _draw_card(self, canvas):
+        """Cartao de titulo do capitulo, que some devagar."""
+        left = CARD_TICKS - self.ticks
+        if left < 30 and (left // 3) % 2:        # pisca ao sumir
+            return
+        p = config.PALETTE
+        w, h = 300, 22
+        rect = ((config.LOGICAL_W - w) // 2, 14, w, h)
+        pygame.draw.rect(canvas, p["contorno"], rect)
+        pygame.draw.rect(canvas, p["areia_clara"], rect, 1)
+        draw_text(canvas, self.card, config.LOGICAL_W // 2, 19, p["amarelo"], size=16, center=True)
 
     def _interactable_in_front(self):
         tiles = self.player.facing_tiles()
@@ -123,6 +168,10 @@ class Play(State):
                 d.draw(canvas, self.camera)
         if self.rain:
             self.rain.draw(canvas)
+        if self.darkness:
+            self.darkness.draw(canvas, self._lights(), self.ticks)
+        if self.card and self.ticks < CARD_TICKS:
+            self._draw_card(canvas)
         if self.toast_ticks:
             draw_text(canvas, self.toast, config.LOGICAL_W // 2, config.LOGICAL_H - 16, config.PALETTE["branco"],
                       size=14, center=True, shadow=config.PALETTE["contorno"])
