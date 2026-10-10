@@ -120,5 +120,65 @@
     "after": [
       "Boa viagem! A caverna fica atrás da fenda."
     ]
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      48,
+      14
+    ],
+    "name": "Placa",
+    "lines": [
+      "Leste: o Lago da Lua e as Ruínas Antigas, no fim da trilha do norte."
+    ],
+    "auto": true
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      25,
+      44
+    ],
+    "name": "Placa",
+    "lines": [
+      "Sul: a estrada do sul, a pedreira e os campos de grama alta."
+    ],
+    "auto": true
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      59,
+      14
+    ],
+    "name": "Placa",
+    "lines": [
+      "Esta trilha desce até a estrada do sul. Cuidado com a grama alta!"
+    ],
+    "auto": true
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      75,
+      15
+    ],
+    "name": "Placa",
+    "lines": [
+      "Ruínas Antigas. Dizem que aqui havia um castelo menor, muito antes do reino."
+    ],
+    "auto": true
+  },
+  {
+    "kind": "sign",
+    "tile": [
+      14,
+      48
+    ],
+    "name": "Placa",
+    "lines": [
+      "Pedreira. As pedras daqui construíram as muralhas do castelo."
+    ],
+    "auto": true
   }
 ]

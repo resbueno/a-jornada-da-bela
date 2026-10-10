@@ -4,6 +4,7 @@ import math
 import pygame
 
 from src import config
+from src.sprites import flipped, frames
 
 T = config.TILE
 P = config.PALETTE
@@ -59,18 +60,10 @@ class Eel:
 
     def draw(self, canvas, camera):
         sx, sy = round(self.x) - camera.x, round(self.y) - camera.y
-        wave = int(math.sin(self.ticks / 8.0) * 1.5)
-        flip = self.dir < 0
-        # corpo em S
-        for i in range(-6, 7):
-            yy = sy + int(math.sin((i + self.ticks / 5.0) / 2.2) * 1.6)
-            xx = sx + i
-            color = P["roxo"] if abs(i) < 5 else P["azul"]
-            canvas.set_at((xx, yy), color)
-            canvas.set_at((xx, yy + 1), P["contorno"] if i % 3 else P["azul"])
-        head = sx - 7 if flip else sx + 7
-        canvas.set_at((head, sy + wave), P["roxo"])
-        canvas.set_at((head - (1 if not flip else -1), sy + wave), P["vermelho"])  # olho
+        img = frames("eel", 32, 16)[(self.ticks // 7) % 4]
+        if self.dir < 0:
+            img = flipped(img)
+        canvas.blit(img, (sx - 16, sy - 9))
 
 
 class Minion:
@@ -120,11 +113,5 @@ class Minion:
 
     def draw(self, canvas, camera):
         sx, sy = round(self.x) - camera.x, round(self.y) - camera.y
-        step = (self.ticks // 8) % 2
-        body = [(-4, -2, 8, 8, "roxo"), (-3, -8, 6, 6, "contorno"), (-5, 6, 4, 3, "azul"), (1, 6, 4, 3, "azul")]
-        for dx, dy, w, h, c in body:
-            pygame.draw.rect(canvas, P[c], (sx + dx, sy + dy + (1 if step and dy == 6 else 0), w, h))
-        pygame.draw.rect(canvas, P["vermelho"], (sx - 2, sy - 6, 1, 1))     # olhos
-        pygame.draw.rect(canvas, P["vermelho"], (sx + 1, sy - 6, 1, 1))
-        pygame.draw.rect(canvas, P["rosa_escuro"], (sx - 7, sy - 1, 3, 2))  # braco com lanca
-        pygame.draw.rect(canvas, P["areia_clara"], (sx - 7, sy - 9, 1, 10))
+        sheet = frames("minion_down" if self.dir > 0 else "minion_up", 16, 24)
+        canvas.blit(sheet[(self.ticks // 8) % 2], (sx - 8, sy - 16))

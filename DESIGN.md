@@ -237,3 +237,17 @@ Teo (spitz alemão), Jhonny (shih tzu marrom e branco, antes Vovó Nina), Lola (
 marrom e branca com laço rosa, capitã da resistência e irmã do Jhonny, antes Capitã Vera) e
 Bruce (shih tzu cinza, antes Dudu). Sprites gerados por `tools/gen_dogs.py`, no mesmo
 formato 16x24 dos personagens. O Rui (barqueiro) continua humano.
+
+## Revisão 10: mundo maior e sprites mais detalhados
+
+- **Floresta 96x64** (4x a área; antes 48x32): a região original manteve as coordenadas
+  (lago, ilha, vilarejo, trilhas); o mundo cresceu para leste e sul, com uma malha de
+  trilhas, o Lago da Lua, as Ruínas Antigas, a pedreira, campos de grama alta e 5 placas
+  novas. Gerador: `tools/gen_map.py`. Tudo continua alcançável a pé, menos a ilha e a
+  caverna (que exigem barco e unicórnio).
+- **Desenho do mapa por pedaços** (`Tilemap.CHUNK`, 8x8 tiles) sob demanda e em cache: o
+  mapa grande não pesa na abertura do jogo no navegador.
+- **Minimapa** na tela de pausa: terreno, a Isabela piscando e os personagens.
+- **Bichos com sprites de verdade** (`tools/gen_critters.py`): coelho em 3 cores e 4 poses
+  (sentado, orelha mexendo, agachado, no ar), pássaros em 3 cores (pousado e voando),
+  peixes em 2 cores (pulando em arco), enguia sombria e lacaio com elmo e lança.

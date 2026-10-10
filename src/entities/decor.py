@@ -7,6 +7,7 @@ import math
 import pygame
 
 from src import config
+from src.sprites import flipped, frames
 
 T = config.TILE
 P = config.PALETTE
@@ -42,6 +43,7 @@ class Decor:
 
 class Bird(Decor):
     NEAR, FAR, SPEED, FLEE_TICKS = 36, 120, 110.0, 90
+    VARIANTS = ("bird_yellow", "bird_blue", "bird_red")
 
     def __init__(self, tile, phase=0):
         super().__init__(tile, phase)
@@ -49,6 +51,8 @@ class Bird(Decor):
         self.state = "idle"
         self.flee_left = 0
         self.vx = self.vy = 0.0
+        self.variant = self.VARIANTS[(tile[0] * 7 + tile[1] * 3) % 3]
+        self.face_right = (tile[0] + tile[1]) % 2 == 0
 
     def update(self, pc):
         super().update(pc)
@@ -58,6 +62,7 @@ class Bird(Decor):
             self.vx, self.vy = ax, ay - 0.6
             n = math.hypot(self.vx, self.vy) or 1.0
             self.vx, self.vy = self.vx / n, self.vy / n
+            self.face_right = self.vx > 0
             self.state, self.flee_left = "flee", self.FLEE_TICKS
         elif self.state == "flee":
             self.x += self.vx * self.SPEED * config.DT
@@ -74,20 +79,27 @@ class Bird(Decor):
         if self.state == "gone":
             return
         sx, sy = self._screen(camera)
-        flap = (self.ticks // (4 if self.state == "flee" else 40)) % 2
-        pygame.draw.rect(canvas, P["amarelo_brilho"], (sx - 2, sy - 1, 5, 3))
-        pygame.draw.rect(canvas, P["contorno"], (sx + 2, sy - 1, 1, 1))  # olho
-        wing_y = sy - 3 if flap else sy + 1
-        pygame.draw.rect(canvas, P["creme"], (sx - 1, wing_y, 3, 1))
+        sheet = frames(self.variant, 16, 16)
+        if self.state == "flee":
+            img = sheet[2 + (self.ticks // 4) % 2]
+        else:                                   # pousado: de vez em quando inclina a cabeca
+            img = sheet[1 if (self.ticks // 35) % 5 == 4 else 0]
+        if self.face_right:
+            img = flipped(img)
+        canvas.blit(img, (sx - 8, sy - 11))
 
 
 class Animal(Decor):
+    """Coelho: senta, mexe a orelha, e foge em pulos quando a Bela chega perto."""
     NEAR, FAR, RUN, BACK, DIST = 44, 80, 90.0, 40.0, 40.0
+    VARIANTS = ("rabbit_white", "rabbit_brown", "rabbit_gray")
 
     def __init__(self, tile, phase=0):
         super().__init__(tile, phase)
         self.state = "idle"
         self.target = self.home
+        self.variant = self.VARIANTS[(tile[0] * 5 + tile[1] * 11) % 3]
+        self.face_right = (tile[0] * 3 + tile[1]) % 2 == 0
 
     def update(self, pc):
         super().update(pc)
@@ -110,6 +122,8 @@ class Animal(Decor):
         dx, dy = target[0] - self.x, target[1] - self.y
         n = math.hypot(dx, dy)
         step = speed * config.DT
+        if abs(dx) > 0.3:
+            self.face_right = dx > 0
         if n <= step:
             self.x, self.y = target
             return True
@@ -119,15 +133,26 @@ class Animal(Decor):
 
     def draw(self, canvas, camera):
         sx, sy = self._screen(camera)
-        hop = -1 if (self.ticks // (6 if self.state == "run" else 40)) % 2 else 0
-        pygame.draw.rect(canvas, P["creme"], (sx - 4, sy - 2 + hop, 8, 5))      # corpo
-        pygame.draw.rect(canvas, P["creme"], (sx + 2, sy - 5 + hop, 3, 4))      # cabeca
-        pygame.draw.rect(canvas, P["rosa"], (sx + 3, sy - 7 + hop, 1, 2))       # orelha
-        pygame.draw.rect(canvas, P["contorno"], (sx + 4, sy - 4 + hop, 1, 1))   # olho
+        sheet = frames(self.variant, 16, 16)
+        bounce = 0
+        if self.state == "run":                       # pulos: agachado / no ar
+            air = (self.ticks // 6) % 2
+            img = sheet[3 if air else 2]
+            bounce = -4 if air else 0
+        elif self.state == "back":                    # volta aos pulinhos
+            air = (self.ticks // 14) % 2
+            img = sheet[3 if air else 2]
+            bounce = -2 if air else 0
+        else:                                         # sentado, mexendo a orelha de vez em quando
+            img = sheet[1 if (self.ticks // 30) % 6 == 5 else 0]
+        if self.face_right:
+            img = flipped(img)
+        canvas.blit(img, (sx - 8, sy - 13 + bounce))
 
 
 class Fish(Decor):
     NEAR, IDLE_PERIOD, NEAR_PERIOD, JUMP = 56, 180, 60, 24
+    VARIANTS = ("fish_orange", "fish_blue")
 
     def __init__(self, tile, phase=0):
         super().__init__(tile, phase)
@@ -135,6 +160,8 @@ class Fish(Decor):
         self.since = phase % self.IDLE_PERIOD
         self.jump_t = -1
         self.near = False
+        self.variant = self.VARIANTS[(tile[0] + tile[1]) % 2]
+        self.face_right = (tile[0] * 2 + tile[1]) % 2 == 0
 
     def update(self, pc):
         super().update(pc)
@@ -153,11 +180,19 @@ class Fish(Decor):
         sx, sy = self._screen(camera)
         if self.jump_t < 0:
             if (self.ticks // 30) % 2:
-                pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 2, sy, 4, 1))  # ondinha
+                pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 3, sy, 6, 1))     # ondinha
+                canvas.set_at((sx - 1, sy - 1), P["branco"])
             return
-        h = round(7 * math.sin(math.pi * self.jump_t / self.JUMP))
-        pygame.draw.rect(canvas, P["creme"], (sx - 2, sy - h, 4, 2))
-        pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 3, sy, 6, 1))        # respingo
+        u = self.jump_t / self.JUMP
+        h = round(9 * math.sin(math.pi * u))
+        sheet = frames(self.variant, 16, 16)
+        img = sheet[1] if u < 0.34 else (sheet[2] if u < 0.66 else sheet[3])
+        if self.face_right:
+            img = flipped(img)
+        canvas.blit(img, (sx - 8, sy - 8 - h))
+        if u < 0.2 or u > 0.8:                                                    # respingo
+            pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 5, sy, 10, 1))
+            canvas.set_at((sx - 6, sy - 1), P["branco"]); canvas.set_at((sx + 5, sy - 1), P["branco"])
 
 
 class Rainbow(Decor):

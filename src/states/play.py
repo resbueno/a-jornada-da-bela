@@ -66,7 +66,7 @@ class Play(State):
         if self.rain:
             self.rain.update()
         if inp.pressed(Action.PAUSE):
-            self.manager.push(Pause())
+            self.manager.push(Pause(self))
             return
         if inp.pressed(Action.INVENTORY):
             self.manager.push(InventoryState(self))

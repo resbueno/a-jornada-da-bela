@@ -45,5 +45,6 @@ use `tools/deploy_homolog.sh` com as variáveis `BELA_DEPLOY_HOST` e `BELA_DEPLO
 | `DESIGN.md` | decisões de projeto |
 | `STORY.md` | enredo e personagens |
 
-A arte é gerada por código (`tools/gen_characters.py`, `tools/gen_vehicles.py`,
+A arte é gerada por código (`tools/gen_characters.py`, `tools/gen_dogs.py`, `tools/gen_critters.py`,
+`tools/gen_vehicles.py`, `tools/gen_dragon.py`,
 `src/world/tileart.py`) a partir de uma paleta fixa de 32 cores.

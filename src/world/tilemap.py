@@ -17,7 +17,8 @@ class Tilemap:
         self.pixel_w = self.cols * config.TILE
         self.pixel_h = self.rows * config.TILE
         self.solid_tiles = set()        # tiles ocupados por objetos (NPCs, placas)
-        self._frames = None             # arte pre-renderizada (2 quadros de agua)
+        self._art = None                # gerador de arte (criado na primeira vez que desenha)
+        self._chunks = {}               # (cx, cy, quadro) -> Surface de CHUNK x CHUNK tiles
 
     @classmethod
     def load(cls, path):
@@ -51,13 +52,31 @@ class Tilemap:
     def terrain_at_pixel(self, px, py):
         return self.terrain_at(int(px) // config.TILE, int(py) // config.TILE)
 
+    CHUNK = 8  # tiles por lado de cada pedaco desenhado sob demanda
+
+    def invalidate(self):
+        """Descarta a arte em cache (ex.: depois de mudar tiles durante uma cena)."""
+        self._chunks.clear()
+
     def draw(self, canvas, camera, frame=0):
-        """Recorta da arte pre-renderizada a regiao visivel. frame alterna a agua (0/1)."""
-        if self._frames is None:
+        """Desenha so os pedacos visiveis; cada um e criado na 1a vez e reaproveitado (2 quadros de agua)."""
+        if self._art is None:
             from src.world.tileart import MapArt  # import local: pede o display ja iniciado
-            art = MapArt(self)
-            self._frames = [art.render(0), art.render(1)]
-        view = pygame.Rect(camera.x, camera.y, config.LOGICAL_W, config.LOGICAL_H)
-        src = self._frames[frame % 2]
-        clip = view.clip(src.get_rect())
-        canvas.blit(src, (clip.x - camera.x, clip.y - camera.y), clip)
+            self._art = MapArt(self)
+        t = config.TILE
+        size = self.CHUNK * t
+        f = frame % 2
+        max_cx = (self.cols - 1) // self.CHUNK
+        max_cy = (self.rows - 1) // self.CHUNK
+        cx0 = max(camera.x // size, 0)
+        cy0 = max(camera.y // size, 0)
+        cx1 = min((camera.x + config.LOGICAL_W - 1) // size, max_cx)
+        cy1 = min((camera.y + config.LOGICAL_H - 1) // size, max_cy)
+        for cy in range(cy0, cy1 + 1):
+            for cx in range(cx0, cx1 + 1):
+                key = (cx, cy, f)
+                surf = self._chunks.get(key)
+                if surf is None:
+                    surf = self._art.render_region(cx * self.CHUNK, cy * self.CHUNK, self.CHUNK, self.CHUNK, f)
+                    self._chunks[key] = surf
+                canvas.blit(surf, (cx * size - camera.x, cy * size - camera.y))

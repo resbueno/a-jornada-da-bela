@@ -75,3 +75,27 @@ def vehicle_frame(key, facing, frame, rider_name="isabela"):
         out.blit(rider, (x, top))
     _veh_cache[ck] = out
     return out
+
+
+# --- folhas de sprites genericas (bichos) ----------------------------------------------
+_sheet_cache = {}
+
+
+def frames(name, fw, fh):
+    """Quadros fw x fh de assets/sprites/<name>.png (lado a lado), em cache."""
+    key = (name, fw, fh)
+    if key not in _sheet_cache:
+        sheet = pygame.image.load(str(ROOT / "assets" / "sprites" / f"{name}.png")).convert_alpha()
+        _sheet_cache[key] = [sheet.subsurface((i * fw, 0, fw, fh)).copy() for i in range(sheet.get_width() // fw)]
+    return _sheet_cache[key]
+
+
+_flip_cache = {}
+
+
+def flipped(surface):
+    """Espelho horizontal em cache (os sprites dos bichos olham para a esquerda)."""
+    k = id(surface)
+    if k not in _flip_cache:
+        _flip_cache[k] = (surface, pygame.transform.flip(surface, True, False))
+    return _flip_cache[k][1]

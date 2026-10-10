@@ -477,11 +477,16 @@ class MapArt:
         return s
 
     def render(self, frame):
+        """Mapa inteiro (usado em testes e previas)."""
+        return self.render_region(0, 0, self.world.cols, self.world.rows, frame)
+
+    def render_region(self, x0, y0, cols, rows, frame):
+        """Desenha so um retangulo de tiles [x0, x0+cols) x [y0, y0+rows) (um 'pedaco' do mapa)."""
         w = self.world
-        surf = pygame.Surface((w.pixel_w, w.pixel_h))
+        surf = pygame.Surface((cols * T, rows * T))
         castle = {Terrain.CASTLE}
-        for ty in range(w.rows):
-            for tx in range(w.cols):
+        for ty in range(y0, min(y0 + rows, w.rows)):
+            for tx in range(x0, min(x0 + cols, w.cols)):
                 kind = w.grid[ty][tx]
                 if kind is Terrain.DIRT:
                     tile = self._path_tile(tx, ty)
@@ -530,5 +535,5 @@ class MapArt:
                         if on_road:                       # pedra sobre a estrada: base de terra
                             tile = self.path[_h(tx, ty) % 3].copy()
                         tile.blit(self.rock, (0, 0))
-                surf.blit(tile, (tx * T, ty * T))
+                surf.blit(tile, ((tx - x0) * T, (ty - y0) * T))
         return surf

@@ -256,7 +256,7 @@ class Cutscene(State):
             for x in range(16, 20):
                 if self.world.grid[y][x] is Terrain.THORN:
                     self.world.grid[y][x] = Terrain.GRASS
-        self.world._frames = None
+        self.world.invalidate()
         self.burst(target[0], target[1] + 16, [P["roxo"], P["branco"], P["rosa"]], 40, 3.0, 50)
         self.flash_a = 200
         self.beam = None
@@ -338,7 +338,7 @@ class Cutscene(State):
             for x in range(16, 20):
                 if self.world.grid[y][x] is Terrain.GRASS:
                     self.world.grid[y][x] = Terrain.THORN
-        self.world._frames = None
+        self.world.invalidate()
         self.burst(17 * T + 8, 6 * T, [P["roxo"], P["rosa_escuro"], P["contorno"]], 40, 2.6, 46)
         self.shake = 7
         yield from self.wait(120)
