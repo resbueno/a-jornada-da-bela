@@ -25,6 +25,7 @@ class Interactable:
     requires: str = None      # item (flag) que o jogador precisa ter para a conversa avancar
     missing: list = field(default_factory=list)  # falas enquanto o item nao foi trazido
     item: str = None          # coletavel: flag concedida ao pegar
+    anim: bool = False        # sprite animado em loop (0-1-2-1), sempre de frente (ex.: treino com pesos)
 
     @property
     def rect(self):
@@ -60,6 +61,10 @@ class Interactable:
             pygame.draw.rect(canvas, config.PALETTE["branco"], (x + 7, y + 2, 2, 3))
         elif self.sprite:
             from src.sprites import SPRITE_H, character
+            if self.anim:                                      # levantando peso: cicla os quadros, sem se virar
+                step = (pygame.time.get_ticks() // 350 + self.tile[0]) % 4
+                canvas.blit(character(self.sprite)["down"][(0, 1, 2, 1)[step]], (x, y + T - SPRITE_H))
+                return
             facing = "down"
             if near is not None:                               # olha para a Isabela quando ela esta perto
                 dx = near[0] - (self.rect.centerx)
@@ -94,6 +99,7 @@ def load_objects(path):
                 requires=entry.get("requires"),
                 missing=list(entry.get("missing", [])),
                 item=entry.get("item"),
+                anim=bool(entry.get("anim", False)),
             ))
         except KeyError as e:
             raise ValueError(f"{path.name}[{i}]: campo ausente {e}") from None

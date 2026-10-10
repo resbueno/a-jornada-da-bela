@@ -122,6 +122,40 @@
     ]
   },
   {
+    "kind": "npc",
+    "tile": [
+      37,
+      13
+    ],
+    "name": "Tia Dani",
+    "sprite": "tia_dani",
+    "anim": true,
+    "lines": [
+      "Uma... duas... três... Oi, Isabela! Eu sou a Tia Dani. Treino todo dia, até debaixo dessa chuva!",
+      "Quem fortalece o corpo fortalece a coragem. Se a Sombra aparecer por aqui, eu levanto ela!"
+    ],
+    "after": [
+      "Já bebeu água hoje? Hidratação é tudo!"
+    ]
+  },
+  {
+    "kind": "npc",
+    "tile": [
+      39,
+      12
+    ],
+    "name": "Tio Vitor",
+    "sprite": "tio_vitor",
+    "anim": true,
+    "lines": [
+      "Hnnng... quarenta e sete... quarenta e oito... Ah, oi, Isabela! Sou o Tio Vitor.",
+      "Cada tatuagem é uma aventura que eu vivi. Mas a maior de todas ainda está pra começar: a sua!"
+    ],
+    "after": [
+      "Pode ir tranquila. Aqui a gente mantém o vilarejo forte!"
+    ]
+  },
+  {
     "kind": "sign",
     "tile": [
       48,
