@@ -185,28 +185,28 @@ class Cutscene(State):
     # ------------------------------------------------------------ roteiro
     def _script(self):
         altar_c = (18 * T + 8, 12 * T + 8)
-        yield from self.say("Nos portões do palácio, as cinco princesas se reuniram.", 130)
+        yield from self.say("As cinco princesas se reuniram nos portões do castelo.", 130)
         # as quatro guardiãs chegam ao altar
         spots = [(15, 11), (21, 11), (15, 13), (21, 13)]
         walkers = [self.move(a, s[0] * T, s[1] * T) for a, s in zip(self.princesses, spots)]
         yield from self.together(*walkers)
         self.olivia.facing = "right"; self.lara.facing = "left"; self.lana.facing = "right"; self.sara.facing = "left"
         yield from self.wait(25)
-        yield from self.say("Cada uma guarda um dos Quatro Insumos Ancestrais.", 120)
-        gifts = [(self.olivia, "o Barco Sagrado", "agua"), (self.lara, "o Unicórnio Lendário", "rosa"),
-                 (self.lana, "o Carro Rosa de quartzo", "vermelho"), (self.sara, "o Dragão Ancestral", "verde_brilho")]
+        yield from self.say("Cada uma trouxe um dos quatro aliados.", 120)
+        gifts = [(self.olivia, "O barco", "agua"), (self.lara, "O unicórnio", "rosa"),
+                 (self.lana, "O carro rosa", "vermelho"), (self.sara, "O dragão", "verde_brilho")]
         for k, (who, label, color) in enumerate(gifts):
             who.lift = 3
-            yield from self.say(f"{label} é colocado no altar.", 20)
+            yield from self.say(f"{label} é levado até o altar.", 20)
             self.orbs.append([who.x + 8, who.y - 4, altar_c[0], altar_c[1] - 6, 0, 36, color])
             yield from self.wait(38)
             self.gems[k] = True
             self.burst(altar_c[0], altar_c[1] - 6, [P[color], P["branco"]], 14)
             who.lift = 0
             yield from self.wait(20)
-        yield from self.say("Isabela observa, de espada na cintura, o poder se reunindo...", 110)
+        yield from self.say("Isabela observa, com a espada na cintura.", 110)
         # explosão de luz
-        yield from self.say("A combinação das quatro forças cria uma explosão de luz purificadora!", 20)
+        yield from self.say("Juntos, os quatro aliados soltam uma luz muito forte!", 20)
         for i in range(6):
             self.ring(altar_c[0], altar_c[1], [P["branco"], P["amarelo"], P["ceu"]][i % 3], 120 + i * 10)
             self.flash_a = 255
@@ -224,13 +224,13 @@ class Cutscene(State):
             self.dragon_pos[0] = altar_c[0] - 24 - 70 * u
             self.shake = 2
             yield
-        yield from self.say("O Dragão desperta... com um rugido alegre e colorido!", 20)
+        yield from self.say("O dragão acorda e dá um rugido alegre!", 20)
         for _ in range(3):
             self.shake = 6
             self.burst(self.dragon_pos[0] + 90, self.dragon_pos[1] + 36, [P["amarelo"], P["laranja"], P["rosa"]], 10, 2.2, 24)
             yield from self.wait(24)
         # sopro luminoso
-        yield from self.say("Seu sopro luminoso destrói as defesas da Sombra Cinzenta!", 15)
+        yield from self.say("Ele sopra uma luz colorida e queima a cerca de espinhos!", 15)
         mouth = (self.dragon_pos[0] + 2 * 46, self.dragon_pos[1] + 2 * 17)
         target = (17 * T + 8, 6 * T)
         for i in range(70):
@@ -248,14 +248,14 @@ class Cutscene(State):
         self.flash_a = 200
         self.beam = None
         yield from self.together(self.lerp_gloom(40, 110), self.jump_cheer(self.princesses, 110))
-        yield from self.say("A névoa escura se desfaz e o céu volta a brilhar.", 150)
+        yield from self.say("A névoa escura vai embora e o céu fica claro.", 150)
         # a caminhada de Isabela
-        yield from self.say("Enquanto as amigas comandam os insumos do lado de fora...", 100)
+        yield from self.say("Enquanto as amigas cuidam dos aliados lá fora...", 100)
         self.isabela.facing = "up"
         self.cam_target = (140.0, 60.0)
         yield from self.move(self.isabela, 17 * T, 13 * T, 40)
         yield from self.move(self.isabela, 17 * T, 5 * T, 40)
-        yield from self.say("...Isabela faz sua caminhada final para dentro do castelo.", 60)
+        yield from self.say("...Isabela entra sozinha no castelo.", 60)
         for i in range(30):
             self.isabela.alpha = 255 - i * 8
             self.isabela.y -= 0.5
@@ -272,10 +272,10 @@ class Cutscene(State):
         self.villain.facing = "down"
         self.villain.alpha = 255
         yield from self.fade_to(0, 30)
-        yield from self.say("Sombra Cinzenta: \"Ninguém restaurará este reino!\"", 130)
-        yield from self.say("Isabela: \"Em nome do Reino de Cristal, eu o recupero!\"", 130)
+        yield from self.say("Sombra Cinzenta: \"Este castelo agora é meu!\"", 130)
+        yield from self.say("Isabela: \"Não, ele é do povo. Eu vou retomá-lo!\"", 130)
         yield from self.duel()
-        yield from self.say("Num último golpe, a Sombra Cinzenta se desfaz em luz.", 130)
+        yield from self.say("Com um último golpe, a Sombra Cinzenta vai embora para sempre.", 130)
         # castelo restaurado
         yield from self.fade_to(255, 30)
         self.mode = "exterior"
@@ -286,14 +286,14 @@ class Cutscene(State):
         self.isabela.facing = "down"
         self.cam_target = (136.0, 92.0)
         yield from self.fade_to(0, 30)
-        yield from self.say("O castelo pixelado é restaurado à sua forma original.", 100)
+        yield from self.say("O castelo volta a ser como era antes.", 100)
         for _ in range(4):
             self.burst(self.rng.randint(150, 420), self.rng.randint(60, 150),
                        [P["rosa"], P["amarelo"], P["branco"], P["ceu"], P["verde_brilho"]], 16, 1.8, 50)
             yield from self.wait(22)
         celebrants = [self.isabela] + self.princesses
         yield from self.together(self.move(self.isabela, 18 * T, 13 * T, 50), self.jump_cheer(celebrants, 150))
-        yield from self.say("O Reino de Cristal volta a prosperar. Fim.", 200)
+        yield from self.say("O reino volta a ficar em paz. Fim.", 200)
         yield from self.fade_to(255, 40)
 
     def duel(self):

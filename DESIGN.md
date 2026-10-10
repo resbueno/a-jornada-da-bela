@@ -211,3 +211,10 @@ derrota**; o enredo entra como conteúdo.
   Sombra Cinzenta (vilão 16x24), espada nas costas da Isabela.
 - **Vida no mundo:** NPCs respiram e viram o rosto para a Isabela quando ela chega perto;
   o barco deixa espuma e o carro rosa levanta poeira.
+
+## Revisão 7: linguagem do roteiro
+
+O texto do jogo foi simplificado: frases curtas e concretas, sem termos místicos. "Insumos
+Ancestrais" virou "os quatro aliados" (barco, unicórnio, carro rosa e dragão); "feitiço
+eclipse" virou "o castelo está escurecendo / o tempo está acabando" (a barra se chama
+TEMPO); "criaturas corrompidas" viraram "bichos escuros". Ver `STORY.md`.

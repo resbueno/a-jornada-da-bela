@@ -41,13 +41,13 @@ for x, y in [(3, 17), (8, 22), (11, 19), (16, 20), (20, 16), (26, 22), (27, 18),
 
 objects = [
     {"kind": "npc", "tile": [24, 4], "name": "Lana", "sprite": "lana", "gives": "pink_car",
-     "lines": ["Isabela! Que bom que o unicórnio te trouxe até aqui. Sou Lana.",
-               "Eu estudo a energia dos minérios destas cavernas. O terceiro insumo é meu: o Carro Rosa, movido a quartzo purificado.",
-               "A Sombra Cinzenta está acelerando o feitiço eclipse no castelo. Você vai precisar da velocidade do carro para cruzar a última fronteira a tempo.",
-               "Ele só anda em estradas de terra. Escolha o carro no inventário quando estiver numa trilha."],
-     "after": ["Siga pelo portal brilhante, Isabela. A Estrada do Pôr do Sol te espera!"]},
+     "lines": ["Isabela! Que bom que o unicórnio trouxe você até aqui. Eu sou a Lana.",
+               "Eu estudo as pedras brilhantes destas cavernas, o quartzo. Com ele eu construí o terceiro aliado: o Carro Rosa.",
+               "O vilão está deixando o castelo cada vez mais escuro, e o tempo está acabando. Com o carro você chega lá a tempo.",
+               "Ele só anda em estradas de terra. Escolha o carro no inventário quando estiver na estrada."],
+     "after": ["Siga pela passagem brilhante, Isabela. A estrada do pôr do sol está logo depois!"]},
     {"kind": "sign", "tile": [4, 18], "name": "Placa",
-     "lines": ["Cavernas de Quartzo. Os abismos só podem ser saltados com o unicórnio."]},
+     "lines": ["Cavernas de Quartzo. Os buracos só podem ser pulados com o unicórnio."]},
 ]
 (ROOT / "cavernas.objects.json").write_text(json.dumps(objects, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 (ROOT / "cavernas.decor.json").write_text("[]\n")

@@ -7,7 +7,7 @@
     ],
     "name": "Placa",
     "lines": [
-      "Vilarejo escondido da Floresta Sussurrante. A Princesa Olívia espera junto ao lago."
+      "Vilarejo da Floresta Sussurrante. A Princesa Olívia espera perto do lago."
     ]
   },
   {
@@ -20,11 +20,11 @@
     "sprite": "olivia",
     "gives": "boat",
     "lines": [
-      "Isabela! A profecia falava de você. Eu guardo o primeiro insumo: o Barco Sagrado.",
-      "Escolha o barco no inventário quando estiver na margem do lago. Ele vai te levar até a ilha da Lara."
+      "Isabela! Eu sabia que você viria. O vilão Sombra Cinzenta tomou o castelo, e só vamos retomá-lo juntas.",
+      "Eu cuido do primeiro aliado: este barco. Abra o inventário (tecla I) na margem do lago e escolha o barco. Ele leva você até a ilha da Lara."
     ],
     "after": [
-      "O Grande Lago é seu, Isabela. Siga para a ilha."
+      "O lago é todo seu, Isabela. Siga até a ilha."
     ]
   },
   {
@@ -37,9 +37,9 @@
     "sprite": "lara",
     "gives": "unicorn",
     "lines": [
-      "Você chegou! Sou Lara, guardiã do segundo insumo.",
-      "O Unicórnio Lendário é seu. Ele salta sobre fendas e penhascos.",
-      "Escolha o unicórnio no inventário e aperte A de frente para a fenda para saltar. A entrada da caverna está além dela."
+      "Você chegou! Eu sou a Lara.",
+      "Aqui está o segundo aliado: um unicórnio muito forte. Ele consegue pular buracos e fendas.",
+      "Escolha o unicórnio no inventário e aperte A de frente para a fenda para pular. A entrada da caverna fica depois dela."
     ],
     "after": [
       "Fique de frente para a fenda e aperte A com o unicórnio. Boa sorte, Isabela!"
@@ -53,7 +53,7 @@
     ],
     "name": "Placa",
     "lines": [
-      "Ilha de Lara, no meio do Lago de Cristal. Cuidado com as criaturas corrompidas nas águas!"
+      "Ilha da Lara, no meio do lago. Cuidado com os bichos escuros na água!"
     ]
   }
 ]

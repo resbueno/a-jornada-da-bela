@@ -1,39 +1,36 @@
-# A Jornada da Bela — Enredo (referência)
+# A Jornada da Bela: enredo
 
-## A Queda do Reino de Cristal
+## Resumo
 
-O grande castelo real foi dominado por uma força maligna, a **Sombra Cinzenta**, que
-aprisionou o coração do reino e ergueu uma barreira de espinhos mágicos ao redor.
-A **Princesa Isabela** (cabelos longos pretos, pele bronzeada), herdeira legítima e
-guerreira destemida, foi banida para os limites do continente. Uma antiga profecia diz
-que a barreira só cai se ela reunir os **Quatro Insumos Ancestrais**: quatro
-transportes/criaturas místicas adormecidas, cada um guardado por uma princesa aliada.
+A Princesa **Isabela** (a "Bela") perdeu o castelo da família: um vilão chamado
+**Sombra Cinzenta** tomou o palácio e cercou os portões com uma cerca de espinhos. Isabela
+foi mandada para longe, mas não desistiu. Para voltar, ela precisa da ajuda de quatro amigas,
+cada uma cuidando de um **aliado**: um barco, um unicórnio, um carro rosa e um dragão.
+Com os quatro reunidos, ela derruba os espinhos e enfrenta o vilão.
 
 ## Capítulos
 
-| # | Capítulo | Insumo | Guardiã | Mecânica citada |
+| # | Onde | Aliado | Quem ajuda | O que se faz |
 |---|---|---|---|---|
-| 1 | A Floresta Sussurrante (a pé) | **Barco Sagrado** | Princesa **Olívia** (cabelo médio castanho, pele clara), vilarejo oculto | Caminhar; navegar o Grande Lago |
-| 2 | O Lago de Cristal (barco) | **Unicórnio Lendário** | Princesa **Lara** (cabelo loiro curto até os ombros, pele clara), numa ilha | Saltar penhascos e fendas |
-| 3 | As Cavernas de Quartzo (unicórnio) | **Carro Rosa** (movido a quartzo) | Princesa **Lana** (pele clara), estuda minérios | Cavernas escuras com cristais; abismos |
-| 4 | A Estrada do Pôr do Sol (carro) | **Dragão Ancestral** (ritual de invocação) | Princesa **Sara** (pele clara, trança roxa muito longa), acampamento da resistência | Corrida contra o tempo; desviar de obstáculos e lacaios |
+| 1 | Floresta Sussurrante | **Barco** | Princesa **Olívia** | Andar a pé até o vilarejo e atravessar o lago de barco |
+| 2 | Lago de Cristal | **Unicórnio** | Princesa **Lara** (numa ilha) | Fugir dos bichos escuros da água e pular a fenda |
+| 3 | Cavernas de Quartzo | **Carro Rosa** | Princesa **Lana** | Atravessar a caverna escura pulando buracos |
+| 4 | Estrada do Pôr do Sol | **Dragão** | Princesa **Sara** | Dirigir contra o tempo, desviando de pedras e soldados |
 
-O Dragão é majestoso e fluido, de espírito alegre e cores neon (inspirado em Sisu).
+## Final
 
-## Clímax: A União das Cinco Princesas
-
-Nos portões do palácio, as princesas colocam os quatro insumos em um altar elemental e
-uma explosão de luz purifica a Sombra. O Dragão destrói as defesas com seu sopro. Enquanto
-as quatro amigas comandam os insumos do lado de fora, Isabela entra sozinha no castelo e
-derrota o vilão em um duelo de espadas. O castelo pixelado é restaurado e o reino prospera.
+Nos portões do castelo, as cinco princesas colocam os quatro aliados no altar. Uma luz forte
+acorda o dragão, que queima a cerca de espinhos com um sopro colorido. Isabela entra sozinha
+no castelo e vence a Sombra Cinzenta num duelo de espadas. O castelo volta a ser como era e
+o reino fica em paz.
 
 ## Personagens
 
 | Personagem | Papel | Visual |
 |---|---|---|
-| Isabela (Bela) | Protagonista, guerreira | Cabelos longos pretos, pele bronzeada |
-| Olívia | Guardiã do Barco | Cabelo médio castanho, pele clara |
-| Lara | Guardiã do Unicórnio | Cabelo loiro curto (ombros), pele clara |
-| Lana | Guardiã do Carro Rosa | Pele clara (cabelo a definir) |
-| Sara | Guardiã do Dragão | Pele clara, trança roxa incrivelmente longa |
-| Sombra Cinzenta | Vilão | A definir |
+| Isabela (Bela) | Protagonista, guerreira | Cabelos longos pretos, pele bronzeada, espada nas costas |
+| Olívia | Cuida do barco | Cabelo médio castanho, pele clara |
+| Lara | Cuida do unicórnio | Cabelo loiro curto (até os ombros), pele clara |
+| Lana | Cuida do carro rosa | Cabelo ruivo curto, pele clara |
+| Sara | Cuida do dragão | Pele clara, trança roxa muito longa |
+| Sombra Cinzenta | Vilão | Figura encapuzada cinza, olhos roxos |

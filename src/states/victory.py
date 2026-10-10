@@ -22,6 +22,6 @@ class Victory(State):
         cx = config.LOGICAL_W // 2
         draw_text(canvas, "FIM", cx, 40, p["areia_clara"], size=40, center=True)
         draw_text(canvas, "A Jornada da Bela", cx, 92, p["contorno"], size=22, center=True)
-        draw_text(canvas, "O Reino de Cristal está livre.", cx, 116, p["contorno"], size=16, center=True)
+        draw_text(canvas, "O reino está livre e em paz.", cx, 116, p["contorno"], size=16, center=True)
         if (self.ticks // 30) % 2 == 0:
             draw_text(canvas, "Aperte Z para continuar", cx, 130, p["areia_clara"], size=16, center=True)

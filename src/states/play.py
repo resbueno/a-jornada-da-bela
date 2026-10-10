@@ -24,7 +24,7 @@ from src.world.tilemap import Tilemap
 
 START_TILE = (24, 15)  # no caminho principal da floresta (usado pelos testes)
 CARD_TICKS = 150
-INSUMOS = {"dragon": "Dragão Ancestral"}
+INSUMOS = {"dragon": "Dragão"}
 
 
 class Play(State):
@@ -83,7 +83,7 @@ class Play(State):
                 self.player.y = self.spawn_tile[1] * config.TILE
                 self.player.jump_t = -1
                 self.timer = self.timer_max
-                self.toast = "O eclipse avançou! Recomece o trecho."
+                self.toast = "O tempo acabou! Recomece o trecho."
                 self.toast_ticks = 150
         if inp.pressed(Action.INTERACT) and not self.player.jumping:
             target = self._interactable_in_front()
@@ -102,7 +102,7 @@ class Play(State):
             self.rain.storm = on_lake
         for c in self.creatures:
             if c.update(self.player, self.world):
-                self.toast = "A criatura corrompida empurrou o barco!"
+                self.toast = "O bicho escuro empurrou o barco!"
                 self.toast_ticks = 120
         for d in self.decor:
             d.update(self.player.center)
@@ -115,11 +115,8 @@ class Play(State):
             self.manager.change(Play(dest[0], dest[1], self.inventory, self.player.transport))
         elif here is Terrain.GATE:
             self.manager.change(ChapterEnd(
-                "Capítulo 3 concluído",
-                ["Com o Carro Rosa de quartzo, Isabela segue",
-                 "rumo à Estrada do Pôr do Sol.",
-                 "A Princesa Sara aguarda nos portões do castelo...",
-                 "(o capítulo 4 ainda será construído)"]))
+                "Capítulo concluído",
+                ["Isabela segue viagem rumo ao castelo."]))
 
     def _lights(self):
         """Luzes em coordenadas de tela: Isabela, cristais visiveis e NPCs."""
@@ -138,7 +135,7 @@ class Play(State):
         return lights
 
     def _draw_eclipse(self, canvas):
-        """Barra do eclipse: esvazia ate o castelo escurecer. Ao zerar, recomeca o trecho."""
+        """Barra de tempo: esvazia ate o castelo escurecer. Ao zerar, recomeca o trecho."""
         p = config.PALETTE
         w = 90
         x, y = config.LOGICAL_W - w - 6, 6
@@ -146,7 +143,7 @@ class Play(State):
         pygame.draw.rect(canvas, p["contorno"], (x - 1, y - 1, w + 2, 8))
         color = p["amarelo"] if frac > 0.34 else p["vermelho"]
         pygame.draw.rect(canvas, color, (x, y, round(w * frac), 6))
-        draw_text(canvas, "ECLIPSE", x - 46, y - 2, p["branco"], size=12, shadow=p["contorno"])
+        draw_text(canvas, "TEMPO", x - 38, y - 2, p["branco"], size=12, shadow=p["contorno"])
 
     def _draw_card(self, canvas):
         """Cartao de titulo do capitulo, que some devagar."""
@@ -175,7 +172,7 @@ class Play(State):
             else:
                 n = self.inventory.count_insumos()
                 self.manager.push(DialogueState("", [
-                    f"O altar elemental espera os quatro insumos ({n}/4). Reúna todos antes de realizar o ritual."]))
+                    f"Este é o altar das princesas. Ele precisa dos quatro aliados: barco, unicórnio, carro rosa e dragão ({n}/4). Reúna todos antes."]))
             return
         messages = list(obj.current_lines())
         gift = ALL.get(obj.gives) if obj.gives and not obj.given else None
@@ -183,7 +180,7 @@ class Play(State):
         if gift:
             messages.append(f"Isabela recebeu: {gift.name}!")
         elif insumo:
-            messages.append(f"Isabela recebeu o insumo: {insumo}!")
+            messages.append(f"Isabela ganhou o aliado: {insumo}!")
 
         def finish():
             if gift:

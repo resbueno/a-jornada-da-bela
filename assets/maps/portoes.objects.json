@@ -19,7 +19,7 @@
   "name": "Olívia",
   "sprite": "olivia",
   "lines": [
-   "O Barco Sagrado está pronto, Isabela."
+   "O barco está pronto, Isabela."
   ]
  },
  {
@@ -31,7 +31,7 @@
   "name": "Lara",
   "sprite": "lara",
   "lines": [
-   "O Unicórnio Lendário aguarda no altar."
+   "O unicórnio está esperando."
   ]
  },
  {
@@ -43,7 +43,7 @@
   "name": "Lana",
   "sprite": "lana",
   "lines": [
-   "O Carro Rosa brilha com o quartzo purificado."
+   "O carro rosa está brilhando."
   ]
  },
  {
@@ -55,7 +55,7 @@
   "name": "Sara",
   "sprite": "sara",
   "lines": [
-   "Quando todos os insumos estiverem no altar, o Dragão despertará.",
+   "Quando os quatro aliados estiverem no altar, o dragão vai acordar.",
    "Toque no altar, Isabela!"
   ]
  }

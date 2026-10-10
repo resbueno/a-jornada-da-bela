@@ -49,5 +49,5 @@ class InventoryState(State):
         h = 30 + len(entries) * 14 + 18
         w = 170
         rect = ((config.LOGICAL_W - w) // 2, (config.LOGICAL_H - h) // 2, w, h)
-        footer = self.message or f"Insumos: {self.play.inventory.count_insumos()}/4"
+        footer = self.message or f"Aliados: {self.play.inventory.count_insumos()}/4"
         draw_menu(canvas, rect, "TRANSPORTES", entries, self.cursor, footer=footer)
