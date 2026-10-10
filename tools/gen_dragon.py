@@ -1,52 +1,65 @@
 #!/usr/bin/env python3
-"""Gera o Dragao Ancestral (32x32, cores neon) em art/src/dragon.sprite.txt."""
+"""Gera o Dragao Ancestral (48x32, neon, sinuoso) em art/src/dragon.sprite.txt."""
 import math
 from pathlib import Path
 
-W = H = 32
+W, H = 48, 32
 OUT = Path(__file__).resolve().parent.parent / "art" / "src" / "dragon.sprite.txt"
 g = [["."] * W for _ in range(H)]
 
 
 def px(x, y, c):
+    x, y = int(round(x)), int(round(y))
     if 0 <= x < W and 0 <= y < H:
         g[y][x] = c
 
 
-def disc(cx, cy, r, c):
-    for y in range(H):
-        for x in range(W):
-            if (x - cx) ** 2 + (y - cy) ** 2 <= r * r:
-                px(x, y, c)
+LIGHT = {"t": "n", "p": "o", "o": "a", "4": "n", "v": "i", "s": "t"}
+DARK = {"t": "u", "p": "m", "o": "p", "4": "2", "v": "g", "s": "q"}
 
 
-# asas (atras do corpo)
-for k in range(11):
-    px(11 + k, 12 - k // 2, "v"); px(12 + k, 13 - k // 2, "v")
-    for j in range(0, 7 - k // 2):
-        px(12 + k, 14 - k // 2 + j, "v" if j % 3 else "n")
-# corpo serpentino, do rabo (esquerda) a cabeca (direita), cores neon em degrade
+def ball(cx, cy, r, c, shade=True):
+    for y in range(int(cy - r) - 1, int(cy + r) + 2):
+        for x in range(int(cx - r) - 1, int(cx + r) + 2):
+            d = math.hypot(x - cx, y - cy)
+            if d <= r:
+                col = c
+                if shade:
+                    if y - cy < -r * 0.38 and x - cx < r * 0.4:
+                        col = LIGHT[c]
+                    elif y - cy > r * 0.42:
+                        col = DARK[c]
+                px(x, y, col)
+
+
 palette = ["t", "p", "o", "4", "v", "s"]
-N = 60
+N = 90
+pts = []
 for i in range(N + 1):
     t = i / N
-    x = 3 + 22 * t
-    y = 20 + 6 * math.sin(t * math.pi * 2.2)
-    r = 1.6 + 2.4 * math.sin(min(t * 1.4, 1.0) * math.pi / 2)
-    disc(x, y, r, palette[int(t * (len(palette) - 0.01))])
-# cabeca
-hx, hy = 26, 17
-disc(hx, hy, 4, "o")
-disc(hx + 3, hy + 1, 2.2, "p")
-px(hx + 1, hy - 1, "n"); px(hx + 2, hy - 1, "r")             # olho
-px(hx - 1, hy - 5, "t"); px(hx + 1, hy - 6, "t")               # chifres
-px(hx + 4, hy + 2, "n")                                         # dente
-# cristas
-for i in range(0, N, 6):
-    t = i / N
-    x = 3 + 22 * t
-    y = 20 + 6 * math.sin(t * math.pi * 2.2)
-    px(round(x), round(y) - 4, "4")
+    x = 4 + 33 * t
+    y = 20 + 7.5 * math.sin(t * math.pi * 2.1 + 0.5)
+    r = 1.7 + 3.3 * math.sin(min(t * 1.25, 1.0) * math.pi / 2)
+    pts.append((x, y, r, palette[min(int(t * len(palette)), len(palette) - 1)], t))
+# cristas / nadadeiras nas costas (atras do corpo)
+for x, y, r, c, t in pts[::7]:
+    for k in range(3):
+        px(x - 1 + k, y - r - 1 - (1 if k == 1 else 0), "v" if int(t * 20) % 2 else "t")
+for x, y, r, c, t in pts:
+    ball(x, y, r, c)
+# cabeca: focinho alongado, chifres, bigodes e olho
+hx, hy = pts[-1][0] + 3, pts[-1][1] - 1
+ball(hx, hy, 5.4, "o")
+ball(hx + 4.5, hy + 1.3, 3.0, "p")
+for k in range(4):                                    # chifres
+    px(hx - 2 - k * 0.5, hy - 6 - k, "o"); px(hx - 1 - k * 0.5, hy - 6 - k, "p")
+px(hx + 7, hy + 3, "n"); px(hx + 5, hy + 3, "n")      # dentes
+px(hx + 8, hy, "r")                                    # narina
+px(hx + 1, hy - 1, "n"); px(hx + 2, hy - 1, "n"); px(hx + 2, hy, "r")   # olho
+for k in range(7):                                     # bigodes ondulados
+    px(hx + 4 + k, hy + 5 + math.sin(k) * 1.0, "n")
+for k in range(5):                                     # juba
+    px(hx - 4 - k, hy - 3 + k * 0.7, "v" if k % 2 else "t")
 # contorno
 src = [r[:] for r in g]
 for y in range(H):
@@ -57,5 +70,5 @@ for y in range(H):
                 if 0 <= nx < W and 0 <= ny < H and src[ny][nx] != ".":
                     g[y][x] = "r"
                     break
-OUT.write_text("# Dragao Ancestral 32x32 (neon)\n" + "\n".join("".join(r) for r in g) + "\n")
+OUT.write_text("# Dragao Ancestral 48x32 (neon)\n" + "\n".join("".join(r) for r in g) + "\n")
 print("dragao gerado")

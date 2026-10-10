@@ -30,7 +30,7 @@ class Interactable:
     def current_lines(self):
         return self.after if (self.given and self.after) else self.lines
 
-    def draw(self, canvas, camera):
+    def draw(self, canvas, camera, near=None):
         x, y = self.rect.x - camera.x, self.rect.y - camera.y
         color = config.PALETTE[COLORS[self.kind]]
         if self.kind == "sign":
@@ -45,7 +45,17 @@ class Interactable:
             pygame.draw.rect(canvas, config.PALETTE["branco"], (x + 7, y + 2, 2, 3))
         elif self.sprite:
             from src.sprites import SPRITE_H, character
-            canvas.blit(character(self.sprite)["down"][0], (x, y + T - SPRITE_H))
+            facing = "down"
+            if near is not None:                               # olha para a Isabela quando ela esta perto
+                dx = near[0] - (self.rect.centerx)
+                dy = near[1] - (self.rect.centery)
+                if abs(dx) < 56 and abs(dy) < 56:
+                    if abs(dx) > abs(dy):
+                        facing = "right" if dx > 0 else "left"
+                    else:
+                        facing = "down" if dy > 0 else "up"
+            breathe = 1 if (pygame.time.get_ticks() // 600) % 2 else 0   # respira: sobe 1 px
+            canvas.blit(character(self.sprite)[facing][0], (x, y + T - SPRITE_H - breathe))
         else:
             pygame.draw.rect(canvas, color, (x, y, T, T))
 

@@ -197,3 +197,17 @@ derrota**; o enredo entra como conteúdo.
   castelo restaurado, seguidos da tela de fim.
 - **Fluxo completo:** floresta → lago e ilha → cavernas → estrada → portões → fim.
 - **Novos terrenos:** barraca (`T`), espinhos (`Y`), muralha (`K`). Lacaios: kind `minion`.
+
+## Revisão 6 — Final animado e refinamento da arte
+
+- **Cena final animada** (`src/states/cutscene.py`), no lugar da tela de texto: roteiro em
+  gerador (1 `yield` = 1 tick). As quatro princesas caminham até o altar e cada uma coloca
+  seu insumo (orbes coloridos); explosão de luz com ondas e tremor; o Dragão desperta e
+  sopra um feixe neon que destrói os espinhos; a névoa cinzenta se dissipa; Isabela
+  entra no castelo; duelo de espadas no salão do trono (sprites em 3x) contra a Sombra
+  Cinzenta, que se dissolve; castelo restaurado com todas comemorando. ~56 s.
+  **Z** avança a legenda atual; **Esc/P** pula tudo.
+- **Arte nova:** Dragão Ancestral 48x32 (serpente neon com chifres, juba e bigodes),
+  Sombra Cinzenta (vilão 16x24), espada nas costas da Isabela.
+- **Vida no mundo:** NPCs respiram e viram o rosto para a Isabela quando ela chega perto;
+  o barco deixa espuma e o carro rosa levanta poeira.

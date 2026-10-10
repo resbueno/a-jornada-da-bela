@@ -15,7 +15,7 @@ OUT = Path(__file__).resolve().parent.parent / "art" / "src"
 CHARACTERS = {
     "isabela": dict(  # cabelos longos pretos, pele bronzeada, guerreira
         hair="r", hair_hi="q", skin="k", skin_sh="f", style="long",
-        top="t", top_sh="u", pants="e", boots="e", belt="o", accent="l"),
+        top="t", top_sh="u", pants="e", boots="e", belt="o", accent="l", sword=True),
     "olivia": dict(   # cabelo medio castanho, pele clara
         hair="e", hair_hi="f", skin="j", skin_sh="k", style="medium",
         top="2", top_sh="1", pants="2", boots="e", belt="f", accent="n"),
@@ -133,6 +133,8 @@ def draw_down(c, frame):
     g.px(6, 7, "r"); g.px(9, 7, "r"); g.px(6, 8, "r"); g.px(9, 8, "r")
     g.px(5, 8, c["skin_sh"]); g.px(10, 8, c["skin_sh"])
     g.px(7, 9, "u"); g.px(8, 9, "u")
+    if c.get("sword"):                         # cabo da espada por cima do ombro direito
+        g.px(12, 9, "o"); g.px(12, 10, "f"); g.px(12, 8, "n")
     g.outline("r")
     return g.lines()
 
@@ -156,6 +158,10 @@ def draw_up(c, frame):
             g.px(7, y, c["hair_hi"])
     g.px(6, 3, c["hair_hi"]); g.px(7, 3, c["hair_hi"])
     g.px(6, 4, c["hair_hi"])
+    if c.get("sword"):                         # bainha cruzando as costas
+        for k in range(8):
+            g.px(5 + k, 11 + k // 2, "f")
+        g.px(12, 14, "o")
     g.outline("r")
     return g.lines()
 
@@ -201,9 +207,30 @@ def draw_left(c, frame):
 DRAW = {"down": draw_down, "up": draw_up, "left": draw_left}
 
 
+def villain(direction, frame):
+    """Sombra Cinzenta: figura encapuzada cinza, olhos roxos brilhantes, capa esfarrapada."""
+    g = Grid()
+    bob = 1 if frame == 1 else 0
+    g.rect(4, 2, 11, 9, "c")                    # capuz
+    g.rect(3, 6, 12, 9, "c")
+    g.rect(6, 5 + bob, 9, 8 + bob, "r")         # rosto na sombra
+    g.px(6, 7 + bob, "s"); g.px(9, 7 + bob, "s")
+    g.px(6, 6 + bob, "t"); g.px(9, 6 + bob, "t")
+    g.rect(3, 10, 12, 21, "c")                  # capa
+    g.rect(2, 14, 13, 21, "c")
+    g.rect(10, 11, 12, 21, "b")                 # sombra da capa
+    for x in range(2, 14):                       # barra rasgada
+        g.px(x, 22 + (x % 3 == 0) , "c" if x % 2 else "b")
+    g.rect(1, 12, 2, 17, "b"); g.rect(13, 12, 14, 17, "b")     # bracos
+    g.px(1, 18, "d"); g.px(14, 18, "d")                          # maos palidas
+    g.px(5, 3, "d"); g.px(6, 3, "d")                             # brilho do capuz
+    g.outline("r")
+    return g.lines()
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    only = sys.argv[1:] or list(CHARACTERS)
+    only = [a for a in (sys.argv[1:] or list(CHARACTERS)) if a in CHARACTERS]
     for name in only:
         c = CHARACTERS[name]
         for direction, fn in DRAW.items():
@@ -214,6 +241,13 @@ def main():
                 encoding="utf-8",
             )
         print("gerado:", name)
+    if not sys.argv[1:] or "sombra" in sys.argv[1:]:
+        frames = [villain("down", f) for f in range(3)]
+        body = "\n---\n".join("\n".join(fr) for fr in frames)
+        for d in ("down", "up", "left"):
+            (OUT / f"sombra_{d}.sprite.txt").write_text(
+                f"# Sombra Cinzenta (vilao) {d}: 3 frames 16x24\n{body}\n", encoding="utf-8")
+        print("gerado: sombra")
 
 
 if __name__ == "__main__":

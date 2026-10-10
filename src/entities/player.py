@@ -36,6 +36,7 @@ class Player:
         self.walk_ticks = 0
         self.sprite_name = "isabela"
         self.jump_t = -1            # -1: no chao; 0..JUMP_TICKS: no ar
+        self.trail = []             # particulas: [x, y, vida, vida_max]
         self._jump_from = (0.0, 0.0)
         self._jump_to = (0.0, 0.0)
 
@@ -158,6 +159,7 @@ class Player:
             self.walk_ticks = 0
         step = self.transport.speed * dt
         hx, hy, _, _ = self.hitbox
+        self._emit_trail(dx, dy)
 
         if dx:
             nx = hx + dx * step
@@ -180,6 +182,16 @@ class Player:
                 ny = ny if (ny - hy) * dy > 0 else hy
             self.y += ny - hy
 
+    def _emit_trail(self, dx, dy):
+        """Espuma atras do barco e poeira atras do carro (so enquanto anda)."""
+        for p in self.trail:
+            p[2] -= 1
+        self.trail = [p for p in self.trail if p[2] > 0]
+        key = self.transport.key
+        if (dx or dy) and key in ("boat", "pink_car") and self.walk_ticks % 3 == 0:
+            hx, hy, hw, hh = self.hitbox
+            self.trail.append([hx + hw / 2 - dx * 8, hy + hh - dy * 6, 22, 22])
+
     # --- desenho -----------------------------------------------------
     def draw(self, canvas, camera):
         sx = round(self.x) - camera.x
@@ -190,6 +202,11 @@ class Player:
             step = (self.walk_ticks // 8) % 2
         else:
             step = 0
+        for x, y, life, life_max in self.trail:                   # rastro (atras do veiculo)
+            u = life / life_max
+            size = 1 + int((1 - u) * 3)
+            color = config.PALETTE["branco" if self.transport.key == "boat" else "areia_clara"]
+            canvas.fill(color, (round(x) - camera.x, round(y) - camera.y - int((1 - u) * 4), size, size))
         if self.transport.key != "on_foot":
             surf = vehicle_frame(self.transport.key, self.facing, step)
             canvas.blit(surf, (sx - (VEHICLE_W - T) // 2, sy + T - VEHICLE_H))

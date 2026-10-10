@@ -10,7 +10,7 @@ from src.inventory import Inventory
 from src.states.base import State
 from src.states.chapter_end import ChapterEnd
 from src.states.dialogue import DialogueState
-from src.states.finale import Finale
+from src.states.cutscene import Cutscene
 from src.states.inventory import InventoryState
 from src.states.pause import Pause
 from src.states.victory import Victory
@@ -171,7 +171,7 @@ class Play(State):
     def _talk(self, obj):
         if obj.kind == "altar":
             if self.inventory.has_all_insumos():
-                self.manager.change(Finale())
+                self.manager.change(Cutscene())
             else:
                 n = self.inventory.count_insumos()
                 self.manager.push(DialogueState("", [
@@ -204,7 +204,7 @@ class Play(State):
                 if d.layer == layer:
                     d.draw(canvas, self.camera)
         for obj in self.objects:
-            obj.draw(canvas, self.camera)
+            obj.draw(canvas, self.camera, self.player.center)
         for c in self.creatures:
             c.draw(canvas, self.camera)
         self.player.draw(canvas, self.camera)
