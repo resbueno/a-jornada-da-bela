@@ -28,6 +28,9 @@ CHARACTERS = {
     "evelyn": dict(   # japonesa, pele branca, cabelo preto longo com franja reta, segura a encomenda
         hair="r", hair_hi="q", skin="j", skin_sh="k", style="long", dress=True, bangs=True, parcel=True,
         top="i", top_sh="h", pants="e", boots="n", belt="h", accent="l"),       # vestido azul-claro, lacinho vermelho
+    "william": dict(  # pele como a da Isabela, cabelo preto com coque samurai, jaleco de medico
+        hair="r", hair_hi="q", skin="k", skin_sh="f", style="short", topknot=True, coat=True,
+        top="h", top_sh="g", pants="q", boots="e", belt="q", accent="n"),       # camisa azul sob o jaleco
     "rui": dict(      # barqueiro da ilha
         hair="q", hair_hi="h", skin="k", skin_sh="f", style="short",
         top="n", top_sh="i", pants="q", boots="e", belt="e", accent="l"),
@@ -131,6 +134,37 @@ def torso(g, c, frame, view):
     g.px(11, 15 + swing_l, c["skin_sh"])
 
 
+def coat(g, view, frame):
+    """Jaleco branco ate o joelho, aberto na frente, com estetoscopio e bolso."""
+    swing = {0: 0, 1: 1, 2: 0}[frame]
+    if view == "left":
+        g.rect(6, 11, 10, 18, "n")
+        g.rect(9, 12, 10, 18, "d")
+        g.rect(6, 18, 10, 18, "d")
+        g.px(7, 14, "d")
+        return
+    g.rect(5, 11, 10, 18, "n")
+    g.rect(10, 12, 10, 18, "d")
+    g.rect(4, 11, 4, 15, "n"); g.rect(11, 11, 11, 15, "d")                 # mangas
+    g.px(4, 16, c_skin()); g.px(11, 16, "f")                               # maos
+    if view == "down":
+        g.rect(7, 11, 8, 17, c_shirt(g))
+        g.rect(6, 12, 6, 17, "d"); g.rect(9, 12, 9, 17, "d")               # lapelas
+        g.px(5, 15, "d"); g.px(6, 15, "d")                                 # bolso
+        g.px(6, 11, "r"); g.px(9, 11, "r"); g.px(6, 12, "r"); g.px(9, 12, "r")   # estetoscopio
+        g.px(9, 13, "r"); g.px(9, 14, "c")
+    else:
+        g.rect(7, 12, 7, 18, "d")                                          # costura nas costas
+
+
+def c_skin():
+    return "k"
+
+
+def c_shirt(g):
+    return "h"
+
+
 def parcel(g, side=False):
     """Caixa laranja de encomenda (fita branca) carregada na frente do corpo."""
     x0, x1 = (3, 7) if side else (4, 11)
@@ -139,6 +173,13 @@ def parcel(g, side=False):
     cx = (x0 + x1) // 2
     g.rect(cx, 12, cx + (0 if side else 1), 16, "n")
     g.px(x0, 15, "j"); g.px(x1, 15, "j")                                    # maos segurando
+
+
+def topknot(g, c):
+    """Coque samurai: rabo preso no alto da cabeca."""
+    g.rect(7, 0, 8, 1, c["hair"])
+    g.px(7, 0, c["hair_hi"])
+    g.px(6, 1, c["hair"]); g.px(9, 1, c["hair"])
 
 
 def draw_down(c, frame):
@@ -156,6 +197,8 @@ def draw_down(c, frame):
         g.rect(4, 3, 11, 9, c["hair"])
     legs(g, c, frame)
     torso(g, c, frame, "down")
+    if c.get("coat"):
+        coat(g, "down", frame)
     if style == "long":
         g.px(3, 8, c["hair_hi"]); g.px(12, 9, c["hair_hi"]); g.px(3, 11, c["hair_hi"])
     if style == "braid":                       # trança caindo sobre o ombro
@@ -182,6 +225,8 @@ def draw_down(c, frame):
     g.px(7, 9, m); g.px(8, 9, m)                                           # boca pequena
     if c.get("parcel"):
         parcel(g)
+    if c.get("topknot"):
+        topknot(g, c)
     if c.get("sword"):                         # cabo da espada por cima do ombro direito
         g.px(12, 9, "o"); g.px(12, 10, "f"); g.px(12, 8, "n")
     g.outline("r")
@@ -193,6 +238,8 @@ def draw_up(c, frame):
     style = c["style"]
     legs(g, c, frame)
     torso(g, c, frame, "up")
+    if c.get("coat"):
+        coat(g, "up", frame)
     # nas costas, o cabelo cobre a cabeça e cai
     g.rect(4, 2, 11, 10, c["hair"])
     g.px(4, 2, "."); g.px(11, 2, ".")
@@ -207,6 +254,8 @@ def draw_up(c, frame):
             g.px(7, y, c["hair_hi"])
     g.px(6, 3, c["hair_hi"]); g.px(7, 3, c["hair_hi"])
     g.px(6, 4, c["hair_hi"])
+    if c.get("topknot"):
+        topknot(g, c)
     if c.get("sword"):                         # bainha cruzando as costas
         for k in range(8):
             g.px(5 + k, 11 + k // 2, "f")
@@ -235,8 +284,10 @@ def draw_left(c, frame):
     g.rect(6, 11, 10, 16, c["top"])
     g.rect(9, 12, 10, 16, c["top_sh"])
     g.rect(6, 16, 10, 16, c["belt"])
+    if c.get("coat"):
+        coat(g, "left", frame)
     arm = {0: 0, 1: -1, 2: 1}[frame]
-    g.rect(7 + arm, 12, 8 + arm, 14, c["top"])
+    g.rect(7 + arm, 12, 8 + arm, 14, "n" if c.get("coat") else c["top"])
     g.px(7 + arm, 15, c["skin"])
     # cabeça
     g.rect(4, 3, 10, 10, c["skin"])
@@ -248,6 +299,8 @@ def draw_left(c, frame):
     g.px(6, 2, c["hair_hi"]); g.px(7, 2, c["hair_hi"]); g.px(5, 3, c["hair_hi"])
     g.px(6, 6, "r"); g.px(6, 7, "r")
     g.px(5, 9, c.get("mouth", c["skin_sh"]))
+    if c.get("topknot"):
+        topknot(g, c)
     if c.get("bangs"):
         g.rect(4, 5, 7, 5, c["hair"])
     if c.get("parcel"):

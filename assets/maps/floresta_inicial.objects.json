@@ -173,6 +173,22 @@
     ]
   },
   {
+    "kind": "npc",
+    "tile": [
+      16,
+      12
+    ],
+    "name": "Tio William",
+    "sprite": "william",
+    "lines": [
+      "Eu sou o Tio William, o médico do vilarejo. Deixa eu ver... pulso firme, olhar de guerreira. Você está ótima, Isabela!",
+      "Se algum lacaio da Sombra te machucar, é só voltar aqui. Eu tenho curativo, remédio e um bom sermão."
+    ],
+    "after": [
+      "Beba água e durma cedo. Receita do doutor!"
+    ]
+  },
+  {
     "kind": "sign",
     "tile": [
       48,
