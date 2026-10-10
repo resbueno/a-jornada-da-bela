@@ -1,11 +1,15 @@
 """Canvas logico 320x180 com upscale por fator inteiro (nearest) e letterbox."""
+import sys
+
 import pygame
 
 from src import config
 
+WEB = sys.platform == "emscripten"   # rodando no navegador (pygbag)
+
 
 def _initial_size():
-    """Janela inicial: em pe (celular) ou deitada, conforme a tela/pagina."""
+    """Janela inicial: 16:9 grande (escala inteira 4x); em pe (celular) so se a tela for claramente vertical."""
     landscape = (config.LOGICAL_W * config.START_SCALE, config.LOGICAL_H * config.START_SCALE)
     w = h = 0
     try:  # navegador (pygbag): tamanho da pagina
@@ -17,7 +21,7 @@ def _initial_size():
             w, h = pygame.display.get_desktop_sizes()[0]
         except Exception:
             pass
-    if w and h and h > w:
+    if w and h and h > w * 1.15:         # claramente vertical (celular em pe)
         pw = config.LOGICAL_W * 2
         return (pw, round(pw * h / w))
     return landscape
@@ -25,7 +29,9 @@ def _initial_size():
 
 class Display:
     def __init__(self):
-        self.window = pygame.display.set_mode(_initial_size(), pygame.RESIZABLE)
+        # no navegador o tamanho e fixo: o pygbag usa a proporcao dele para encher a pagina
+        flags = 0 if WEB else pygame.RESIZABLE
+        self.window = pygame.display.set_mode(_initial_size(), flags)
         self.touch = None  # TouchControls, definido pelo main
         pygame.display.set_caption(config.TITLE)
         self.canvas = pygame.Surface((config.LOGICAL_W, config.LOGICAL_H))

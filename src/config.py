@@ -7,8 +7,8 @@ LOGICAL_W = 320
 LOGICAL_H = 180
 TILE = 16
 
-# Janela inicial: escala inteira 3x (960x540)
-START_SCALE = 3
+# Janela inicial: escala inteira 4x (1280x720)
+START_SCALE = 4
 
 # Tempo: passo fixo de logica
 UPDATE_HZ = 60
