@@ -25,6 +25,9 @@ CHARACTERS = {
     "lana": dict(     # pele clara; cabelo ruivo curto (a definir)
         hair="p", hair_hi="o", skin="j", skin_sh="k", style="short", dress=True,
         top="l", top_sh="m", pants="b", boots="e", belt="o", accent="n"),       # vestido vermelho
+    "evelyn": dict(   # japonesa, pele branca, cabelo preto longo com franja reta, segura a encomenda
+        hair="r", hair_hi="q", skin="j", skin_sh="k", style="long", dress=True, bangs=True, parcel=True,
+        top="i", top_sh="h", pants="e", boots="n", belt="h", accent="l"),       # vestido azul-claro, lacinho vermelho
     "rui": dict(      # barqueiro da ilha
         hair="q", hair_hi="h", skin="k", skin_sh="f", style="short",
         top="n", top_sh="i", pants="q", boots="e", belt="e", accent="l"),
@@ -128,6 +131,16 @@ def torso(g, c, frame, view):
     g.px(11, 15 + swing_l, c["skin_sh"])
 
 
+def parcel(g, side=False):
+    """Caixa laranja de encomenda (fita branca) carregada na frente do corpo."""
+    x0, x1 = (3, 7) if side else (4, 11)
+    g.rect(x0, 12, x1, 16, "p")
+    g.rect(x0, 12, x1, 12, "o")
+    cx = (x0 + x1) // 2
+    g.rect(cx, 12, cx + (0 if side else 1), 16, "n")
+    g.px(x0, 15, "j"); g.px(x1, 15, "j")                                    # maos segurando
+
+
 def draw_down(c, frame):
     g = Grid()
     style = c["style"]
@@ -160,11 +173,15 @@ def draw_down(c, frame):
     g.rect(11, 5, 11, 9, c["hair"])
     g.px(5, 5, c["hair"]); g.px(6, 5, c["hair"]); g.px(9, 5, c["hair"]); g.px(10, 5, c["hair"])
     g.px(7, 5, c["hair"])
+    if c.get("bangs"):                         # franja reta
+        g.rect(4, 5, 11, 5, c["hair"])
     g.px(6, 2, c["hair_hi"]); g.px(7, 2, c["hair_hi"]); g.px(5, 3, c["hair_hi"])
     # rosto
     g.px(6, 6, "r"); g.px(9, 6, "r"); g.px(6, 7, "r"); g.px(9, 7, "r")     # olhos 1x2
     m = c.get("mouth", c["skin_sh"])
     g.px(7, 9, m); g.px(8, 9, m)                                           # boca pequena
+    if c.get("parcel"):
+        parcel(g)
     if c.get("sword"):                         # cabo da espada por cima do ombro direito
         g.px(12, 9, "o"); g.px(12, 10, "f"); g.px(12, 8, "n")
     g.outline("r")
@@ -231,6 +248,10 @@ def draw_left(c, frame):
     g.px(6, 2, c["hair_hi"]); g.px(7, 2, c["hair_hi"]); g.px(5, 3, c["hair_hi"])
     g.px(6, 6, "r"); g.px(6, 7, "r")
     g.px(5, 9, c.get("mouth", c["skin_sh"]))
+    if c.get("bangs"):
+        g.rect(4, 5, 7, 5, c["hair"])
+    if c.get("parcel"):
+        parcel(g, side=True)
     g.outline("r")
     return g.lines()
 

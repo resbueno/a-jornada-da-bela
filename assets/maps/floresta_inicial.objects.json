@@ -156,6 +156,23 @@
     ]
   },
   {
+    "kind": "npc",
+    "tile": [
+      15,
+      11
+    ],
+    "name": "Tia Evelyn",
+    "sprite": "evelyn",
+    "lines": [
+      "Konnichiwa, Isabela! Eu sou a Tia Evelyn.",
+      "Chegou uma encomenda da Shopee no seu nome! O entregador não achou o castelo, então deixou comigo.",
+      "Aqui está, sobrinha! Tomara que seja o que você pediu."
+    ],
+    "after": [
+      "Já abriu a encomenda? Quero saber o que veio!"
+    ]
+  },
+  {
     "kind": "sign",
     "tile": [
       48,
