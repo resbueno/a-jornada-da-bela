@@ -175,11 +175,37 @@ def parcel(g, side=False):
     g.px(x0, 15, "j"); g.px(x1, 15, "j")                                    # maos segurando
 
 
-def topknot(g, c):
-    """Coque samurai: rabo preso no alto da cabeca."""
-    g.rect(7, 0, 8, 1, c["hair"])
-    g.px(7, 0, c["hair_hi"])
-    g.px(6, 1, c["hair"]); g.px(9, 1, c["hair"])
+def topknot_head(g, c, view):
+    """Cabeca inteira do Tio William: laterais curtas, testa livre e coque samurai redondo no alto."""
+    h, hi, sk, sh = c["hair"], c["hair_hi"], c["skin"], c["skin_sh"]
+    g.rect(2, 0, 13, 10, ".")                                  # apaga a cabeca generica
+    # coque: bloco redondo de 4x2 preso por uma fita vermelha, sobre o couro cabeludo
+    g.rect(6, 0, 9, 1, h)
+    g.px(7, 0, hi); g.px(6, 1, hi)
+    g.rect(6, 2, 9, 2, "l")
+    g.rect(5, 3, 10, 3, h)
+    if view == "left":
+        g.rect(4, 4, 10, 10, sk); g.px(4, 4, ".")
+        g.rect(5, 3, 9, 3, h)
+        g.rect(5, 4, 10, 4, h)                                 # linha do cabelo
+        g.rect(8, 5, 10, 8, h)                                 # cabelo preso atras
+        g.px(7, 6, sh); g.px(7, 7, sh)                         # orelha
+        g.rect(8, 9, 10, 10, sh)
+        g.px(6, 6, "r"); g.px(6, 7, "r"); g.px(5, 9, sh)
+        return
+    g.rect(4, 4, 11, 10, sk)
+    g.rect(5, 3, 10, 3, h)
+    if view == "up":
+        g.rect(4, 4, 11, 8, h)                                 # nuca coberta
+        g.rect(5, 9, 10, 10, sh)                               # pescoco raspado
+        g.px(5, 5, hi); g.px(6, 5, hi)
+        return
+    g.px(4, 4, h); g.px(11, 4, h)                              # entradas do cabelo, testa livre
+    g.rect(4, 5, 4, 6, h); g.rect(11, 5, 11, 6, h)             # costeletas curtas
+    g.px(5, 3, hi)
+    g.rect(5, 5, 6, 5, "f"); g.rect(9, 5, 10, 5, "f")          # sobrancelhas
+    g.rect(6, 6, 6, 7, "r"); g.rect(9, 6, 9, 7, "r")           # olhos
+    g.px(7, 9, sh); g.px(8, 9, sh)                             # boca
 
 
 def draw_down(c, frame):
@@ -226,7 +252,7 @@ def draw_down(c, frame):
     if c.get("parcel"):
         parcel(g)
     if c.get("topknot"):
-        topknot(g, c)
+        topknot_head(g, c, "down")
     if c.get("sword"):                         # cabo da espada por cima do ombro direito
         g.px(12, 9, "o"); g.px(12, 10, "f"); g.px(12, 8, "n")
     g.outline("r")
@@ -255,7 +281,7 @@ def draw_up(c, frame):
     g.px(6, 3, c["hair_hi"]); g.px(7, 3, c["hair_hi"])
     g.px(6, 4, c["hair_hi"])
     if c.get("topknot"):
-        topknot(g, c)
+        topknot_head(g, c, "up")
     if c.get("sword"):                         # bainha cruzando as costas
         for k in range(8):
             g.px(5 + k, 11 + k // 2, "f")
@@ -300,7 +326,7 @@ def draw_left(c, frame):
     g.px(6, 6, "r"); g.px(6, 7, "r")
     g.px(5, 9, c.get("mouth", c["skin_sh"]))
     if c.get("topknot"):
-        topknot(g, c)
+        topknot_head(g, c, "left")
     if c.get("bangs"):
         g.rect(4, 5, 7, 5, c["hair"])
     if c.get("parcel"):
