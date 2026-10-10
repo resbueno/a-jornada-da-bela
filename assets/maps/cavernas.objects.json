@@ -24,10 +24,10 @@
       6,
       19
     ],
-    "name": "Dudu",
-    "sprite": "dudu",
+    "name": "Bruce",
+    "sprite": "bruce",
     "lines": [
-      "Eu trabalho aqui há anos! Estes cristais iluminam o caminho.",
+      "Au! Eu sou o Bruce e moro nesta caverna há anos. Estes cristais iluminam o caminho.",
       "Cuidado com os buracos: só o unicórnio consegue pular. Sem ele, volte e escolha o unicórnio no inventário."
     ],
     "after": [

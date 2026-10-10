@@ -82,11 +82,11 @@
     "name": "Teo",
     "sprite": "teo",
     "lines": [
-      "Oi! Eu sou o Teo. Você é a princesa Isabela? Meu avô disse que você ia chegar.",
+      "Au au! Eu sou o Teo, o spitz mais rápido do vilarejo. Você é a princesa Isabela?",
       "Dizem que a Sombra Cinzenta tomou o castelo numa noite só. Desde então o céu vive nublado e chove todo dia."
     ],
     "after": [
-      "A Olívia está esperando você perto do lago!"
+      "A Olívia está esperando você perto do lago! Au!"
     ]
   },
   {
@@ -95,14 +95,14 @@
       30,
       14
     ],
-    "name": "Vovó Nina",
-    "sprite": "nina",
+    "name": "Jhonny",
+    "sprite": "jhonny",
     "lines": [
-      "Minha filha, antes de partir, leve um conselho: o reino tem quatro amigas, e cada uma cuida de um aliado.",
-      "Só com os quatro juntos os espinhos do castelo vão cair. Comece pela Olívia, no lago."
+      "Au! Eu sou o Jhonny. Minha irmã Lola é a capitã da resistência, lá na estrada.",
+      "Um conselho, Isabela: o reino tem quatro amigas, e cada uma cuida de um aliado. Só com os quatro juntos os espinhos do castelo vão cair. Comece pela Olívia, no lago."
     ],
     "after": [
-      "Vá com cuidado e volte inteira, Isabela."
+      "Vá com cuidado e volte inteira, Isabela. Au!"
     ]
   },
   {

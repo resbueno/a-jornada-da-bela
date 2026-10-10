@@ -28,12 +28,12 @@ de quatro aliados (barco, unicórnio, carro rosa e dragão), cada um sob os cuid
 
 | Onde | Quem | O que conta |
 |---|---|---|
-| Vilarejo | **Teo**, menino | O castelo foi tomado numa noite só; desde então o céu vive nublado |
-| Vilarejo | **Vovó Nina** | Só com os quatro aliados os espinhos caem; comece pela Olívia |
+| Vilarejo | **Teo**, spitz alemão | O castelo foi tomado numa noite só; desde então o céu vive nublado |
+| Vilarejo | **Jhonny**, shih tzu marrom e branco | Só com os quatro aliados os espinhos caem; comece pela Olívia. Sua irmã Lola está na resistência |
 | Vilarejo | **Olívia** | Perdeu o remo do barco na tempestade; ele caiu perto do caminho do norte |
 | Ilha | **Rui**, barqueiro | Os bichos escuros vieram junto com a Sombra; desvie pelas bordas |
-| Caverna | **Dudu**, mineiro | Só o unicórnio pula os buracos; os cristais iluminam o caminho |
-| Acampamento | **Capitã Vera** | A resistência segura a estrada; o resto é com a Isabela |
+| Caverna | **Bruce**, shih tzu cinza | Só o unicórnio pula os buracos; os cristais iluminam o caminho |
+| Acampamento | **Lola**, shih tzu marrom e branca, capitã e irmã do Jhonny | A resistência segura a estrada; o resto é com a Isabela |
 
 ## Missão do capítulo 1
 

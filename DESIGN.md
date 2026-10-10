@@ -230,3 +230,10 @@ TEMPO); "criaturas corrompidas" viraram "bichos escuros". Ver `STORY.md`.
 - **Cinco novos personagens:** Teo, Vovó Nina (vilarejo), Rui (ilha), Dudu (caverna) e
   Capitã Vera (acampamento), com falas que contam o mundo.
 - **Epílogo maior** na cena final: o destino de cada princesa (~66 s no total).
+
+## Revisão 9: personagens secundários viram cachorros
+
+Teo (spitz alemão), Jhonny (shih tzu marrom e branco, antes Vovó Nina), Lola (shih tzu
+marrom e branca com laço rosa, capitã da resistência e irmã do Jhonny, antes Capitã Vera) e
+Bruce (shih tzu cinza, antes Dudu). Sprites gerados por `tools/gen_dogs.py`, no mesmo
+formato 16x24 dos personagens. O Rui (barqueiro) continua humano.

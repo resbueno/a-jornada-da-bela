@@ -28,10 +28,10 @@
    140,
    10
   ],
-  "name": "Capitã Vera",
-  "sprite": "vera",
+  "name": "Lola",
+  "sprite": "lola",
   "lines": [
-   "Eu sou a capitã da resistência. Nossos soldados seguram a estrada, mas os lacaios da Sombra são muitos.",
+   "Au! Eu sou a Lola, capitã da resistência e irmã do Jhonny. Nossos soldados seguram a estrada, mas os lacaios da Sombra são muitos.",
    "Quando o dragão acordar, a cerca de espinhos vai cair. Aí é com você, Isabela."
   ],
   "after": [

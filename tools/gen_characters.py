@@ -14,7 +14,7 @@ OUT = Path(__file__).resolve().parent.parent / "art" / "src"
 # letras da paleta (ver palette.json): j/k pele, r contorno, e/f madeira, t/u rosa, ...
 CHARACTERS = {
     "isabela": dict(  # cabelos longos pretos, pele bronzeada, guerreira
-        hair="r", hair_hi="q", skin="k", skin_sh="f", mouth="u", style="long",
+        hair="r", hair_hi="q", skin="k", skin_sh="f", mouth="u", style="long", dress=True,
         top="t", top_sh="u", pants="e", boots="e", belt="o", accent="l", sword=True),
     "olivia": dict(   # cabelo medio castanho, pele clara
         hair="e", hair_hi="f", skin="j", skin_sh="k", style="medium", dress=True,
@@ -25,21 +25,9 @@ CHARACTERS = {
     "lana": dict(     # pele clara; cabelo ruivo curto (a definir)
         hair="p", hair_hi="o", skin="j", skin_sh="k", style="short", dress=True,
         top="l", top_sh="m", pants="b", boots="e", belt="o", accent="n"),       # vestido vermelho
-    "teo": dict(      # menino do vilarejo
-        hair="e", hair_hi="f", skin="j", skin_sh="k", style="short",
-        top="3", top_sh="2", pants="q", boots="e", belt="f", accent="n"),
-    "nina": dict(     # vovo do vilarejo
-        hair="d", hair_hi="n", skin="j", skin_sh="k", style="medium",
-        top="s", top_sh="q", pants="b", boots="e", belt="f", accent="n"),
     "rui": dict(      # barqueiro da ilha
         hair="q", hair_hi="h", skin="k", skin_sh="f", style="short",
         top="n", top_sh="i", pants="q", boots="e", belt="e", accent="l"),
-    "dudu": dict(     # mineiro da caverna (capacete amarelo)
-        hair="o", hair_hi="a", skin="j", skin_sh="k", style="short",
-        top="p", top_sh="m", pants="e", boots="b", belt="o", accent="n"),
-    "vera": dict(     # capita da resistencia
-        hair="b", hair_hi="c", skin="k", skin_sh="f", style="medium",
-        top="l", top_sh="m", pants="b", boots="e", belt="o", accent="o"),
     "sara": dict(     # pele clara, trança roxa muito longa
         hair="s", hair_hi="t", skin="j", skin_sh="k", style="braid", dress=True,
         top="o", top_sh="p", pants="q", boots="e", belt="f", accent="n"),       # vestido amarelo
