@@ -1,0 +1,68 @@
+[
+ {
+  "kind": "minion",
+  "tile": [
+   27,
+   10
+  ],
+  "range": [
+   8,
+   12
+  ]
+ },
+ {
+  "kind": "minion",
+  "tile": [
+   45,
+   10
+  ],
+  "range": [
+   8,
+   12
+  ]
+ },
+ {
+  "kind": "minion",
+  "tile": [
+   63,
+   10
+  ],
+  "range": [
+   8,
+   12
+  ]
+ },
+ {
+  "kind": "minion",
+  "tile": [
+   81,
+   10
+  ],
+  "range": [
+   8,
+   12
+  ]
+ },
+ {
+  "kind": "minion",
+  "tile": [
+   99,
+   10
+  ],
+  "range": [
+   8,
+   12
+  ]
+ },
+ {
+  "kind": "minion",
+  "tile": [
+   117,
+   10
+  ],
+  "range": [
+   8,
+   12
+  ]
+ }
+]

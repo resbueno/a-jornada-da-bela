@@ -1,0 +1,43 @@
+[
+ {
+  "kind": "sign",
+  "tile": [
+   4,
+   8
+  ],
+  "name": "Placa",
+  "lines": [
+   "A Estrada do Pôr do Sol! Escolha o Carro Rosa no inventário (tecla I) estando na estrada de terra.",
+   "Desvie das pedras e dos lacaios da Sombra. O eclipse avança: chegue ao acampamento antes que a barra acabe!"
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   136,
+   10
+  ],
+  "name": "Placa",
+  "lines": [
+   "Acampamento da Resistência. O carro só anda na estrada: siga a pé até a Princesa Sara."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   144,
+   10
+  ],
+  "name": "Sara",
+  "sprite": "sara",
+  "gives": "dragon",
+  "lines": [
+   "Isabela! Você chegou a tempo. Eu sou Sara, e guardo o último e mais poderoso insumo.",
+   "O ritual de invocação do Dragão Ancestral: uma criatura majestosa e fluida, de espírito alegre e cores neon.",
+   "Leve o ritual comigo até os portões do castelo. Lá, as cinco princesas se unem ao redor do altar elemental."
+  ],
+  "after": [
+   "O castelo está logo adiante. Vamos libertar o reino, Isabela!"
+  ]
+ }
+]

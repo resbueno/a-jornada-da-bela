@@ -181,3 +181,19 @@ derrota**; o enredo entra como conteúdo.
 - **Fim do capítulo 3:** portal luminoso (`G`) depois da Lana. O capítulo 4 ainda não existe.
 - **Novos terrenos:** parede (`W`), cristal (`q`), saída (`O`), portal (`G`).
 - **Cartão de capítulo** no começo de cada mapa que o define.
+
+## Revisão 5 — Capítulo 4 e clímax implementados
+
+- **Estrada do Pôr do Sol** (`estrada`, 150x22): estrada de terra de 7 faixas à beira-mar
+  com pedras e **lacaios** que cruzam a pista e empurram o carro (sem dano). Um tom de
+  pôr do sol cobre a cena. O **eclipse** é uma contagem de 30 s: se zerar, a Isabela
+  volta ao início do trecho (sem derrota). Ao passar da coluna 133 (acampamento) ele para.
+- **Carro Rosa** só anda em terra (120 px/s). O acampamento é de grama, então ela segue a pé.
+- **Sara** (acampamento) entrega o **insumo do Dragão**, que não é um transporte: fica em
+  `Inventory.insumos`. O inventário mostra "Insumos: n/4".
+- **Portões do castelo** (`portoes`): as quatro princesas ao redor do altar elemental e a
+  muralha com a barreira de espinhos. Tocar no altar com os 4 insumos inicia a **cena
+  final** (`src/states/finale.py`): luz purificadora, Dragão neon, duelo roteirizado e
+  castelo restaurado, seguidos da tela de fim.
+- **Fluxo completo:** floresta → lago e ilha → cavernas → estrada → portões → fim.
+- **Novos terrenos:** barraca (`T`), espinhos (`Y`), muralha (`K`). Lacaios: kind `minion`.

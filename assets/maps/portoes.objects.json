@@ -1,0 +1,62 @@
+[
+ {
+  "kind": "altar",
+  "tile": [
+   18,
+   12
+  ],
+  "name": "Altar",
+  "lines": [
+   ""
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   15,
+   13
+  ],
+  "name": "Olívia",
+  "sprite": "olivia",
+  "lines": [
+   "O Barco Sagrado está pronto, Isabela."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   21,
+   13
+  ],
+  "name": "Lara",
+  "sprite": "lara",
+  "lines": [
+   "O Unicórnio Lendário aguarda no altar."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   16,
+   15
+  ],
+  "name": "Lana",
+  "sprite": "lana",
+  "lines": [
+   "O Carro Rosa brilha com o quartzo purificado."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   20,
+   15
+  ],
+  "name": "Sara",
+  "sprite": "sara",
+  "lines": [
+   "Quando todos os insumos estiverem no altar, o Dragão despertará.",
+   "Toque no altar, Isabela!"
+  ]
+ }
+]

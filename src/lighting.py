@@ -38,3 +38,19 @@ class Darkness:
             rr = r + (int(math.sin(ticks / 9.0 + x) * 2) if flicker else 0)
             self.layer.blit(self._hole(rr), (int(x) - rr, int(y) - rr), special_flags=pygame.BLEND_RGBA_MIN)
         canvas.blit(self.layer, (0, 0))
+
+
+class Sunset:
+    """Tom de por do sol sobre a cena: faixas quentes (rosa, laranja, ambar) bem suaves."""
+
+    def __init__(self):
+        from src.config import PALETTE as P
+
+        self.layer = pygame.Surface((config.LOGICAL_W, config.LOGICAL_H), pygame.SRCALPHA)
+        bands = [("rosa_escuro", 34), ("laranja", 30), ("amarelo", 22), ("laranja", 30), ("rosa_escuro", 38)]
+        h = config.LOGICAL_H // len(bands) + 1
+        for i, (name, alpha) in enumerate(bands):
+            pygame.draw.rect(self.layer, (*P[name], alpha), (0, i * h, config.LOGICAL_W, h))
+
+    def draw(self, canvas):
+        canvas.blit(self.layer, (0, 0))

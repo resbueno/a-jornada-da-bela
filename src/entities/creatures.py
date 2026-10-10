@@ -71,3 +71,60 @@ class Eel:
         head = sx - 7 if flip else sx + 7
         canvas.set_at((head, sy + wave), P["roxo"])
         canvas.set_at((head - (1 if not flip else -1), sy + wave), P["vermelho"])  # olho
+
+
+class Minion:
+    """Lacaio da Sombra: cruza a estrada de lado a lado. Empurra qualquer transporte, sem dano."""
+
+    SPEED = 34.0
+    PUSH = 26
+    COOLDOWN = 60
+
+    def __init__(self, tile, y_range):
+        self.x = tile[0] * T + T / 2
+        self.y = tile[1] * T + T / 2
+        self.min_y = y_range[0] * T + T / 2
+        self.max_y = y_range[1] * T + T / 2
+        self.dir = 1
+        self.ticks = 0
+        self.cooldown = 0
+
+    @property
+    def rect(self):
+        return pygame.Rect(round(self.x) - 6, round(self.y) - 8, 12, 16)
+
+    def update(self, player, world):
+        self.ticks += 1
+        self.y += self.dir * self.SPEED * config.DT
+        if self.y > self.max_y or self.y < self.min_y:
+            self.dir = -self.dir
+        if self.cooldown:
+            self.cooldown -= 1
+            return False
+        if player.jumping:
+            return False
+        hx, hy, hw, hh = player.hitbox
+        if not self.rect.colliderect(pygame.Rect(hx, hy, hw, hh)):
+            return False
+        dx = (hx + hw / 2) - self.x
+        step = (-1, 0) if dx < 0 else (1, 0)
+        for dist in range(self.PUSH, 0, -2):          # empurra para tras (para o lado da pista)
+            for st in (step, (-step[0], 0)):
+                nx, ny = hx + st[0] * dist, hy
+                if not player._blocked(world, nx, ny):
+                    player.x += nx - hx
+                    self.cooldown = self.COOLDOWN
+                    return True
+        self.cooldown = self.COOLDOWN
+        return False
+
+    def draw(self, canvas, camera):
+        sx, sy = round(self.x) - camera.x, round(self.y) - camera.y
+        step = (self.ticks // 8) % 2
+        body = [(-4, -2, 8, 8, "roxo"), (-3, -8, 6, 6, "contorno"), (-5, 6, 4, 3, "azul"), (1, 6, 4, 3, "azul")]
+        for dx, dy, w, h, c in body:
+            pygame.draw.rect(canvas, P[c], (sx + dx, sy + dy + (1 if step and dy == 6 else 0), w, h))
+        pygame.draw.rect(canvas, P["vermelho"], (sx - 2, sy - 6, 1, 1))     # olhos
+        pygame.draw.rect(canvas, P["vermelho"], (sx + 1, sy - 6, 1, 1))
+        pygame.draw.rect(canvas, P["rosa_escuro"], (sx - 7, sy - 1, 3, 2))  # braco com lanca
+        pygame.draw.rect(canvas, P["areia_clara"], (sx - 7, sy - 9, 1, 10))

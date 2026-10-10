@@ -18,10 +18,10 @@ class Transport:
         return terrain in self.terrains
 
 
-# velocidades: normal 60, media 75, rapida 90 px/s
+# velocidades: normal 60, media 75, rapida 90, carro 120 px/s
 ON_FOOT = Transport("on_foot", "A pé", LAND, 60.0)
 UNICORN = Transport("unicorn", "Unicórnio", LAND, 90.0)
 BOAT = Transport("boat", "Barco", frozenset({Terrain.WATER}), 75.0)
-PINK_CAR = Transport("pink_car", "Carro rosa", frozenset({Terrain.DIRT}), 90.0)
+PINK_CAR = Transport("pink_car", "Carro rosa", frozenset({Terrain.DIRT}), 120.0)
 
 ALL = {t.key: t for t in (ON_FOOT, UNICORN, BOAT, PINK_CAR)}

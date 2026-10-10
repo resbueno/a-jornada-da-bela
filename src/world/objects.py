@@ -9,7 +9,7 @@ from src import config
 from src.world.tilemap import ROOT
 
 T = config.TILE
-COLORS = {"npc": "lilas_magia", "sign": "tronco_terra"}
+COLORS = {"npc": "lilas_magia", "sign": "tronco_terra", "altar": "rocha_clara"}
 
 
 @dataclass
@@ -36,6 +36,13 @@ class Interactable:
         if self.kind == "sign":
             pygame.draw.rect(canvas, color, (x + 6, y + 8, 4, 8))
             pygame.draw.rect(canvas, config.PALETTE["madeira_terra_clara"], (x + 2, y + 2, 12, 7))
+        elif self.kind == "altar":
+            pygame.draw.rect(canvas, config.PALETTE["rocha_contorno"], (x + 1, y + 6, 14, 10))
+            pygame.draw.rect(canvas, config.PALETTE["rocha_clara"], (x + 2, y + 5, 12, 4))
+            pygame.draw.rect(canvas, config.PALETTE["rocha"], (x + 2, y + 9, 12, 6))
+            for k, c in enumerate(("agua", "rosa", "vermelho", "verde_brilho")):
+                pygame.draw.rect(canvas, config.PALETTE[c], (x + 3 + k * 3, y + 6, 2, 2))
+            pygame.draw.rect(canvas, config.PALETTE["branco"], (x + 7, y + 2, 2, 3))
         elif self.sprite:
             from src.sprites import SPRITE_H, character
             canvas.blit(character(self.sprite)["down"][0], (x, y + T - SPRITE_H))
@@ -85,14 +92,18 @@ def load_decor(path):
 
 def load_creatures(path):
     """Criaturas de um .creatures.json: [{"kind": "eel", "tile": [x, y], "range": [x0, x1]}]."""
-    from src.entities.creatures import Eel
+    from src.entities.creatures import Eel, Minion
 
     path = Path(path)
     if not path.is_absolute():
         path = ROOT / path
     out = []
     for i, entry in enumerate(json.loads(path.read_text(encoding="utf-8"))):
-        if entry.get("kind") != "eel":
-            raise ValueError(f"{path.name}[{i}]: kind desconhecido '{entry.get('kind')}'")
-        out.append(Eel(tuple(entry["tile"]), tuple(entry["range"])))
+        kind = entry.get("kind")
+        if kind == "eel":
+            out.append(Eel(tuple(entry["tile"]), tuple(entry["range"])))
+        elif kind == "minion":
+            out.append(Minion(tuple(entry["tile"]), tuple(entry["range"])))
+        else:
+            raise ValueError(f"{path.name}[{i}]: kind desconhecido '{kind}'")
     return out

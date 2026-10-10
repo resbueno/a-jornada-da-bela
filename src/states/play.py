@@ -4,12 +4,13 @@ import pygame
 from src import config
 from src.entities.player import Player
 from src.input import Action
-from src.lighting import Darkness
+from src.lighting import Darkness, Sunset
 from src.maps import MAPS, TRANSITIONS
 from src.inventory import Inventory
 from src.states.base import State
 from src.states.chapter_end import ChapterEnd
 from src.states.dialogue import DialogueState
+from src.states.finale import Finale
 from src.states.inventory import InventoryState
 from src.states.pause import Pause
 from src.states.victory import Victory
@@ -23,6 +24,7 @@ from src.world.tilemap import Tilemap
 
 START_TILE = (24, 15)  # no caminho principal da floresta (usado pelos testes)
 CARD_TICKS = 150
+INSUMOS = {"dragon": "Dragão Ancestral"}
 
 
 class Play(State):
@@ -49,6 +51,11 @@ class Play(State):
         self.rain = Rain() if (spec["weather"] == "rain" and config.WEATHER == "rain") else None
         self.darkness = Darkness() if spec["dark"] else None
         self.card = spec["card"]
+        self.tint = Sunset() if spec.get("tint") == "sunset" else None
+        self.spawn_tile = (sx, sy)
+        self.timer_max = int(spec.get("timer", 0)) * 60     # eclipse: contagem regressiva (ticks)
+        self.timer = self.timer_max
+        self.timer_end_x = spec.get("timer_end_x")      # ao passar desta coluna, o eclipse para
         self.crystals = [(tx, ty) for ty in range(self.world.rows) for tx in range(self.world.cols)
                          if self.world.grid[ty][tx] is Terrain.CRYSTAL]
         self.camera.follow(*self.player.center)
@@ -65,6 +72,19 @@ class Play(State):
             return
         if self.toast_ticks:
             self.toast_ticks -= 1
+        if self.timer_max and self.timer_end_x and self.player.center[0] >= self.timer_end_x * config.TILE:
+            self.timer_max = 0                            # chegou ao acampamento a tempo
+            self.toast = "Você chegou ao acampamento a tempo!"
+            self.toast_ticks = 150
+        if self.timer_max and self.ticks > CARD_TICKS // 2:
+            self.timer -= 1
+            if self.timer <= 0:                      # o eclipse venceu: recomeca o trecho, sem punicao
+                self.player.x = self.spawn_tile[0] * config.TILE
+                self.player.y = self.spawn_tile[1] * config.TILE
+                self.player.jump_t = -1
+                self.timer = self.timer_max
+                self.toast = "O eclipse avançou! Recomece o trecho."
+                self.toast_ticks = 150
         if inp.pressed(Action.INTERACT) and not self.player.jumping:
             target = self._interactable_in_front()
             if target:
@@ -117,6 +137,17 @@ class Play(State):
                 lights.append((obj.rect.centerx - cam.x, obj.rect.centery - cam.y, 26, False))
         return lights
 
+    def _draw_eclipse(self, canvas):
+        """Barra do eclipse: esvazia ate o castelo escurecer. Ao zerar, recomeca o trecho."""
+        p = config.PALETTE
+        w = 90
+        x, y = config.LOGICAL_W - w - 6, 6
+        frac = max(self.timer, 0) / self.timer_max
+        pygame.draw.rect(canvas, p["contorno"], (x - 1, y - 1, w + 2, 8))
+        color = p["amarelo"] if frac > 0.34 else p["vermelho"]
+        pygame.draw.rect(canvas, color, (x, y, round(w * frac), 6))
+        draw_text(canvas, "ECLIPSE", x - 46, y - 2, p["branco"], size=12, shadow=p["contorno"])
+
     def _draw_card(self, canvas):
         """Cartao de titulo do capitulo, que some devagar."""
         left = CARD_TICKS - self.ticks
@@ -138,14 +169,28 @@ class Play(State):
         return None
 
     def _talk(self, obj):
+        if obj.kind == "altar":
+            if self.inventory.has_all_insumos():
+                self.manager.change(Finale())
+            else:
+                n = self.inventory.count_insumos()
+                self.manager.push(DialogueState("", [
+                    f"O altar elemental espera os quatro insumos ({n}/4). Reúna todos antes de realizar o ritual."]))
+            return
         messages = list(obj.current_lines())
         gift = ALL.get(obj.gives) if obj.gives and not obj.given else None
+        insumo = INSUMOS.get(obj.gives) if obj.gives and not obj.given and gift is None else None
         if gift:
-            messages.append(f"Bela recebeu: {gift.name}!")
+            messages.append(f"Isabela recebeu: {gift.name}!")
+        elif insumo:
+            messages.append(f"Isabela recebeu o insumo: {insumo}!")
 
         def finish():
             if gift:
                 self.inventory.add(gift)
+                obj.given = True
+            elif insumo:
+                self.inventory.insumos.add(obj.gives)
                 obj.given = True
 
         speaker = obj.name if obj.kind == "npc" else ""
@@ -168,8 +213,12 @@ class Play(State):
                 d.draw(canvas, self.camera)
         if self.rain:
             self.rain.draw(canvas)
+        if self.tint:
+            self.tint.draw(canvas)
         if self.darkness:
             self.darkness.draw(canvas, self._lights(), self.ticks)
+        if self.timer_max:
+            self._draw_eclipse(canvas)
         if self.card and self.ticks < CARD_TICKS:
             self._draw_card(canvas)
         if self.toast_ticks:

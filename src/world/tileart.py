@@ -317,6 +317,38 @@ def _gate_tile(frame):
     return s
 
 
+def _tent(tx, ty, ground, left_open):
+    """Barraca da resistencia (triangular, listrada) sobre o chao."""
+    s = ground.copy()
+    stripe = ("vermelho", "branco")
+    for y in range(3, 15):
+        half = (y - 2) * 0.62
+        for x in range(T):
+            if abs(x - 7.5) <= half:
+                s.set_at((x, y), P[stripe[(x // 3) % 2] if y > 5 else "vermelho"])
+    for y in range(8, 15):                  # entrada escura
+        for x in range(6, 10):
+            s.set_at((x, y), P["contorno"])
+    for x in range(T):
+        s.set_at((x, 15), P["chao_sombra"])
+    s.set_at((7, 2), P["amarelo"]); s.set_at((8, 2), P["amarelo"]); s.set_at((7, 1), P["amarelo"])
+    return s
+
+
+def _thorns(tx, ty, ground):
+    """Barreira de espinhos magicos (roxo e preto) que a Sombra Cinzenta ergueu."""
+    rng = random.Random(_h(tx, ty, 51))
+    s = ground.copy()
+    for k in range(7):
+        x = 1 + k * 2 + rng.randint(0, 1)
+        h = rng.randint(8, 15)
+        for j in range(h):
+            xx = x + (1 if j % 5 == 4 else 0)
+            s.set_at((xx % T, T - 1 - j), P["roxo"] if j % 3 else P["contorno"])
+        s.set_at((x % T, T - h - 1), P["rosa_escuro"])
+    return s
+
+
 # --------------------------------------------------------------- agua
 def _water(frame, tx, ty):
     s = _surface()
@@ -457,6 +489,15 @@ class MapArt:
                     tile = self._water_tile(tx, ty, frame)
                 elif kind is Terrain.STONE:
                     tile = self._stone_tile(tx, ty)
+                elif kind is Terrain.TENT:
+                    tile = _tent(tx, ty, self._ground_tile(tx, ty), True)
+                elif kind is Terrain.THORN:
+                    tile = _thorns(tx, ty, self._ground_tile(tx, ty))
+                elif kind is Terrain.CASTLE_WALL:
+                    cw = {Terrain.CASTLE_WALL, Terrain.THORN}
+                    top = self._kind(tx, ty - 1) not in cw
+                    bottom = self._kind(tx, ty + 1) not in cw
+                    tile = _castle(top, bottom, False)
                 elif kind is Terrain.WALL:
                     below = self._kind(tx, ty + 1)
                     tile = _cave_wall(tx, ty, below is not None and below is not Terrain.WALL)
@@ -484,6 +525,10 @@ class MapArt:
                         pine = self.pines[((tx // 2) + (ty // 2)) % 2]
                         tile.blit(pine[ty % 2][tx % 2], (0, 0))
                     elif kind is Terrain.ROCK:
+                        on_road = any(self._kind(tx + dx, ty + dy) is Terrain.DIRT
+                                      for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                        if on_road:                       # pedra sobre a estrada: base de terra
+                            tile = self.path[_h(tx, ty) % 3].copy()
                         tile.blit(self.rock, (0, 0))
                 surf.blit(tile, (tx * T, ty * T))
         return surf
