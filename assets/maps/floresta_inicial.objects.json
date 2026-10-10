@@ -20,11 +20,16 @@
     "sprite": "olivia",
     "gives": "boat",
     "lines": [
-      "Isabela! Eu sabia que você viria. O vilão Sombra Cinzenta tomou o castelo, e só vamos retomá-lo juntas.",
-      "Eu cuido do primeiro aliado: este barco. Abra o inventário (tecla I) na margem do lago e escolha o barco. Ele leva você até a ilha da Lara."
+      "Você achou meu remo! Muito obrigada, Isabela.",
+      "Agora sim: o barco é seu. Abra o inventário (tecla I) na margem do lago e escolha o barco. Ele leva você até a ilha da Lara."
     ],
     "after": [
       "O lago é todo seu, Isabela. Siga até a ilha."
+    ],
+    "requires": "oar",
+    "missing": [
+      "Isabela! Que bom ver você. Eu tenho o barco, mas perdi o remo quando a tempestade chegou.",
+      "Acho que ele caiu perto do caminho do norte, entre as árvores. Procure por lá e volte aqui."
     ]
   },
   {
@@ -54,6 +59,66 @@
     "name": "Placa",
     "lines": [
       "Ilha da Lara, no meio do lago. Cuidado com os bichos escuros na água!"
+    ]
+  },
+  {
+    "kind": "pickup",
+    "tile": [
+      10,
+      7
+    ],
+    "name": "Remo",
+    "item": "oar",
+    "lines": [
+      "Isabela encontrou o remo do barco! Vale levar para a Olívia."
+    ]
+  },
+  {
+    "kind": "npc",
+    "tile": [
+      12,
+      14
+    ],
+    "name": "Teo",
+    "sprite": "teo",
+    "lines": [
+      "Oi! Eu sou o Teo. Você é a princesa Isabela? Meu avô disse que você ia chegar.",
+      "Dizem que a Sombra Cinzenta tomou o castelo numa noite só. Desde então o céu vive nublado e chove todo dia."
+    ],
+    "after": [
+      "A Olívia está esperando você perto do lago!"
+    ]
+  },
+  {
+    "kind": "npc",
+    "tile": [
+      30,
+      14
+    ],
+    "name": "Vovó Nina",
+    "sprite": "nina",
+    "lines": [
+      "Minha filha, antes de partir, leve um conselho: o reino tem quatro amigas, e cada uma cuida de um aliado.",
+      "Só com os quatro juntos os espinhos do castelo vão cair. Comece pela Olívia, no lago."
+    ],
+    "after": [
+      "Vá com cuidado e volte inteira, Isabela."
+    ]
+  },
+  {
+    "kind": "npc",
+    "tile": [
+      42,
+      5
+    ],
+    "name": "Rui",
+    "sprite": "rui",
+    "lines": [
+      "Eu sou o Rui, barqueiro. Os bichos escuros da água chegaram junto com a Sombra.",
+      "Eles só empurram o barco, mas fazem a gente perder tempo. Passe pelas bordas do lago para desviar."
+    ],
+    "after": [
+      "Boa viagem! A caverna fica atrás da fenda."
     ]
   }
 ]

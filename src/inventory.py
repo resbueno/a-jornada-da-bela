@@ -7,6 +7,7 @@ class Inventory:
     def __init__(self):
         self.transports = [ON_FOOT]
         self.insumos = set()        # insumos que nao sao transportes (ex.: "dragon")
+        self.flags = set()          # itens e marcos da historia (ex.: "oar")
         if config.DEBUG_UNLOCK_ALL_TRANSPORTS:
             self.transports = list(ALL.values())
 

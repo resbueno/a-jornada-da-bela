@@ -25,6 +25,22 @@
  {
   "kind": "npc",
   "tile": [
+   140,
+   10
+  ],
+  "name": "Capitã Vera",
+  "sprite": "vera",
+  "lines": [
+   "Eu sou a capitã da resistência. Nossos soldados seguram a estrada, mas os lacaios da Sombra são muitos.",
+   "Quando o dragão acordar, a cerca de espinhos vai cair. Aí é com você, Isabela."
+  ],
+  "after": [
+   "Fale com a Sara. Ela está logo ali."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
    144,
    10
   ],

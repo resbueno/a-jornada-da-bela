@@ -40,7 +40,8 @@ class Play(State):
         self.toast = ""
         self.toast_ticks = 0
         for obj in self.objects:
-            self.world.solid_tiles.add(obj.tile)
+            if obj.kind != "pickup":                   # coletaveis nao bloqueiam a passagem
+                self.world.solid_tiles.add(obj.tile)
         self.camera = Camera(self.world.pixel_w, self.world.pixel_h)
         sx, sy = spawn or spec["spawn"]
         self.player = Player(sx * config.TILE, sy * config.TILE)
@@ -174,9 +175,19 @@ class Play(State):
                 self.manager.push(DialogueState("", [
                     f"Este é o altar das princesas. Ele precisa dos quatro aliados: barco, unicórnio, carro rosa e dragão ({n}/4). Reúna todos antes."]))
             return
-        messages = list(obj.current_lines())
-        gift = ALL.get(obj.gives) if obj.gives and not obj.given else None
-        insumo = INSUMOS.get(obj.gives) if obj.gives and not obj.given and gift is None else None
+        if obj.kind == "pickup":
+            def take():
+                self.inventory.flags.add(obj.item)
+                if obj in self.objects:
+                    self.objects.remove(obj)
+            self.manager.push(DialogueState("", list(obj.lines), take))
+            return
+        blocked = obj.blocked(self.inventory.flags)
+        messages = list(obj.current_lines(self.inventory.flags))
+        if blocked and not obj.missing:
+            messages = ["Ainda falta algo para eu poder ajudar."]
+        gift = ALL.get(obj.gives) if obj.gives and not obj.given and not blocked else None
+        insumo = INSUMOS.get(obj.gives) if obj.gives and not obj.given and gift is None and not blocked else None
         if gift:
             messages.append(f"Isabela recebeu: {gift.name}!")
         elif insumo:

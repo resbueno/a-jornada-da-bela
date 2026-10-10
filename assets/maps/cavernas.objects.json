@@ -19,6 +19,22 @@
     ]
   },
   {
+    "kind": "npc",
+    "tile": [
+      6,
+      19
+    ],
+    "name": "Dudu",
+    "sprite": "dudu",
+    "lines": [
+      "Eu trabalho aqui há anos! Estes cristais iluminam o caminho.",
+      "Cuidado com os buracos: só o unicórnio consegue pular. Sem ele, volte e escolha o unicórnio no inventário."
+    ],
+    "after": [
+      "A Lana está lá no fundo, na sala dos cristais."
+    ]
+  },
+  {
     "kind": "sign",
     "tile": [
       4,

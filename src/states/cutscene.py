@@ -1,4 +1,4 @@
-"""Cena final animada: o ritual no altar, o Dragao, o duelo e o castelo restaurado.
+"""Cenas animadas: a abertura (castelo tomado) e o final (altar, Dragao, duelo, castelo restaurado).
 
 A cena e um roteiro (gerador Python): cada `yield` espera 1 tick. Z avanca a legenda atual;
 Esc/P pula a cena inteira. Usa os mesmos sprites do jogo, com atores se movendo no mapa dos portoes.
@@ -62,8 +62,10 @@ class Actor:
 class Cutscene(State):
     MAP = "assets/maps/portoes.map.txt"
 
-    def __init__(self):
+    def __init__(self, kind="finale"):
         super().__init__()
+        self.kind = kind                      # "finale" ou "intro"
+        self.icons = []                       # [x, y, cor, rotulo] fixos na tela (abertura)
         self.world = Tilemap.load(self.MAP)
         self.cam = Cam()
         self.cam_target = (136.0, 92.0)
@@ -97,7 +99,18 @@ class Cutscene(State):
         self.princesses = [self.olivia, self.lara, self.lana, self.sara]
         self.villain = Actor("sombra", 0, 0, "down", scale=3)
         self.hero_big = Actor("isabela", 0, 0, "right", scale=3)
-        self.script = self._script()
+        if kind == "intro":
+            for y in range(self.world.rows):              # no comeco, o castelo esta livre
+                for x in range(self.world.cols):
+                    if self.world.grid[y][x] is Terrain.THORN:
+                        self.world.grid[y][x] = Terrain.GRASS
+            self.gloom = 0
+            self.cam_target = (136.0, 24.0)
+            self.cam_f = [136.0, 24.0]
+            self.isabela.x, self.isabela.y = 17 * T, 19 * T
+            self.script = self._script_intro()
+        else:
+            self.script = self._script()
 
     def enter(self):
         sheet = pygame.image.load(str(ROOT / "assets" / "sprites" / "dragon.png")).convert_alpha()
@@ -293,7 +306,62 @@ class Cutscene(State):
             yield from self.wait(22)
         celebrants = [self.isabela] + self.princesses
         yield from self.together(self.move(self.isabela, 18 * T, 13 * T, 50), self.jump_cheer(celebrants, 150))
-        yield from self.say("O reino volta a ficar em paz. Fim.", 200)
+        yield from self.say("O reino volta a ficar em paz.", 150)
+        yield from self.say("Olívia voltou a navegar pelo lago, agora sem medo.", 150)
+        yield from self.say("Lara passeia com o unicórnio pelas colinas, e Lana abriu as cavernas para visitas.", 170)
+        yield from self.say("Sara cuida do dragão no pátio do castelo.", 140)
+        yield from self.say("E Isabela governa o reino ao lado das quatro amigas. Fim.", 200)
+        yield from self.fade_to(255, 40)
+
+    def _script_intro(self):
+        """Abertura: o castelo em paz, a chegada da Sombra Cinzenta e a partida de Isabela."""
+        self.fade_a = 255
+        yield from self.fade_to(0, 40)
+        yield from self.say("Há muito tempo, o Reino de Cristal vivia em paz.", 150)
+        for _ in range(3):
+            self.burst(self.rng.randint(150, 420), self.rng.randint(40, 120),
+                       [P["rosa"], P["amarelo"], P["branco"]], 10, 1.4, 44)
+            yield from self.wait(26)
+        yield from self.say("Até que um vilão chamado Sombra Cinzenta tomou o castelo.", 20)
+        self.villain.x, self.villain.y = 17 * T + 8, 8 * T
+        self.villain.scale = 2
+        self.villain.facing = "down"
+        self.villain.alpha = 0
+        for i in range(90):
+            self.villain.alpha = min(255, i * 4)
+            self.gloom = min(105, i * 1.2)
+            self.shake = 2 if i % 10 < 5 else 0
+            yield
+        yield from self.wait(60)
+        yield from self.say("Ele fechou os portões com uma cerca de espinhos.", 20)
+        for y in range(5, 8):
+            for x in range(16, 20):
+                if self.world.grid[y][x] is Terrain.GRASS:
+                    self.world.grid[y][x] = Terrain.THORN
+        self.world._frames = None
+        self.burst(17 * T + 8, 6 * T, [P["roxo"], P["rosa_escuro"], P["contorno"]], 40, 2.6, 46)
+        self.shake = 7
+        yield from self.wait(120)
+        yield from self.say("A princesa Isabela voltou para casa e encontrou o castelo trancado.", 20)
+        self.isabela.facing = "up"
+        self.cam_target = (136.0, 60.0)
+        yield from self.move(self.isabela, 17 * T, 10 * T, 38)
+        yield from self.wait(60)
+        yield from self.say("Sombra Cinzenta: \"Vá embora! Este castelo agora é meu!\"", 150)
+        self.shake = 6
+        self.burst(17 * T + 8, 8 * T + 8, [P["roxo"], P["rocha_clara"]], 24, 2.4, 40)
+        yield from self.say("Isabela foi mandada para longe, mas não desistiu.", 20)
+        yield from self.move(self.isabela, 17 * T, 20 * T, 52)
+        yield from self.fade_to(255, 36)
+        self.villain.visible = False
+        self.gloom = 0
+        self.isabela.visible = False
+        self.icons = [(70, 70, "agua", "Barco"), (130, 70, "rosa", "Unicórnio"),
+                      (190, 70, "vermelho", "Carro rosa"), (250, 70, "verde_brilho", "Dragão")]
+        self.cam_target = (136.0, 24.0)
+        yield from self.fade_to(0, 30)
+        yield from self.say("Para voltar, ela precisa de quatro aliados: um barco, um unicórnio, um carro rosa e um dragão.", 230)
+        yield from self.say("Cada um está sob os cuidados de uma amiga. A jornada começa!", 150)
         yield from self.fade_to(255, 40)
 
     def duel(self):
@@ -369,8 +437,12 @@ class Cutscene(State):
         self.orbs = [o for o in self.orbs if o[4] < o[5]]
 
     def _finish(self):
-        from src.states.victory import Victory
-        self.manager.change(Victory())
+        if self.kind == "intro":
+            from src.states.play import Play
+            self.manager.change(Play())
+        else:
+            from src.states.victory import Victory
+            self.manager.change(Victory())
 
     # ------------------------------------------------------------ desenho
     def _overlay(self, canvas, color_name, alpha):
@@ -420,7 +492,9 @@ class Cutscene(State):
                 c = ("agua", "rosa", "vermelho", "verde_brilho")[k]
                 pygame.draw.rect(canvas, P["branco"], (x - 1, y - 1, 4, 4))
                 pygame.draw.rect(canvas, P[c], (x, y, 2, 2))
-        actors = sorted([self.isabela] + self.princesses, key=lambda a: a.y)
+        if self.kind == "intro":
+            self.villain.draw(canvas, real)
+        actors = sorted([self.isabela] + (self.princesses if self.kind == "finale" else []), key=lambda a: a.y)
         for a in actors:
             a.draw(canvas, real)
         # dragao
@@ -491,6 +565,12 @@ class Cutscene(State):
             for k, (c, w) in enumerate((("rosa", 9), ("amarelo", 6), ("ceu", 4), ("branco", 2))):
                 pygame.draw.line(canvas, P[c], (round(x0 - cam.x), round(y0 - cam.y)),
                                  (round(ex - cam.x), round(ey - cam.y)), w + int(math.sin(i / 2 + k) * 1))
+        for x, y, color, label in self.icons:                       # os quatro aliados (abertura)
+            bob = int(math.sin(self.ticks / 14.0 + x) * 3)
+            pygame.draw.circle(canvas, P["contorno"], (x, y + bob), 12)
+            pygame.draw.circle(canvas, P[color], (x, y + bob), 10)
+            pygame.draw.circle(canvas, P["branco"], (x - 3, y + bob - 3), 3)
+            draw_text(canvas, label, x, y + 18, P["branco"], size=14, center=True, shadow=P["contorno"])
         for p in self.particles:
             x, y = round(p[0] - cam.x), round(p[1] - cam.y)
             c = p[6]

@@ -218,3 +218,15 @@ O texto do jogo foi simplificado: frases curtas e concretas, sem termos místico
 Ancestrais" virou "os quatro aliados" (barco, unicórnio, carro rosa e dragão); "feitiço
 eclipse" virou "o castelo está escurecendo / o tempo está acabando" (a barra se chama
 TEMPO); "criaturas corrompidas" viraram "bichos escuros". Ver `STORY.md`.
+
+## Revisão 8: história maior
+
+- **Abertura animada** (`Cutscene("intro")`, ~29 s) entre o título e o jogo: castelo em paz,
+  a Sombra Cinzenta chega e tranca os portões com espinhos, Isabela é mandada embora e
+  aparecem os quatro aliados. Z acelera a legenda, Esc/P pula.
+- **Missão do remo (capítulo 1):** o remo da Olívia está no mapa (coletável `pickup`, não
+  bloqueia). Sem o remo, a Olívia só conta o problema; com ele, entrega o barco. Mecânica
+  genérica: campos `requires`/`missing` no NPC e `Inventory.flags`.
+- **Cinco novos personagens:** Teo, Vovó Nina (vilarejo), Rui (ilha), Dudu (caverna) e
+  Capitã Vera (acampamento), com falas que contam o mundo.
+- **Epílogo maior** na cena final: o destino de cada princesa (~66 s no total).

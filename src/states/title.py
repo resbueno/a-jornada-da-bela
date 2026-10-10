@@ -2,7 +2,7 @@
 from src import config
 from src.input import Action
 from src.states.base import State
-from src.states.play import Play
+from src.states.cutscene import Cutscene
 from src.text import draw_text
 
 BLINK_TICKS = 30
@@ -16,7 +16,7 @@ class Title(State):
     def update(self, dt, inp):
         self.ticks += 1
         if inp.pressed(Action.INTERACT):
-            self.manager.change(Play())
+            self.manager.change(Cutscene("intro"))
 
     def draw(self, canvas):
         p = config.PALETTE

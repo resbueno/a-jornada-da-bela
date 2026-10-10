@@ -9,7 +9,7 @@ from src import config
 from src.world.tilemap import ROOT
 
 T = config.TILE
-COLORS = {"npc": "lilas_magia", "sign": "tronco_terra", "altar": "rocha_clara"}
+COLORS = {"npc": "lilas_magia", "sign": "tronco_terra", "altar": "rocha_clara", "pickup": "madeira"}
 
 
 @dataclass
@@ -22,12 +22,20 @@ class Interactable:
     after: list = field(default_factory=list)  # falas depois de entregar
     given: bool = False
     sprite: str = None        # nome do personagem em assets/sprites (ex.: olivia)
+    requires: str = None      # item (flag) que o jogador precisa ter para a conversa avancar
+    missing: list = field(default_factory=list)  # falas enquanto o item nao foi trazido
+    item: str = None          # coletavel: flag concedida ao pegar
 
     @property
     def rect(self):
         return pygame.Rect(self.tile[0] * T, self.tile[1] * T, T, T)
 
-    def current_lines(self):
+    def blocked(self, flags):
+        return bool(self.requires) and self.requires not in flags
+
+    def current_lines(self, flags=frozenset()):
+        if self.blocked(flags) and self.missing:
+            return self.missing
         return self.after if (self.given and self.after) else self.lines
 
     def draw(self, canvas, camera, near=None):
@@ -36,6 +44,13 @@ class Interactable:
         if self.kind == "sign":
             pygame.draw.rect(canvas, color, (x + 6, y + 8, 4, 8))
             pygame.draw.rect(canvas, config.PALETTE["madeira_terra_clara"], (x + 2, y + 2, 12, 7))
+        elif self.kind == "pickup":                      # remo do barco no chao
+            for k in range(11):
+                pygame.draw.rect(canvas, config.PALETTE["madeira"], (x + 3 + k, y + 12 - k, 2, 2))
+            pygame.draw.rect(canvas, config.PALETTE["madeira_escura"], (x + 1, y + 12, 4, 3))
+            pygame.draw.rect(canvas, config.PALETTE["madeira"], (x + 11, y + 1, 4, 4))
+            if (pygame.time.get_ticks() // 400) % 2:       # brilho: chama a atencao
+                canvas.fill(config.PALETTE["branco"], (x + 13, y, 2, 2))
         elif self.kind == "altar":
             pygame.draw.rect(canvas, config.PALETTE["rocha_contorno"], (x + 1, y + 6, 14, 10))
             pygame.draw.rect(canvas, config.PALETTE["rocha_clara"], (x + 2, y + 5, 12, 4))
@@ -76,6 +91,9 @@ def load_objects(path):
                 gives=entry.get("gives"),
                 after=list(entry.get("after", [])),
                 sprite=entry.get("sprite"),
+                requires=entry.get("requires"),
+                missing=list(entry.get("missing", [])),
+                item=entry.get("item"),
             ))
         except KeyError as e:
             raise ValueError(f"{path.name}[{i}]: campo ausente {e}") from None

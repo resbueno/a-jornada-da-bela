@@ -8,6 +8,13 @@ foi mandada para longe, mas não desistiu. Para voltar, ela precisa da ajuda de 
 cada uma cuidando de um **aliado**: um barco, um unicórnio, um carro rosa e um dragão.
 Com os quatro reunidos, ela derruba os espinhos e enfrenta o vilão.
 
+## Abertura
+
+O reino vivia em paz, com o castelo brilhando ao sol. Numa noite, a Sombra Cinzenta tomou o
+palácio e fechou os portões com uma cerca de espinhos. Isabela voltou para casa, encontrou o
+castelo trancado e foi mandada embora pelo vilão. Mas ela não desistiu: para voltar, precisava
+de quatro aliados (barco, unicórnio, carro rosa e dragão), cada um sob os cuidados de uma amiga.
+
 ## Capítulos
 
 | # | Onde | Aliado | Quem ajuda | O que se faz |
@@ -17,12 +24,32 @@ Com os quatro reunidos, ela derruba os espinhos e enfrenta o vilão.
 | 3 | Cavernas de Quartzo | **Carro Rosa** | Princesa **Lana** | Atravessar a caverna escura pulando buracos |
 | 4 | Estrada do Pôr do Sol | **Dragão** | Princesa **Sara** | Dirigir contra o tempo, desviando de pedras e soldados |
 
+## Pessoas pelo caminho
+
+| Onde | Quem | O que conta |
+|---|---|---|
+| Vilarejo | **Teo**, menino | O castelo foi tomado numa noite só; desde então o céu vive nublado |
+| Vilarejo | **Vovó Nina** | Só com os quatro aliados os espinhos caem; comece pela Olívia |
+| Vilarejo | **Olívia** | Perdeu o remo do barco na tempestade; ele caiu perto do caminho do norte |
+| Ilha | **Rui**, barqueiro | Os bichos escuros vieram junto com a Sombra; desvie pelas bordas |
+| Caverna | **Dudu**, mineiro | Só o unicórnio pula os buracos; os cristais iluminam o caminho |
+| Acampamento | **Capitã Vera** | A resistência segura a estrada; o resto é com a Isabela |
+
+## Missão do capítulo 1
+
+A Olívia tem o barco, mas perdeu o remo. Isabela procura o remo entre as árvores ao norte e
+o leva de volta; só então ganha o barco.
+
 ## Final
 
 Nos portões do castelo, as cinco princesas colocam os quatro aliados no altar. Uma luz forte
 acorda o dragão, que queima a cerca de espinhos com um sopro colorido. Isabela entra sozinha
 no castelo e vence a Sombra Cinzenta num duelo de espadas. O castelo volta a ser como era e
 o reino fica em paz.
+
+**Epílogo:** Olívia volta a navegar pelo lago sem medo; Lara passeia com o unicórnio; Lana abre as
+cavernas para visitas; Sara cuida do dragão no pátio do castelo; e Isabela governa o reino ao lado
+das quatro amigas.
 
 ## Personagens
 
