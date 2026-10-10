@@ -1,17 +1,38 @@
-"""Texto provisorio com a fonte padrao do pygame, sem suavizacao.
+"""Texto do jogo com a fonte pixel Jersey 15 (SIL Open Font License; ver assets/fonts/OFL.txt).
 
-Sera substituido por uma fonte pixel propria quando a arte final da UI existir.
+Os tamanhos pedidos pelo codigo (12..40) sao mapeados para 3 tamanhos nitidos da fonte:
+16 (texto comum, tamanho nativo), 32 (titulos) e 48 (destaques), sempre multiplos do nativo.
 """
 import pygame
 
+from src.sprites import ROOT
+
+FONT_PATH = ROOT / "assets" / "fonts" / "Jersey15-Regular.ttf"
 _fonts = {}
 
 
+def _resolve(size):
+    if size <= 17:
+        return 16
+    if size <= 30:
+        return 32
+    return 48
+
+
 def get_font(size):
-    font = _fonts.get(size)
+    px = _resolve(size)
+    font = _fonts.get(px)
     if font is None:
-        font = _fonts[size] = pygame.font.Font(None, size)
+        try:
+            font = pygame.font.Font(str(FONT_PATH), px)
+        except Exception:               # sem a fonte, usa a padrao do pygame
+            font = pygame.font.Font(None, size)
+        _fonts[px] = font
     return font
+
+
+def line_height(size):
+    return get_font(size).get_height()
 
 
 def draw_text(canvas, text, x, y, color, size=16, center=False, shadow=None):

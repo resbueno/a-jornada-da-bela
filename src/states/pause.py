@@ -79,6 +79,6 @@ class Pause(State):
                     ny = top + int(obj.rect.centery / config.TILE * scale)
                     canvas.fill(p["amarelo"], (nx - 1, ny - 1, 2, 2))
             top += sh + 14
-        w, h = 170, 30 + len(ENTRIES) * 14 + 10
+        w, h = 170, 34 + len(ENTRIES) * 17 + 10
         rect = ((config.LOGICAL_W - w) // 2, min(top, config.LOGICAL_H - h - 2), w, h)
         draw_menu(canvas, rect, "PAUSA", ENTRIES, self.cursor)

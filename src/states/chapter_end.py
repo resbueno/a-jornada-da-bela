@@ -24,6 +24,6 @@ class ChapterEnd(State):
         cx = config.LOGICAL_W // 2
         draw_text(canvas, self.title, cx, 36, p["amarelo"], size=26, center=True)
         for i, line in enumerate(self.lines):
-            draw_text(canvas, line, cx, 76 + i * 15, p["areia_clara"], size=16, center=True)
+            draw_text(canvas, line, cx, 70 + i * 19, p["areia_clara"], size=16, center=True)
         if (self.ticks // 30) % 2 == 0:
             draw_text(canvas, "Aperte Z para voltar ao título", cx, 150, p["rosa"], size=14, center=True)

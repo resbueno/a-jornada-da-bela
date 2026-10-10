@@ -7,9 +7,9 @@ from src.states.base import State
 from src.text import draw_text, wrap
 from src.ui import draw_panel
 
-BOX = (4, config.LOGICAL_H - 60, config.LOGICAL_W - 8, 56)
+BOX = (4, config.LOGICAL_H - 76, config.LOGICAL_W - 8, 72)
 TEXT_SIZE = 16
-LINE_H = 13
+LINE_H = 16
 MAX_LINES = 3
 CHARS_PER_TICK = 0.6  # ~36 letras por segundo a 60 Hz
 

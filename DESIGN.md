@@ -251,3 +251,11 @@ formato 16x24 dos personagens. O Rui (barqueiro) continua humano.
 - **Bichos com sprites de verdade** (`tools/gen_critters.py`): coelho em 3 cores e 4 poses
   (sentado, orelha mexendo, agachado, no ar), pássaros em 3 cores (pousado e voando),
   peixes em 2 cores (pulando em arco), enguia sombria e lacaio com elmo e lança.
+
+## Revisão 11: fonte pixel para leitura
+
+O texto usa a fonte **Jersey 15** (OFL), em `assets/fonts/`. Os tamanhos do código
+(12..40) são mapeados para 3 tamanhos nítidos, múltiplos do nativo (16, 32 e 48 px). Foi
+escolhida depois de comparar Jersey 10, VT323, Pixelify Sans, Silkscreen e Press Start 2P:
+o Jersey 10 tinha um "s" parecido com "$", e o Jersey 15 ficou mais claro. Espaçamentos de
+diálogo, menus, legendas e telas de título/fim foram ajustados.

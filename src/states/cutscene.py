@@ -68,8 +68,8 @@ class Cutscene(State):
         self.icons = []                       # [x, y, cor, rotulo] fixos na tela (abertura)
         self.world = Tilemap.load(self.MAP)
         self.cam = Cam()
-        self.cam_target = (136.0, 92.0)
-        self.cam_f = [136.0, 92.0]
+        self.cam_target = (136.0, 100.0)
+        self.cam_f = [136.0, 100.0]
         self.ticks = 0
         self.skip_beat = False
         self.caption = ""
@@ -245,7 +245,7 @@ class Cutscene(State):
         # sopro luminoso
         yield from self.say("Ele sopra uma luz colorida e queima a cerca de espinhos!", 15)
         mouth = (self.dragon_pos[0] + 2 * 46, self.dragon_pos[1] + 2 * 17)
-        target = (17 * T + 8, 6 * T)
+        target = (17 * T + 8, 6 * T + 16)
         for i in range(70):
             self.beam = (mouth[0], mouth[1], target[0], target[1], i)
             if i % 3 == 0:
@@ -297,7 +297,7 @@ class Cutscene(State):
         self.isabela.alpha = 255
         self.isabela.x, self.isabela.y = 17 * T, 8 * T
         self.isabela.facing = "down"
-        self.cam_target = (136.0, 92.0)
+        self.cam_target = (136.0, 100.0)
         yield from self.fade_to(0, 30)
         yield from self.say("O castelo volta a ser como era antes.", 100)
         for _ in range(4):
@@ -580,7 +580,7 @@ class Cutscene(State):
         if not self.caption:
             return
         self.caption_ticks += 1
-        box = (6, VH - 40, VW - 12, 34)
+        box = (6, VH - 52, VW - 12, 46)
         draw_panel(canvas, box)
         lines = wrap(self.caption, 16, box[2] - 16)[:2]
         shown = int(self.caption_ticks * 0.9)
@@ -589,7 +589,7 @@ class Cutscene(State):
             part = line[:shown]
             shown -= len(line)
             draw_text(canvas, part, box[0] + 8, y, P["areia_clara"], size=16)
-            y += 13
+            y += 17
             if shown <= 0:
                 break
         if (self.ticks // 25) % 2 == 0:

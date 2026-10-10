@@ -46,7 +46,7 @@ class InventoryState(State):
     def draw(self, canvas):
         current = self.play.player.transport
         entries = [t.name + ("  (em uso)" if t is current else "") for t in self.items]
-        h = 30 + len(entries) * 14 + 18
+        h = 34 + len(entries) * 17 + 22
         w = 170
         rect = ((config.LOGICAL_W - w) // 2, (config.LOGICAL_H - h) // 2, w, h)
         footer = self.message or f"Aliados: {self.play.inventory.count_insumos()}/4"

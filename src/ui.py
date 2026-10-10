@@ -20,6 +20,6 @@ def draw_menu(canvas, rect, title, entries, cursor, footer=None):
     for i, text in enumerate(entries):
         color = p["creme"] if i == cursor else p["pedra_clara"]
         prefix = "> " if i == cursor else "  "
-        draw_text(canvas, prefix + text, x + 10, y + 26 + i * 14, color, size=16)
+        draw_text(canvas, prefix + text, x + 10, y + 27 + i * 17, color, size=16)
     if footer:
-        draw_text(canvas, footer, x + w // 2, y + h - 14, p["rosa"], size=14, center=True)
+        draw_text(canvas, footer, x + w // 2, y + h - 18, p["rosa"], size=14, center=True)
