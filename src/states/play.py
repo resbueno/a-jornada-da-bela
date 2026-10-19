@@ -45,6 +45,7 @@ class Play(State):
         self.camera = Camera(self.world.pixel_w, self.world.pixel_h)
         sx, sy = spawn or spec["spawn"]
         self.player = Player(sx * config.TILE, sy * config.TILE)
+        self.player.sprite_name = spec.get("outfit", "isabela")   # roupa da Bela nesta fase
         if transport is not None:
             self.player.transport = transport
         self.inventory = inventory or Inventory()

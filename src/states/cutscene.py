@@ -91,14 +91,15 @@ class Cutscene(State):
         self.interior_t = 0
         self.rng = random.Random(77)
         self.altar = Interactable("altar", (18, 12), "Altar", [""])
-        self.isabela = Actor("isabela", 18, 13, "up")
+        hero = "isabela" if kind == "intro" else "isabela_gala"   # no final, vestido do banquete
+        self.isabela = Actor(hero, 18, 13, "up")
         self.olivia = Actor("olivia", 12, 17, "right")
         self.lara = Actor("lara", 24, 17, "left")
         self.lana = Actor("lana", 13, 19, "right")
         self.sara = Actor("sara", 23, 19, "left")
         self.princesses = [self.olivia, self.lara, self.lana, self.sara]
         self.villain = Actor("sombra", 0, 0, "down", scale=3)
-        self.hero_big = Actor("isabela", 0, 0, "right", scale=3)
+        self.hero_big = Actor(hero, 0, 0, "right", scale=3)
         if kind == "intro":
             for y in range(self.world.rows):              # no comeco, o castelo esta livre
                 for x in range(self.world.cols):

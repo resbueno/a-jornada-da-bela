@@ -259,3 +259,17 @@ O texto usa a fonte **Jersey 15** (OFL), em `assets/fonts/`. Os tamanhos do cód
 escolhida depois de comparar Jersey 10, VT323, Pixelify Sans, Silkscreen e Press Start 2P:
 o Jersey 10 tinha um "s" parecido com "$", e o Jersey 15 ficou mais claro. Espaçamentos de
 diálogo, menus, legendas e telas de título/fim foram ajustados.
+
+## Revisão 12: roupa da Isabela por fase
+
+- Cada mapa define a roupa da Isabela (`outfit` em `src/maps.py`); o `Play` aplica no
+  `Player.sprite_name` e os veículos usam a mesma roupa na cavaleira. Sem `outfit`, vale o
+  sprite `isabela`.
+- **Floresta e lago** (chuva): capa de chuva amarela com capuz e galochas (`isabela_chuva`).
+  **Cavernas:** capa verde-musgo, túnica creme, calça e botas de couro e a lanterna no cinto
+  (`isabela_exploradora`). **Estrada:** casaco roxo, cachecol vermelho ao vento e gorro com
+  pompom (`isabela_vento`). **Portões e cena final:** vestido rosa com tiara (`isabela_gala`).
+  A abertura continua com o vestido de sempre.
+- **Lana:** pele clara e cabelo preto em maria-chiquinha (estilo `pigtails`).
+- `tools/build_sprites.py` converte `art/src/*.sprite.txt` em PNG (e prévia 8x) com a paleta
+  desta página.

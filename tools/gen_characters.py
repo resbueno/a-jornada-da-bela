@@ -22,8 +22,8 @@ CHARACTERS = {
     "lara": dict(     # cabelo loiro curto ate os ombros, pele clara
         hair="o", hair_hi="a", skin="j", skin_sh="k", style="short", dress=True,
         top="h", top_sh="g", pants="q", boots="e", belt="f", accent="n"),       # vestido azul
-    "lana": dict(     # pele clara; cabelo ruivo curto (a definir)
-        hair="p", hair_hi="o", skin="j", skin_sh="k", style="short", dress=True,
+    "lana": dict(     # pele clara, cabelo preto em maria-chiquinha
+        hair="r", hair_hi="q", ties="l", skin="j", skin_sh="k", style="pigtails", dress=True,
         top="l", top_sh="m", pants="b", boots="e", belt="o", accent="n"),       # vestido vermelho
     "evelyn": dict(   # japonesa, pele branca, cabelo preto longo com franja reta, segura a encomenda
         hair="r", hair_hi="q", skin="j", skin_sh="k", style="long", dress=True, bangs=True, parcel=True,
@@ -38,6 +38,128 @@ CHARACTERS = {
         hair="s", hair_hi="t", skin="j", skin_sh="k", style="braid", dress=True,
         top="o", top_sh="p", pants="q", boots="e", belt="f", accent="n"),       # vestido amarelo
 }
+
+# Roupas da Isabela por fase (ver STORY_V2.md): mesmo cabelo e rosto, outra roupa
+_ISA = CHARACTERS["isabela"]
+CHARACTERS.update({
+    "isabela_chuva": dict(_ISA,        # floresta e lago: capa de chuva amarela com capuz e galochas
+        top="o", top_sh="p", belt="o", accent="n", boots="l", hood=True, galoshes=True),
+    "isabela_exploradora": dict(_ISA,  # cavernas: capa verde-musgo, tunica creme, calca e botas de couro
+        dress=False, top="2", top_sh="1", pants="f", boots="e", belt="e", accent="a", cape=True, lantern=True),
+    "isabela_vento": dict(_ISA,        # estrada: casaco roxo, cachecol vermelho e gorro com pompom
+        dress=False, top="s", top_sh="q", pants="q", boots="e", belt="s", accent="l", scarf=True, beanie=True),
+    "isabela_gala": dict(_ISA,         # portoes: vestido rosa do banquete, faixa dourada e tiara
+        tiara=True),
+})
+
+
+def hood(g, view):
+    """Capuz amarelo da capa de chuva por cima do cabelo (o rosto fica livre)."""
+    if view == "up":
+        g.rect(3, 1, 12, 10, "o"); g.rect(4, 11, 11, 17, "o")
+        g.rect(11, 2, 12, 17, "p"); g.px(5, 2, "a"); g.px(6, 2, "a")
+        g.rect(7, 11, 8, 16, "p")                                       # costura da capa
+        return
+    if view == "left":
+        g.rect(3, 1, 10, 4, "o"); g.rect(8, 1, 12, 11, "o"); g.rect(11, 3, 12, 11, "p")
+        g.px(3, 1, "."); g.px(5, 1, "a"); g.px(3, 5, "o")
+        return
+    g.rect(3, 1, 12, 4, "o"); g.px(3, 1, "."); g.px(12, 1, ".")
+    g.rect(3, 5, 3, 10, "o"); g.rect(12, 5, 12, 10, "p")
+    g.px(5, 1, "a"); g.px(6, 1, "a")
+    g.px(7, 13, "n"); g.px(7, 15, "n")                                  # botoes grandes
+
+
+def galoshes(g, side=False):
+    """Galochas vermelhas: o cano sobe e cobre o tornozelo."""
+    for y in (21, 22):
+        for x in range(W):
+            if g.g[y][x] == "j" or g.g[y][x] == "k":
+                g.px(x, y, "l")
+
+
+def cape(g, view):
+    """Capa verde-musgo nas costas (de frente, so as bordas nos ombros)."""
+    if view == "up":
+        g.rect(3, 11, 12, 19, "2"); g.rect(10, 11, 12, 19, "1")
+        for x in range(3, 13, 2):
+            g.px(x, 19, "1")
+        return
+    if view == "left":
+        g.rect(10, 11, 12, 18, "2"); g.rect(12, 12, 12, 18, "1")
+        return
+    g.rect(3, 11, 3, 17, "2"); g.rect(12, 11, 12, 17, "1")
+    g.rect(6, 12, 9, 15, "a")                                           # tunica creme por baixo
+
+
+def lantern(g, side=False):
+    """Lanterna do Coracao presa no cinto."""
+    x = 6 if side else 9
+    g.px(x, 16, "o"); g.px(x, 17, "n"); g.px(x, 18, "o")
+
+
+def scarf(g, view, frame):
+    """Cachecol vermelho no pescoco, com a ponta voando no vento."""
+    wave = frame % 2
+    if view == "left":
+        g.rect(5, 11, 10, 11, "l")
+        g.rect(11, 11 + wave, 13, 11 + wave, "l"); g.px(13, 12 - wave, "m")
+        return
+    g.rect(5, 11, 10, 11, "l"); g.rect(5, 11, 5, 12, "m")
+    if view == "down":
+        g.rect(9, 12, 9, 14, "l"); g.px(9, 14, "m")
+    else:
+        g.rect(12, 11 + wave, 13, 11 + wave, "l"); g.px(13, 12 - wave, "m")
+
+
+def beanie(g, view):
+    """Gorro de la vermelho com barra branca e pompom."""
+    x1 = 10 if view == "left" else 11
+    g.rect(4, 1, x1, 3, "l"); g.rect(4, 4, x1, 4, "n")
+    g.px(4, 1, "."); g.px(x1, 1, ".")
+    g.px(5, 2, "t"); g.rect(7, 0, 8, 0, "n")
+    if view == "up":
+        g.rect(4, 4, 11, 4, "n")
+
+
+def tiara(g, view):
+    """Tiara dourada com uma pedra no centro."""
+    if view == "up":
+        g.rect(5, 2, 10, 2, "o")
+        return
+    x1 = 8 if view == "left" else 9
+    g.rect(5, 2, x1, 2, "o"); g.px(7 if view == "down" else 6, 1, "o")
+    g.px(7 if view == "down" else 6, 2, "t")
+
+
+def pigtails(g, c, view):
+    """Maria-chiquinha: dois rabinhos presos com elastico, um de cada lado da cabeca."""
+    h, hi, tie = c["hair"], c["hair_hi"], c.get("ties", c["hair_hi"])
+    sides = [(10, 12)] if view == "left" else [(2, 3), (12, 13)]
+    for x0, x1 in sides:
+        g.rect(x0, 5, x1, 5, tie)
+        g.rect(x0, 6, x1, 10, h)
+        g.px(x0 if x0 < 8 else x1, 11, h)
+        g.px(x0, 7, hi)
+
+
+def outfit(g, c, view, frame):
+    """Pecas de roupa por cima do corpo base (desenhadas antes do contorno)."""
+    side = view == "left"
+    if c.get("cape") and view != "up":
+        cape(g, view)
+    if c.get("lantern") and view != "up":
+        lantern(g, side)
+    if c.get("galoshes"):
+        galoshes(g, side)
+    if c.get("scarf"):
+        scarf(g, view, frame)
+    if c.get("hood"):
+        hood(g, view)
+    if c.get("beanie"):
+        beanie(g, view)
+    if c.get("tiara"):
+        tiara(g, view)
 
 
 class Grid:
@@ -219,8 +341,10 @@ def draw_down(c, frame):
         g.rect(3, 4, 12, 11, c["hair"])
     elif style == "short":
         g.rect(4, 3, 11, 9, c["hair"])
-    elif style == "braid":
+    elif style in ("braid", "pigtails"):
         g.rect(4, 3, 11, 9, c["hair"])
+    if style == "pigtails":
+        pigtails(g, c, "down")
     legs(g, c, frame)
     torso(g, c, frame, "down")
     if c.get("coat"):
@@ -253,6 +377,7 @@ def draw_down(c, frame):
         parcel(g)
     if c.get("topknot"):
         topknot_head(g, c, "down")
+    outfit(g, c, "down", frame)
     if c.get("sword"):                         # cabo da espada por cima do ombro direito
         g.px(12, 9, "o"); g.px(12, 10, "f"); g.px(12, 8, "n")
     g.outline("r")
@@ -266,6 +391,8 @@ def draw_up(c, frame):
     torso(g, c, frame, "up")
     if c.get("coat"):
         coat(g, "up", frame)
+    if c.get("cape"):
+        cape(g, "up")
     # nas costas, o cabelo cobre a cabeça e cai
     g.rect(4, 2, 11, 10, c["hair"])
     g.px(4, 2, "."); g.px(11, 2, ".")
@@ -274,6 +401,8 @@ def draw_up(c, frame):
         g.rect(5, 11, 6, 15, c["hair_hi"])
     elif style == "medium":
         g.rect(4, 11, 11, 12, c["hair"])
+    elif style == "pigtails":
+        pigtails(g, c, "up")
     elif style == "braid":
         g.rect(7, 11, 8, 20, c["hair"])
         for y in (13, 16, 19):
@@ -282,6 +411,7 @@ def draw_up(c, frame):
     g.px(6, 4, c["hair_hi"])
     if c.get("topknot"):
         topknot_head(g, c, "up")
+    outfit(g, c, "up", frame)
     if c.get("sword"):                         # bainha cruzando as costas
         for k in range(8):
             g.px(5 + k, 11 + k // 2, "f")
@@ -300,6 +430,9 @@ def draw_left(c, frame):
         g.rect(8, 3, 12, 12, c["hair"])
     elif style == "short":
         g.rect(8, 3, 11, 9, c["hair"])
+    elif style == "pigtails":
+        g.rect(8, 3, 11, 9, c["hair"])
+        pigtails(g, c, "left")
     elif style == "braid":
         g.rect(8, 3, 11, 9, c["hair"])
         g.rect(10, 10, 11, 20, c["hair"])
@@ -331,6 +464,7 @@ def draw_left(c, frame):
         g.rect(4, 5, 7, 5, c["hair"])
     if c.get("parcel"):
         parcel(g, side=True)
+    outfit(g, c, "left", frame)
     g.outline("r")
     return g.lines()
 

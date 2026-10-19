@@ -58,6 +58,6 @@ das quatro amigas.
 | Isabela (Bela) | Protagonista, guerreira | Cabelos longos pretos, pele bronzeada, espada nas costas |
 | Olívia | Cuida do barco | Cabelo médio castanho, pele clara |
 | Lara | Cuida do unicórnio | Cabelo loiro curto (até os ombros), pele clara |
-| Lana | Cuida do carro rosa | Cabelo ruivo curto, pele clara |
+| Lana | Cuida do carro rosa | Pele clara, cabelo preto em maria-chiquinha |
 | Sara | Cuida do dragão | Pele clara, trança roxa muito longa |
 | Sombra Cinzenta | Vilão | Figura encapuzada cinza, olhos roxos |

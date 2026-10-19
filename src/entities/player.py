@@ -208,7 +208,7 @@ class Player:
             color = config.PALETTE["branco" if self.transport.key == "boat" else "areia_clara"]
             canvas.fill(color, (round(x) - camera.x, round(y) - camera.y - int((1 - u) * 4), size, size))
         if self.transport.key != "on_foot":
-            surf = vehicle_frame(self.transport.key, self.facing, step)
+            surf = vehicle_frame(self.transport.key, self.facing, step, self.sprite_name)
             canvas.blit(surf, (sx - (VEHICLE_W - T) // 2, sy + T - VEHICLE_H))
         else:
             frames = character(self.sprite_name)[direction_of(self.facing)]
