@@ -1,0 +1,163 @@
+[
+ {
+  "kind": "animal",
+  "tile": [
+   9,
+   27
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   14,
+   36
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   19,
+   30
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   36,
+   23
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   41,
+   20
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   21,
+   9
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   28,
+   9
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   20,
+   23
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   19,
+   14
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   29,
+   9
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   25,
+   26
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   20,
+   8
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   19,
+   23
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   36,
+   9
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   30,
+   28
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   33,
+   30
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   32,
+   30
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   42,
+   26
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   42,
+   26
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   40,
+   6
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   47,
+   4
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   39,
+   8
+  ]
+ },
+ {
+  "kind": "firefly",
+  "tile": [
+   53,
+   6
+  ]
+ }
+]

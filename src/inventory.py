@@ -1,28 +1,35 @@
-"""Transportes que a Bela possui. Comeca so com 'a pe'; NPCs entregam os demais (componente 7)."""
+"""O que a Bela leva na jornada: transportes, as amigas que vao junto e as marcas da historia."""
 from src import config
 from src.transport import ALL, ON_FOOT
+
+FRIEND_NAMES = {"lana": "Lana", "lara": "Lara", "olivia": "Olívia"}
+ITEM_NAMES = {"tabuas": "Tábuas", "blocos": "Blocos de montar", "vela": "Pano da vela", "lenha": "Lenha"}
 
 
 class Inventory:
     def __init__(self):
         self.transports = [ON_FOOT]
-        self.insumos = set()        # insumos que nao sao transportes (ex.: "dragon")
-        self.flags = set()          # itens e marcos da historia (ex.: "oar")
-        if config.DEBUG_UNLOCK_ALL_TRANSPORTS:
+        self.friends = []           # amigas que seguem a Bela, na ordem em que entraram
+        self.flags = set()          # itens e marcos da historia (ex.: "tabuas", "espinho1")
+        if config.DEBUG_UNLOCK_ALL:
             self.transports = list(ALL.values())
+            self.friends = list(FRIEND_NAMES)
 
     def add(self, transport):
         if transport not in self.transports:
             self.transports.append(transport)
 
-    def has(self, transport):
-        return transport in self.transports
+    def keep_only(self, keys):
+        """Na troca de mapa, so ficam os transportes que fazem sentido no novo lugar."""
+        self.transports = [t for t in self.transports if t.key in keys or t is ON_FOOT]
 
-    REQUIRED = ("boat", "unicorn", "pink_car", "dragon")
+    def join(self, friend):
+        if friend not in self.friends:
+            self.friends.append(friend)
 
-    def count_insumos(self):
-        keys = {t.key for t in self.transports} | self.insumos
-        return sum(1 for k in self.REQUIRED if k in keys)
+    def have(self):
+        """Tudo o que conta como 'ter' para os pedidos da historia: itens, marcos e amigas."""
+        return self.flags | set(self.friends)
 
-    def has_all_insumos(self):
-        return self.count_insumos() == len(self.REQUIRED)
+    def items(self):
+        return [ITEM_NAMES[f] for f in ITEM_NAMES if f in self.flags]

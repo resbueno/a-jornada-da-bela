@@ -1,0 +1,96 @@
+[
+ {
+  "kind": "prop",
+  "tile": [
+   13,
+   6
+  ],
+  "size": [
+   6,
+   4
+  ],
+  "name": "Dragão Sonolento",
+  "image": "dragon_sleep",
+  "image_w": 192,
+  "snore": true,
+  "cutscene": "final",
+  "steps": [
+   {
+    "needs": [
+     "lana"
+    ],
+    "sets": "pena",
+    "lines": [
+     "Lana tira uma pena do cabelo e faz cócegas no nariz do dragão.",
+     "Dragão: \"Atchim... Rrrrr...\" Ele se mexe, mas continua dormindo."
+    ],
+    "missing": [
+     "Um dragão imenso, escamoso e fofo dorme na frente do portão. Ronc... ronc..."
+    ]
+   },
+   {
+    "needs": [
+     "lara"
+    ],
+    "sets": "rampa",
+    "lines": [
+     "Lara monta uma rampa de tábuas e blocos ao lado do rabo do dragão.",
+     "O rabo escorrega devagarinho pela rampa e sai do caminho. Ploft!"
+    ],
+    "missing": [
+     "O rabo enorme do dragão continua no caminho."
+    ]
+   },
+   {
+    "needs": [
+     "olivia"
+    ],
+    "sets": "ninar",
+    "lines": [
+     "Olívia toca uma canção de ninar bem calminha na flauta.",
+     "O dragão sorri dormindo e solta um suspiro de nuvenzinhas cor-de-rosa."
+    ],
+    "missing": [
+     "Talvez uma música ajude..."
+    ]
+   },
+   {
+    "needs": [],
+    "sets": "quentinho",
+    "lines": [
+     "Bela levanta a Lanterna do Coração e cria um cantinho quentinho ao lado do portão.",
+     "O dragão sente o calor gostoso e rola devagar para lá..."
+    ],
+    "missing": []
+   }
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   9,
+   12
+  ],
+  "name": "Lola",
+  "sprite": "lola",
+  "lines": [
+   "Au! Eu sou a Lola, capitã da guarda do castelo. Vocês chegaram bem na hora!",
+   "Este dragão chegou à tarde, deitou na frente do portão e dormiu. Ninguém consegue passar!",
+   "Com jeitinho e as quatro juntas, aposto que ele sai. Falem com ele!"
+  ],
+  "after": [
+   "O banquete já está servido lá dentro. Só falta o dragão sair do caminho!"
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   18,
+   20
+  ],
+  "name": "Placa",
+  "lines": [
+   "Castelo Real. Hoje: Grande Banquete ao pôr do sol!"
+  ]
+ }
+]

@@ -11,12 +11,12 @@ ENTRIES = ["Continuar", "Sair para o título"]
 
 # cor de cada terreno no minimapa (papel da paleta)
 MINI_COLORS = {
-    Terrain.GRASS: "chao", Terrain.TALL_GRASS: "verde_escuro", Terrain.DIRT: "areia",
-    Terrain.STONE: "rocha", Terrain.WATER: "agua", Terrain.TREE: "verde_medio",
-    Terrain.ROCK: "rocha_clara", Terrain.FISSURE: "contorno", Terrain.CAVE: "roxo",
-    Terrain.WALL: "rocha_contorno", Terrain.CRYSTAL: "ceu", Terrain.EXIT: "branco",
-    Terrain.GATE: "roxo", Terrain.TENT: "vermelho", Terrain.THORN: "roxo",
-    Terrain.CASTLE_WALL: "rocha_clara", Terrain.CASTLE: "rocha_clara",
+    Terrain.GRASS: "chao", Terrain.TALL_GRASS: "verde_medio", Terrain.DIRT: "areia", Terrain.FLOWERS: "rosa",
+    Terrain.STONE: "rocha_clara", Terrain.WATER: "agua", Terrain.RAPIDS: "agua_clara", Terrain.TREE: "verde_escuro",
+    Terrain.ROCK: "rocha", Terrain.FISSURE: "contorno", Terrain.THORN: "roxo", Terrain.CLIFF: "rocha_contorno",
+    Terrain.WIND: "branco", Terrain.RAIL: "madeira_escura", Terrain.PLANKS: "madeira", Terrain.POST: "madeira",
+    Terrain.LAMP: "amarelo", Terrain.CASTLE_WALL: "rocha_clara", Terrain.CASTLE_GATE: "madeira_escura",
+    Terrain.GATE: "amarelo",
 }
 
 
@@ -56,29 +56,28 @@ class Pause(State):
 
     def draw(self, canvas):
         p = config.PALETTE
-        top = 6
+        top = 12
+        W, H = config.LOGICAL_W, config.LOGICAL_H
         if self.mini is not None:
             mw, mh = self.mini.get_size()
-            scale = 1
-            if mw * 2 <= config.LOGICAL_W - 40 and mh * 2 <= 90:
-                scale = 2                                   # mapas pequenos ficam em 2x
-            surf = pygame.transform.scale(self.mini, (mw * scale, mh * scale)) if scale > 1 else self.mini
+            scale = max(1, min(4, (W - 80) // mw, 180 // mh))
+            surf = pygame.transform.scale(self.mini, (mw * scale, mh * scale))
             sw, sh = surf.get_size()
-            mx = (config.LOGICAL_W - sw) // 2
-            draw_panel(canvas, (mx - 3, top - 3, sw + 6, sh + 6))
+            mx = (W - sw) // 2
+            draw_panel(canvas, (mx - 8, top - 8, sw + 16, sh + 16))
             canvas.blit(surf, (mx, top))
-            if (self.ticks // 15) % 2 == 0:                  # a Isabela pisca no mapa
-                t = config.TILE
-                cx, cy = self.play.player.center
-                px, py = mx + int(cx / t * scale), top + int(cy / t * scale)
-                pygame.draw.rect(canvas, p["contorno"], (px - 2, py - 2, 5, 5))
-                pygame.draw.rect(canvas, p["rosa"], (px - 1, py - 1, 3, 3))
+            t = config.TILE
             for obj in self.play.objects:                    # personagens (ponto amarelo)
                 if obj.kind == "npc":
-                    nx = mx + int(obj.rect.centerx / config.TILE * scale)
-                    ny = top + int(obj.rect.centery / config.TILE * scale)
-                    canvas.fill(p["amarelo"], (nx - 1, ny - 1, 2, 2))
-            top += sh + 14
-        w, h = 170, 34 + len(ENTRIES) * 17 + 10
-        rect = ((config.LOGICAL_W - w) // 2, min(top, config.LOGICAL_H - h - 2), w, h)
+                    nx = mx + int(obj.rect.centerx / t * scale)
+                    ny = top + int(obj.rect.centery / t * scale)
+                    canvas.fill(p["amarelo"], (nx - 2, ny - 2, 4, 4))
+            if (self.ticks // 15) % 2 == 0:                  # a Bela pisca no mapa
+                cx, cy = self.play.player.center
+                px, py = mx + int(cx / t * scale), top + int(cy / t * scale)
+                pygame.draw.rect(canvas, p["contorno"], (px - 4, py - 4, 9, 9))
+                pygame.draw.rect(canvas, p["rosa"], (px - 3, py - 3, 7, 7))
+            top += sh + 24
+        w, h = 340, 60 + len(ENTRIES) * 32 + 10
+        rect = ((W - w) // 2, min(top, H - h - 4), w, h)
         draw_menu(canvas, rect, "PAUSA", ENTRIES, self.cursor)

@@ -1,0 +1,51 @@
+[
+ {
+  "kind": "animal",
+  "tile": [
+   6,
+   23
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   22,
+   28
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   40,
+   22
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   16,
+   15
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   31,
+   16
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   38,
+   23
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   27,
+   27
+  ]
+ }
+]

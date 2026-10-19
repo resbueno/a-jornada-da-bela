@@ -3,28 +3,28 @@
 TITLE = "A Jornada da Bela"
 
 # Resolucao logica e tiles
-LOGICAL_W = 320
-LOGICAL_H = 180
-TILE = 16
+LOGICAL_W = 640
+LOGICAL_H = 360
+TILE = 32
 
-# Janela inicial: escala inteira 4x (1280x720)
-START_SCALE = 4
+# Janela inicial: escala inteira 2x (1280x720)
+START_SCALE = 2
 
 # Tempo: passo fixo de logica
 UPDATE_HZ = 60
 DT = 1.0 / UPDATE_HZ
 MAX_FRAME_TIME = 0.25  # evita espiral de atualizacoes apos travadas
 
-# Clima do mapa inicial: "rain" ou "none"
-WEATHER = "rain"
+# Clima: "none" desliga chuva, vento e neblina (testes)
+WEATHER = "on"
 
 # Toque: True mostra os controles sempre (senao: ao primeiro toque ou em janela em pe)
 TOUCH_ALWAYS = False
 
 # Depuracao
 DEBUG_HITBOX = False
-# True libera todos os transportes de cara (so para testes). No jogo, os NPCs entregam.
-DEBUG_UNLOCK_ALL_TRANSPORTS = False
+# True libera transportes e amigas de cara (so para testes). No jogo, os NPCs entregam.
+DEBUG_UNLOCK_ALL = False
 
 
 def _hex(value):

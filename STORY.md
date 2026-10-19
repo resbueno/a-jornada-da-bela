@@ -2,62 +2,117 @@
 
 ## Resumo
 
-A Princesa **Isabela** (a "Bela") perdeu o castelo da família: um vilão chamado
-**Sombra Cinzenta** tomou o palácio e cercou os portões com uma cerca de espinhos. Isabela
-foi mandada para longe, mas não desistiu. Para voltar, ela precisa da ajuda de quatro amigas,
-cada uma cuidando de um **aliado**: um barco, um unicórnio, um carro rosa e um dragão.
-Com os quatro reunidos, ela derruba os espinhos e enfrenta o vilão.
+A Princesa **Isabela** (a "Bela") e suas melhores amigas precisam atravessar um grande
+labirinto de obstáculos naturais para voltar ao castelo a tempo do jantar. No caminho, elas
+encontram criaturas mágicas e veículos clássicos. O destaque da subida da montanha é uma
+encantadora e tradicional **Maria Fumaça**.
+
+Bela leva a **Lanterna do Coração**, que ilumina e aquece. Cada amiga entra no grupo numa fase
+e depois segue a Bela pelo caminho. Em cada fase as meninas usam uma **roupa própria** para o
+lugar. O sol vai baixando a cada fase até a hora do jantar, e não há derrota.
 
 ## Abertura
 
-O reino vivia em paz, com o castelo brilhando ao sol. Numa noite, a Sombra Cinzenta tomou o
-palácio e fechou os portões com uma cerca de espinhos. Isabela voltou para casa, encontrou o
-castelo trancado e foi mandada embora pelo vilão. Mas ela não desistiu: para voltar, precisava
-de quatro aliados (barco, unicórnio, carro rosa e dragão), cada um sob os cuidados de uma amiga.
+Era uma tarde bonita no reino. Bela passou o dia brincando do outro lado do reino, e lá no
+alto da montanha o castelo prepara o Grande Banquete Real, que começa ao pôr do sol. No
+caminho de volta há um bosque escuro, um rio sem ponte e uma montanha cheia de vento.
 
-## Capítulos
+## Mundos e fases
 
-| # | Onde | Aliado | Quem ajuda | O que se faz |
+| # | Onde | Quem entra | Veículo / criatura | Roupa da fase |
 |---|---|---|---|---|
-| 1 | Floresta Sussurrante | **Barco** | Princesa **Olívia** | Andar a pé até o vilarejo e atravessar o lago de barco |
-| 2 | Lago de Cristal | **Unicórnio** | Princesa **Lara** (numa ilha) | Fugir dos bichos escuros da água e pular a fenda |
-| 3 | Cavernas de Quartzo | **Carro Rosa** | Princesa **Lana** | Atravessar a caverna escura pulando buracos |
-| 4 | Estrada do Pôr do Sol | **Dragão** | Princesa **Sara** | Dirigir contra o tempo, desviando de pedras e soldados |
+| 1 | Bosque dos Sussurros | **Lana** | Unicórnio | Exploradora do bosque |
+| 2 | Vale dos Córregos | **Lara** | Barco de madeira e blocos | Capa de chuva e galochas |
+| 3 | Montanha dos Ventos | **Olívia** | Maria Fumaça | Agasalho de montanha e maquinista |
+| Final | Portão do Castelo | todas | Dragão Sonolento | Vestidos do banquete real |
+
+### Mundo 1: O Bosque dos Sussurros e o Unicórnio Perdido
+
+**O desafio:** Bela sai da Vila do Bosque e encontra Lana na trilha, mas o caminho está
+bloqueado por espinheiros mágicos, e um pequeno unicórnio está perdido e assustado no escuro.
+
+**A solução:** a luz da Lanterna do Coração abre o caminho no escuro. Lana usa sua **corda**
+para puxar os galhos espinhosos (duas vezes). Bela acalma o unicórnio com a lanterna, e ele
+deixa as duas subirem nas costas dele para saltar o grande desfiladeiro.
+
+| Quem | Roupa |
+|---|---|
+| Bela | Capa curta verde-musgo, túnica creme, calça e botas de couro, lanterna no cinto |
+| Lana | Colete de aventureira com bolsos, camiseta laranja, bermuda, botas de trilha e a corda a tiracolo |
+
+### Mundo 2: O Vale dos Córregos e a Regata de Barcos
+
+**O desafio:** um rio muito largo e de correnteza forte bloqueia a passagem. A enchente levou
+a ponte velha (só sobraram os pilares). Lara está no cais.
+
+**A solução:** Bela e Lana acham no prado as **tábuas velhas**, a **caixa de blocos de
+montar** e um **pano para a vela**. Lara constrói o barco. Na descida, Lana amarra as velas,
+a lanterna da Bela mostra as pedras na neblina e Lara conserta o casco quando batem numa
+pedra. A correnteza leva o barco rio abaixo até o cais.
+
+| Quem | Roupa |
+|---|---|
+| Bela | Capa de chuva amarela com capuz e galochas vermelhas |
+| Lana | Capa de chuva azul-marinho, galochas amarelas e colete salva-vidas |
+| Lara | Jardineira jeans, colete salva-vidas, galochas verdes e chapéu de pescador amarelo |
+
+### Mundo 3: A Montanha dos Ventos e a Velha Maria Fumaça
+
+**O desafio:** na base da montanha do castelo, o vento empurra quem tenta subir a pé. Na
+estação, uma clássica e charmosa Maria Fumaça está parada, e Olívia tenta descobrir como ligá-la.
+
+**A solução:** todas ajudam:
+
+- **Lara** aperta os parafusos e conserta os canos de vapor.
+- **Lana** escala o rochedo e joga lenha dos galhos altos.
+- **Bela** acende a fornalha com o calor da Lanterna, com cuidado.
+- **Olívia** toca a flauta junto com o grande apito ("Piiii-uíí!"), e a Maria Fumaça solta
+  nuvens de fumaça coloridas enquanto puxa as meninas montanha acima.
+
+| Quem | Roupa |
+|---|---|
+| Bela | Casaco roxo, cachecol vermelho que voa no vento e gorro com pompom |
+| Lana | Jaqueta corta-vento verde, calça de escalada e mochila |
+| Lara | Macacão listrado de maquinista, óculos de proteção na testa e cinto de ferramentas |
+| Olívia | Boné de maquinista listrado, lenço vermelho, jaqueta de lã e a flauta |
+
+### O grande final: o Portão do Castelo e o Dragão Sonolento
+
+**O desafio:** um imenso dragão escamoso e fofo tira uma soneca pesada bem na frente do portão.
+
+**A solução:** Lana faz cócegas no nariz dele com uma pena. Lara monta uma rampa para
+escorregar o rabo para o lado. Olívia toca uma canção de ninar, e Bela cria um cantinho
+quentinho com a lanterna. O dragão rola devagar para lá, acorda feliz e é convidado para o
+jantar. O portão se abre e todas chegam ao banquete a tempo. Fim.
+
+| Quem | Roupa |
+|---|---|
+| Bela | Vestido rosa com faixa dourada, tiara e a lanterna como pingente de coração |
+| Lana | Vestido laranja e uma pena presa numa das maria-chiquinhas |
+| Lara | Vestido amarelo |
+| Olívia | Vestido azul-claro com capinha |
 
 ## Pessoas pelo caminho
 
 | Onde | Quem | O que conta |
 |---|---|---|
-| Vilarejo | **Teo**, spitz alemão | O castelo foi tomado numa noite só; desde então o céu vive nublado |
-| Vilarejo | **Jhonny**, shih tzu marrom e branco | Só com os quatro aliados os espinhos caem; comece pela Olívia. Sua irmã Lola está na resistência |
-| Vilarejo | **Olívia** | Perdeu o remo do barco na tempestade; ele caiu perto do caminho do norte |
-| Ilha | **Rui**, barqueiro | Os bichos escuros vieram junto com a Sombra; desvie pelas bordas |
-| Caverna | **Bruce**, shih tzu cinza | Só o unicórnio pula os buracos; os cristais iluminam o caminho |
-| Acampamento | **Lola**, shih tzu marrom e branca, capitã e irmã do Jhonny | A resistência segura a estrada; o resto é com a Isabela |
-
-## Missão do capítulo 1
-
-A Olívia tem o barco, mas perdeu o remo. Isabela procura o remo entre as árvores ao norte e
-o leva de volta; só então ganha o barco.
-
-## Final
-
-Nos portões do castelo, as cinco princesas colocam os quatro aliados no altar. Uma luz forte
-acorda o dragão, que queima a cerca de espinhos com um sopro colorido. Isabela entra sozinha
-no castelo e vence a Sombra Cinzenta num duelo de espadas. O castelo volta a ser como era e
-o reino fica em paz.
-
-**Epílogo:** Olívia volta a navegar pelo lago sem medo; Lara passeia com o unicórnio; Lana abre as
-cavernas para visitas; Sara cuida do dragão no pátio do castelo; e Isabela governa o reino ao lado
-das quatro amigas.
+| Vila do Bosque | **Teo**, spitz alemão | O banquete começa ao pôr do sol; o caminho passa pelo bosque, pelo vale e pela montanha |
+| Vila do Bosque | **Jhonny**, shih tzu marrom e branco | A irmã dele, Lola, é capitã da guarda; um dragão dormiu na frente do portão |
+| Vila do Bosque | **Tia Dani** e **Tio Vitor** | Treinam com pesos até no escuro |
+| Vila do Bosque | **Tia Evelyn** | Chegou uma encomenda da Shopee para a Bela; ela leva ao banquete |
+| Vila do Bosque | **Tio William**, médico | Examina a Bela: pronta para a aventura |
+| Vale | **Rui**, barqueiro | A enchente levou a ponte; só de barco, pelas corredeiras |
+| Estação | **Bruce**, shih tzu cinza | Chefe da estação; a Maria Fumaça precisa da ajuda de todos |
+| Castelo | **Lola**, shih tzu com laço rosa | Capitã da guarda; o dragão não deixa ninguém passar |
 
 ## Personagens
 
-| Personagem | Papel | Visual |
-|---|---|---|
-| Isabela (Bela) | Protagonista, guerreira | Cabelos longos pretos, pele bronzeada, espada nas costas |
-| Olívia | Cuida do barco | Cabelo médio castanho, pele clara |
-| Lara | Cuida do unicórnio | Cabelo loiro curto (até os ombros), pele clara |
-| Lana | Cuida do carro rosa | Pele clara, cabelo preto em maria-chiquinha |
-| Sara | Cuida do dragão | Pele clara, trança roxa muito longa |
-| Sombra Cinzenta | Vilão | Figura encapuzada cinza, olhos roxos |
+| Personagem | Papel | Visual base (não muda entre fases) | Objeto |
+|---|---|---|---|
+| Isabela (Bela) | Protagonista | Cabelos longos pretos, pele bronzeada | Lanterna do Coração |
+| Lana | Entra no Mundo 1 | Pele clara, cabelo preto em maria-chiquinha | Corda e, no final, a pena |
+| Lara | Entra no Mundo 2 | Cabelo loiro curto (até os ombros), pele clara | Ferramentas e blocos de montar |
+| Olívia | Entra no Mundo 3 | Cabelo médio castanho, pele clara | Flauta |
+| Unicórnio | Criatura do Mundo 1 | Pequeno, assustado no começo | Salta o desfiladeiro |
+| Maria Fumaça | Veículo do Mundo 3 | Locomotiva preta e vermelha com detalhes dourados, fumaça colorida | Apito "Piiii-uíí!" |
+| Dragão Sonolento | Final | Imenso, lilás, escamoso e fofo, com juba de nuvenzinhas | Dorme na frente do portão |

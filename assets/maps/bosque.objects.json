@@ -1,0 +1,228 @@
+[
+ {
+  "kind": "npc",
+  "tile": [
+   28,
+   16
+  ],
+  "name": "Lana",
+  "sprite": "lana_bosque",
+  "joins": "lana",
+  "lines": [
+   "Bela! Que bom que você veio. Eu também quero voltar ao castelo a tempo do jantar.",
+   "Mas olha só: espinheiros mágicos fecharam a trilha. Eu trouxe minha corda!",
+   "Vamos juntas? Fique de frente para os espinhos e aperte A: eu puxo os galhos."
+  ]
+ },
+ {
+  "kind": "task",
+  "tile": [
+   32,
+   17
+  ],
+  "name": "Espinheiro",
+  "clear": [
+   32,
+   14,
+   33,
+   21
+  ],
+  "steps": [
+   {
+    "needs": [
+     "lana"
+    ],
+    "sets": "espinho1",
+    "lines": [
+     "Lana joga a corda nos galhos espinhosos e puxa com força...",
+     "Lana: \"Upa! Pronto, o caminho está livre!\""
+    ],
+    "missing": [
+     "Espinhos mágicos fecham a trilha. Sozinha, a Bela não consegue tirar."
+    ]
+   }
+  ]
+ },
+ {
+  "kind": "task",
+  "tile": [
+   43,
+   11
+  ],
+  "name": "Espinheiro",
+  "clear": [
+   36,
+   10,
+   49,
+   11
+  ],
+  "steps": [
+   {
+    "needs": [
+     "lana"
+    ],
+    "sets": "espinho2",
+    "lines": [
+     "Lana laça mais um espinheiro e puxa: os galhos vão para o lado.",
+     "Lana: \"Escutou? Alguém está chorando baixinho lá na frente...\""
+    ],
+    "missing": [
+     "Mais espinhos. A Lana e a corda dela fariam falta aqui."
+    ]
+   }
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   45,
+   5
+  ],
+  "name": "Unicórnio",
+  "image": "vehicle_unicorn_side",
+  "image_w": 64,
+  "scared": true,
+  "gives": "unicorn",
+  "requires": [
+   "lana"
+  ],
+  "missing": [
+   "Um unicórnio pequeno treme no escuro. Ele se assusta com a Bela sozinha."
+  ],
+  "lines": [
+   "Um unicórnio pequenininho está perdido e com medo do escuro.",
+   "Bela acende a Lanterna do Coração. A luz quentinha deixa tudo mais calmo.",
+   "Unicórnio: \"Hiiin...\" Ele chega pertinho e encosta o focinho na mão da Bela.",
+   "Lana: \"Ele quer ajudar! Vamos subir nas costas dele.\"",
+   "Fique de frente para o desfiladeiro e aperte A para o unicórnio pular!"
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   9,
+   30
+  ],
+  "name": "Placa",
+  "lines": [
+   "Vila do Bosque. A trilha do norte leva ao Bosque dos Sussurros."
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   13,
+   19
+  ],
+  "name": "Placa",
+  "lines": [
+   "Bosque dos Sussurros. Leve uma luz: aqui é sempre escuro."
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   46,
+   7
+  ],
+  "name": "Placa",
+  "lines": [
+   "O Grande Desfiladeiro. Só quem sabe pular atravessa."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   8,
+   29
+  ],
+  "name": "Teo",
+  "sprite": "teo",
+  "lines": [
+   "Au au! Eu sou o Teo, o spitz mais rápido da vila. Você está atrasada, Bela?",
+   "O banquete do castelo começa ao pôr do sol! O caminho mais curto passa pelo bosque escuro, depois pelo vale e pela montanha."
+  ],
+  "after": [
+   "A Lana foi para a trilha do norte. Corre! Au!"
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   15,
+   30
+  ],
+  "name": "Jhonny",
+  "sprite": "jhonny",
+  "lines": [
+   "Au! Eu sou o Jhonny. Minha irmã Lola é capitã da guarda lá no castelo.",
+   "Ela disse que um dragão enorme dormiu bem na frente do portão. Dragão dorminhoco, imagina!"
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   16,
+   33
+  ],
+  "name": "Tia Dani",
+  "sprite": "tia_dani",
+  "anim": true,
+  "lines": [
+   "Uma... duas... três... Oi, Bela! Eu sou a Tia Dani. Treino todo dia, até no escuro!",
+   "Quem fortalece o corpo fortalece a coragem. Boa viagem até o castelo!"
+  ],
+  "after": [
+   "Já bebeu água hoje? Hidratação é tudo!"
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   18,
+   33
+  ],
+  "name": "Tio Vitor",
+  "sprite": "tio_vitor",
+  "anim": true,
+  "lines": [
+   "Hnnng... quarenta e oito... quarenta e nove... Ah, oi, Bela! Sou o Tio Vitor.",
+   "Se tiver pedra no caminho, me chama que eu levanto!"
+  ],
+  "after": [
+   "Cinquenta! Recorde do dia!"
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   6,
+   31
+  ],
+  "name": "Tia Evelyn",
+  "sprite": "evelyn",
+  "lines": [
+   "Konnichiwa, Bela! Eu sou a Tia Evelyn. Chegou uma encomenda da Shopee para você!",
+   "É um presente para o banquete. Eu levo para o castelo, assim você não carrega peso na viagem."
+  ],
+  "after": [
+   "Te vejo no jantar! Mata ne!"
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   7,
+   33
+  ],
+  "name": "Tio William",
+  "sprite": "william",
+  "lines": [
+   "Eu sou o Tio William, o médico da vila. Deixa eu ver... pulso firme, olhar decidido.",
+   "Você está prontinha para a aventura. Só não esqueça de comer bem no banquete!"
+  ],
+  "after": [
+   "Receita do doutor: coragem e um lanche de vez em quando."
+  ]
+ }
+]

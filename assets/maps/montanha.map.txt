@@ -1,0 +1,36 @@
+; Montanha dos Ventos 48x34
+; g chao  h grama alta  f flores  d trilha  s pedra  ~ agua  v corredeira  # pinheiro (2x2)  r pedra  x desfiladeiro  Y espinheiro  W paredao  w vento  = trilho  k tabuas  p pilar  L lampiao  K muralha  C portao  G passagem
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWW##ggWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWW##ggWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWWwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+WWWWWWWwwwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW=WWW
+gggggggwwwwggggggggrggggggggggggggggggggrggg=ggg
+ggggrggddddggggggggggggggggggggggggrgggggggg=ggg
+gggggggddddggggggggggggggggggggggggggggggggg=ggg
+gggggggddddggggggggggggggggggggggggggggggggg=ggg
+ggggg========================================ggg
+ggggggggggggkkkkkkkkkkkkkkkkkkkkkkkkkkkggggggggg
+gggggggggggdkkkkkkkkkkkkkkkkkkkkkkkkkkkggggggggg
+gggggggggggdkkkkkkkkkkkkkkkkkkkkkkkkkkkggggggggg
+gggrgggggggddggggggggggggggggggggggggggggggggggg
+gggggggggggddgfffffggggggggggggggggggggggggggggg
+gggggggggggddgfffffgggggggggggfffffgggggggggrggg
+gggggggggggddgfffffgggggggggggfffffggggggggggggg
+ggdddddddddddgggggggggggggggggfffffghhhhhhhggggg
+ggdddddddddddggggggggggggggggggggggghhhhhhhggggg
+gggggggggggggggggggggggggggggggggggghhhhhhhggggg
+ggggggggggggggggggggrggggggggggggggghhhhhhhggggg
+gggggggggggggggrgggggggggggggggggggggggggggggggg
+gggggggggggggggggggggggggggggggggggggggggggggggg
+gggggggggggggggggggggggggggggggggggggggggggggggg
+gggggggggggggggggggggggggggggggggggggggggggggggg

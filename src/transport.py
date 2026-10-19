@@ -1,10 +1,10 @@
 """Transportes: terrenos permitidos e velocidade de cada um (ver DESIGN.md)."""
 from dataclasses import dataclass
 
-from src.world.terrain import Terrain
+from src.world.terrain import WATERS, Terrain
 
-LAND = frozenset({Terrain.GRASS, Terrain.TALL_GRASS, Terrain.DIRT, Terrain.STONE, Terrain.CASTLE, Terrain.CAVE,
-                  Terrain.EXIT, Terrain.GATE})
+LAND = frozenset({Terrain.GRASS, Terrain.TALL_GRASS, Terrain.DIRT, Terrain.STONE, Terrain.WIND, Terrain.RAIL,
+                  Terrain.PLANKS, Terrain.GATE, Terrain.FLOWERS})
 
 
 @dataclass(frozen=True)
@@ -18,10 +18,9 @@ class Transport:
         return terrain in self.terrains
 
 
-# velocidades: normal 60, media 75, rapida 90, carro 120 px/s
-ON_FOOT = Transport("on_foot", "A pé", LAND, 60.0)
-UNICORN = Transport("unicorn", "Unicórnio", LAND, 90.0)
-BOAT = Transport("boat", "Barco", frozenset({Terrain.WATER}), 75.0)
-PINK_CAR = Transport("pink_car", "Carro rosa", frozenset({Terrain.DIRT}), 120.0)
+# velocidades (tela de 640x360): a pe 120, barco 150, unicornio 180 px/s
+ON_FOOT = Transport("on_foot", "A pé", LAND, 120.0)
+UNICORN = Transport("unicorn", "Unicórnio", LAND, 180.0)
+BOAT = Transport("boat", "Barco", WATERS, 150.0)
 
-ALL = {t.key: t for t in (ON_FOOT, UNICORN, BOAT, PINK_CAR)}
+ALL = {t.key: t for t in (ON_FOOT, UNICORN, BOAT)}

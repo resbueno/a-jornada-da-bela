@@ -1,4 +1,4 @@
-"""Decorativos: aves, animais, peixes e arco-iris. Reagem a Bela so visualmente.
+"""Decorativos: aves, animais, peixes, vaga-lumes e arco-iris. Reagem a Bela so visualmente.
 
 Nao tem colisao e nao afetam a progressao. Contam ticks (passo fixo), sem aleatoriedade.
 """
@@ -42,7 +42,7 @@ class Decor:
 
 
 class Bird(Decor):
-    NEAR, FAR, SPEED, FLEE_TICKS = 36, 120, 110.0, 90
+    NEAR, FAR, SPEED, FLEE_TICKS = 72, 240, 220.0, 90
     VARIANTS = ("bird_yellow", "bird_blue", "bird_red")
 
     def __init__(self, tile, phase=0):
@@ -79,19 +79,19 @@ class Bird(Decor):
         if self.state == "gone":
             return
         sx, sy = self._screen(camera)
-        sheet = frames(self.variant, 16, 16)
+        sheet = frames(self.variant, 32, 32)
         if self.state == "flee":
             img = sheet[2 + (self.ticks // 4) % 2]
         else:                                   # pousado: de vez em quando inclina a cabeca
             img = sheet[1 if (self.ticks // 35) % 5 == 4 else 0]
         if self.face_right:
             img = flipped(img)
-        canvas.blit(img, (sx - 8, sy - 11))
+        canvas.blit(img, (sx - 16, sy - 22))
 
 
 class Animal(Decor):
     """Coelho: senta, mexe a orelha, e foge em pulos quando a Bela chega perto."""
-    NEAR, FAR, RUN, BACK, DIST = 44, 80, 90.0, 40.0, 40.0
+    NEAR, FAR, RUN, BACK, DIST = 88, 160, 180.0, 80.0, 80.0
     VARIANTS = ("rabbit_white", "rabbit_brown", "rabbit_gray")
 
     def __init__(self, tile, phase=0):
@@ -133,25 +133,25 @@ class Animal(Decor):
 
     def draw(self, canvas, camera):
         sx, sy = self._screen(camera)
-        sheet = frames(self.variant, 16, 16)
+        sheet = frames(self.variant, 32, 32)
         bounce = 0
         if self.state == "run":                       # pulos: agachado / no ar
             air = (self.ticks // 6) % 2
             img = sheet[3 if air else 2]
-            bounce = -4 if air else 0
+            bounce = -8 if air else 0
         elif self.state == "back":                    # volta aos pulinhos
             air = (self.ticks // 14) % 2
             img = sheet[3 if air else 2]
-            bounce = -2 if air else 0
+            bounce = -4 if air else 0
         else:                                         # sentado, mexendo a orelha de vez em quando
             img = sheet[1 if (self.ticks // 30) % 6 == 5 else 0]
         if self.face_right:
             img = flipped(img)
-        canvas.blit(img, (sx - 8, sy - 13 + bounce))
+        canvas.blit(img, (sx - 16, sy - 26 + bounce))
 
 
 class Fish(Decor):
-    NEAR, IDLE_PERIOD, NEAR_PERIOD, JUMP = 56, 180, 60, 24
+    NEAR, IDLE_PERIOD, NEAR_PERIOD, JUMP = 112, 180, 60, 26
     VARIANTS = ("fish_orange", "fish_blue")
 
     def __init__(self, tile, phase=0):
@@ -180,25 +180,25 @@ class Fish(Decor):
         sx, sy = self._screen(camera)
         if self.jump_t < 0:
             if (self.ticks // 30) % 2:
-                pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 3, sy, 6, 1))     # ondinha
-                canvas.set_at((sx - 1, sy - 1), P["branco"])
+                pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 6, sy, 12, 2))    # ondinha
+                canvas.fill(P["branco"], (sx - 2, sy - 2, 2, 2))
             return
         u = self.jump_t / self.JUMP
-        h = round(9 * math.sin(math.pi * u))
-        sheet = frames(self.variant, 16, 16)
+        h = round(18 * math.sin(math.pi * u))
+        sheet = frames(self.variant, 32, 32)
         img = sheet[1] if u < 0.34 else (sheet[2] if u < 0.66 else sheet[3])
         if self.face_right:
             img = flipped(img)
-        canvas.blit(img, (sx - 8, sy - 8 - h))
+        canvas.blit(img, (sx - 16, sy - 16 - h))
         if u < 0.2 or u > 0.8:                                                    # respingo
-            pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 5, sy, 10, 1))
-            canvas.set_at((sx - 6, sy - 1), P["branco"]); canvas.set_at((sx + 5, sy - 1), P["branco"])
+            pygame.draw.rect(canvas, P["ceu_reflexo"], (sx - 10, sy, 20, 2))
+            canvas.fill(P["branco"], (sx - 12, sy - 2, 2, 2)); canvas.fill(P["branco"], (sx + 10, sy - 2, 2, 2))
 
 
 class Rainbow(Decor):
-    NEAR = 64
+    NEAR = 128
     BANDS = ("rosa", "amarelo_brilho", "ceu_reflexo", "lilas_magia")
-    OUTER, BAND_W = 24, 3
+    OUTER, BAND_W = 48, 6
     _cache = {}
 
     def __init__(self, tile, phase=0):
@@ -237,4 +237,31 @@ class Rainbow(Decor):
         canvas.blit(self._surface(shift), (sx - self.OUTER, sy - self.OUTER))
 
 
-KINDS = {"bird": Bird, "animal": Animal, "fish": Fish, "rainbow": Rainbow}
+class Firefly(Decor):
+    """Vaga-lume do bosque: um pontinho de luz que passeia e pisca. Tambem e uma luz no escuro."""
+
+    def __init__(self, tile, phase=0):
+        super().__init__(tile, phase)
+        self.layer = "air"
+        self.light = 26
+
+    def update(self, pc):
+        super().update(pc)
+        t = self.ticks / 60.0
+        self.x = self.home[0] + math.sin(t * 0.9 + self.home[1]) * 26
+        self.y = self.home[1] + math.sin(t * 1.3 + self.home[0]) * 14 - 10
+
+    @property
+    def glow(self):
+        return 0.5 + 0.5 * math.sin(self.ticks / 14.0)
+
+    def draw(self, canvas, camera):
+        sx, sy = self._screen(camera)
+        if self.glow > 0.25:
+            canvas.fill(P["verde_brilho"], (sx - 2, sy - 2, 4, 4))
+            canvas.fill(P["amarelo"], (sx - 1, sy - 1, 2, 2))
+        else:
+            canvas.fill(P["verde_claro"], (sx - 1, sy - 1, 2, 2))
+
+
+KINDS = {"bird": Bird, "animal": Animal, "fish": Fish, "rainbow": Rainbow, "firefly": Firefly}

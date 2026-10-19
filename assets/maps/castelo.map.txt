@@ -1,0 +1,26 @@
+; Portao do Castelo 32x24
+; g chao  h grama alta  f flores  d trilha  s pedra  ~ agua  v corredeira  # pinheiro (2x2)  r pedra  x desfiladeiro  Y espinheiro  W paredao  w vento  = trilho  k tabuas  p pilar  L lampiao  K muralha  C portao  G passagem
+################################
+################################
+KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+KKKKKKKKKKKKKKCCCCKKKKKKKKKKKKKK
+KKKKKKKKKKKKKKCCCCKKKKKKKKKKKKKK
+KKKKKKKKKKKKKKCCCCKKKKKKKKKKKKKK
+ggggggggggggssssssssgggggggggggg
+ggggggggggLgssssssssgLgggggggggg
+ggggfffffgggssssssssgggfffffgggg
+ggggfffffgggssssssssgggfffffgggg
+ggggfffffgggssssssssgggfffffgggg
+ggggggggggggssssssssgggggggggggg
+ggggggggggggssssssssgggggggggggg
+ggggggggggggssssssssgggggggggggg
+ggggggggggggssssssssgggggggggggg
+ggggffffggggssssssssggggffffgggg
+ggggffffggLgssssssssgLggffffgggg
+ggggffffggggssssssssggggffffgggg
+ggggggggggggssddddssgggggggggggg
+ggggggggggggggddddgggggggggggggg
+ggggggggggggggddddgggggggggggggg
+ggggggggggggggddddgggggggggggggg
+ggggggggggggggkkkkgggggggggggggg
+ggggggggggggggkkkkgggggggggggggg

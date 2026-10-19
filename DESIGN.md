@@ -273,3 +273,32 @@ diálogo, menus, legendas e telas de título/fim foram ajustados.
 - **Lana:** pele clara e cabelo preto em maria-chiquinha (estilo `pigtails`).
 - `tools/build_sprites.py` converte `art/src/*.sprite.txt` em PNG (e prévia 8x) com a paleta
   desta página.
+
+## Revisão 13: nova jornada e resolução 2x
+
+Decidido em 2026-10-19. O jogo passa a seguir o novo enredo (`STORY.md`): voltar ao castelo a
+tempo do jantar com as amigas. Saem a Sombra Cinzenta, a Sara, o carro rosa, as cavernas e a
+estrada; a família e os cachorros continuam, em papéis novos.
+
+- **Resolução:** canvas lógico **640x360** (era 320x180), tiles de **32x32**, personagens de
+  **32x48**, escala inteira 2x na janela de 1280x720. Texto em múltiplos de 16 px (32 é o texto
+  comum).
+- **Arte em 2x:** os geradores desenham na grade base e `tools/pixel.py` amplia com EPX
+  (diagonais suaves), afina o contorno para 1 px e aplica sombra e brilho. As personagens
+  ganham olhos com brilho e cílios, bochechas e sorriso. Terreno (`tileart.py`) redesenhado
+  direto em 32 px, com um estilo de chão por mundo e cache por assinatura de tile.
+- **Mapas** (`tools/gen_world.py`): `bosque` (58x40), `vale` (46x64), `montanha` (48x34) e
+  `castelo` (32x24). Novos terrenos: corredeira, espinheiro, paredão, vento, trilho, tábuas,
+  pilar, lampião, muralha, portão e flores.
+- **Amigas:** quem entra no grupo segue a Bela em fila (`entities/follower.py`) e monta junto no
+  unicórnio e no barco.
+- **Objetos:** `npc` pode `joins`, `gives`, `requires` (itens e amigas) e `cutscene`; `task` e
+  `prop` (objetos grandes com imagem, como a Maria Fumaça e o dragão) se resolvem em etapas
+  (`steps`), cada uma pedindo amigas ou itens. Espinheiros liberam tiles (`clear`).
+- **Mecânicas:** escuridão no bosque com a luz da lanterna, dos lampiões e dos vaga-lumes;
+  barco embarca e desembarca sozinho; corredeira empurra o barco rio abaixo e bater numa pedra
+  só mostra um aviso; neblina quando está de barco; vento empurra quem sobe a trilha a pé.
+- **Interface:** missão atual no canto, relógio do sol até o jantar, mochila com transportes,
+  amigas e itens.
+- **Cenas:** abertura e viagem de trem sobre a paisagem pintada (`src/scenery.py`); final com o
+  dragão rolando, o portão se abrindo e o banquete com todos os personagens.

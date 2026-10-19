@@ -198,61 +198,6 @@ def fish(c, pose):
 
 
 # ================================================================= ENGUIA (32x16)
-def eel(phase):
-    g = Grid(32, 16)
-    body = []
-    for i in range(0, 25):
-        t = i / 24.0
-        x = 3 + 24 * t
-        y = 8 + 3.2 * math.sin(t * math.pi * 2.2 + phase)
-        r = 1.2 + 1.7 * math.sin(min(t * 1.6, 1.0) * math.pi / 2)
-        body.append((x, y, r))
-    for x, y, r in body:
-        g.ellipse(x, y, r, r, "s", shade="q", light="t")
-    for x, y, r in body[::3]:                               # barbatana dorsal
-        g.px(x, y - r - 1, "u")
-    for x, y, r in body[2::4]:                              # barriga clara
-        g.px(x, y + r - 0.5, "i")
-    hx, hy, hr = body[-1]
-    g.ellipse(hx + 2, hy, 3.2, 2.4, "s", shade="q", light="t")
-    g.px(hx + 3, hy - 1, "l"); g.px(hx + 3, hy - 0.4, "l")  # olho vermelho
-    g.px(hx + 5, hy + 1, "n"); g.px(hx + 4, hy + 1.8, "n")  # dentes
-    g.outline("r")
-    return g.lines()
-
-
-# ================================================================= LACAIO (16x24)
-def minion(direction, frame):
-    g = Grid(16, 24)
-    step = 1 if frame == 1 else 0
-    # lanca (ao lado)
-    for y in range(2, 22):
-        g.px(13, y, "e")
-    g.rect(12, 0, 14, 2, "d"); g.px(13, 0, "n")
-    # corpo (armadura escura)
-    g.rect(4, 10, 11, 18, "q")
-    g.rect(4, 14, 11, 14, "o")                              # cinto
-    g.rect(10, 11, 11, 18, "g")
-    g.rect(3, 11, 4, 16, "g"); g.rect(11, 11, 12, 16, "g")  # bracos
-    g.px(3, 17, "d"); g.px(12, 17, "d")                     # maos
-    # pernas
-    g.rect(5, 19, 7, 21 - step, "b"); g.rect(8, 19, 10, 21 - (1 - step), "b")
-    g.rect(5, 22 - step, 7, 22 - step, "r"); g.rect(8, 22 - (1 - step), 10, 22 - (1 - step), "r")
-    # elmo com crista vermelha
-    g.rect(4, 3, 11, 9, "c")
-    g.rect(5, 2, 10, 2, "c")
-    g.rect(7, 0, 8, 2, "l")
-    g.rect(4, 8, 11, 9, "b")
-    if direction == "down":
-        g.rect(5, 6, 10, 8, "r")                            # viseira escura
-        g.px(6, 7, "l"); g.px(9, 7, "l")                    # olhos vermelhos
-        g.px(6, 4, "d"); g.px(7, 4, "d")                    # brilho
-    else:
-        g.px(6, 4, "d"); g.px(7, 4, "d")
-    g.outline("r")
-    return g.lines()
-
-
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for name, c in RABBITS.items():
@@ -264,9 +209,6 @@ def main():
     for name, c in FISH.items():
         save(f"fish_{name}", [fish(c, p) for p in ("swim", "up", "peak", "down")],
              f"peixe {name} 16x16: nadando, subindo, no alto, descendo")
-    save("eel", [eel(ph) for ph in (0.0, 1.6, 3.1, 4.7)], "enguia sombria 32x16: 4 quadros de ondulacao")
-    save("minion_down", [minion("down", f) for f in (0, 1, 0)], "lacaio da Sombra de frente 16x24")
-    save("minion_up", [minion("up", f) for f in (0, 1, 0)], "lacaio da Sombra de costas 16x24")
     print("bichos gerados")
 
 

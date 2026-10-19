@@ -17,6 +17,7 @@ class Tilemap:
         self.pixel_w = self.cols * config.TILE
         self.pixel_h = self.rows * config.TILE
         self.solid_tiles = set()        # tiles ocupados por objetos (NPCs, placas)
+        self.style = "vale"             # estilo da arte do chao (bosque, vale, montanha, castelo)
         self._art = None                # gerador de arte (criado na primeira vez que desenha)
         self._chunks = {}               # (cx, cy, quadro) -> Surface de CHUNK x CHUNK tiles
 
@@ -57,12 +58,25 @@ class Tilemap:
     def invalidate(self):
         """Descarta a arte em cache (ex.: depois de mudar tiles durante uma cena)."""
         self._chunks.clear()
+        if self._art is not None:
+            from src.world.tileart import MapArt
+            cache = self._art.cache
+            self._art = MapArt(self, self.style)
+            self._art.cache = {k: v for k, v in cache.items() if k[0] in ("ground", "tall", "flowers")}
+
+    def set_tiles(self, x0, y0, x1, y1, old, new):
+        """Troca o terreno `old` por `new` no retangulo e redesenha."""
+        for y in range(max(y0, 0), min(y1, self.rows - 1) + 1):
+            for x in range(max(x0, 0), min(x1, self.cols - 1) + 1):
+                if self.grid[y][x] is old:
+                    self.grid[y][x] = new
+        self.invalidate()
 
     def draw(self, canvas, camera, frame=0):
         """Desenha so os pedacos visiveis; cada um e criado na 1a vez e reaproveitado (2 quadros de agua)."""
         if self._art is None:
             from src.world.tileart import MapArt  # import local: pede o display ja iniciado
-            self._art = MapArt(self)
+            self._art = MapArt(self, self.style)
         t = config.TILE
         size = self.CHUNK * t
         f = frame % 2

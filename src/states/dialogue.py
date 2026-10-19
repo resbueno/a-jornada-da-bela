@@ -7,9 +7,9 @@ from src.states.base import State
 from src.text import draw_text, wrap
 from src.ui import draw_panel
 
-BOX = (4, config.LOGICAL_H - 76, config.LOGICAL_W - 8, 72)
-TEXT_SIZE = 16
-LINE_H = 16
+BOX = (8, config.LOGICAL_H - 150, config.LOGICAL_W - 16, 142)
+TEXT_SIZE = 32
+LINE_H = 32
 MAX_LINES = 3
 CHARS_PER_TICK = 0.6  # ~36 letras por segundo a 60 Hz
 
@@ -21,7 +21,7 @@ class DialogueState(State):
         super().__init__()
         self.speaker = speaker
         self.on_finish = on_finish
-        width = BOX[2] - 16
+        width = BOX[2] - 40
         self.pages = []
         for message in messages:
             lines = wrap(message, TEXT_SIZE, width)
@@ -57,7 +57,7 @@ class DialogueState(State):
     def draw(self, canvas):
         p = config.PALETTE
         draw_panel(canvas, BOX)
-        x, y = BOX[0] + 8, BOX[1] + 5
+        x, y = BOX[0] + 20, BOX[1] + 12
         if self.speaker:
             draw_text(canvas, self.speaker, x, y, p["amarelo_brilho"], size=TEXT_SIZE)
             y += LINE_H
@@ -70,5 +70,5 @@ class DialogueState(State):
             if remaining <= 0:
                 break
         if self._complete and (self.ticks // 20) % 2 == 0:
-            bx, by = BOX[0] + BOX[2] - 14, BOX[1] + BOX[3] - 10
-            pygame.draw.polygon(canvas, p["rosa"], [(bx, by), (bx + 6, by), (bx + 3, by + 4)])
+            bx, by = BOX[0] + BOX[2] - 30, BOX[1] + BOX[3] - 22
+            pygame.draw.polygon(canvas, p["rosa"], [(bx, by), (bx + 12, by), (bx + 6, by + 8)])

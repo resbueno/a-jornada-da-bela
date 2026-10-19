@@ -1,0 +1,140 @@
+[
+ {
+  "kind": "prop",
+  "tile": [
+   18,
+   16
+  ],
+  "size": [
+   5,
+   3
+  ],
+  "name": "Maria Fumaça",
+  "image": "maria_fumaca",
+  "image_w": 160,
+  "steps": [
+   {
+    "needs": [
+     "lara"
+    ],
+    "sets": "canos",
+    "lines": [
+     "Lara pega as ferramentas: aperta os parafusos e conserta os canos de vapor.",
+     "Lara: \"Pssss... Agora o vapor não vaza mais!\""
+    ],
+    "missing": [
+     "Os canos de vapor estão soltos. Quem sabe consertar?"
+    ]
+   },
+   {
+    "needs": [
+     "lenha"
+    ],
+    "sets": "fogo",
+    "lines": [
+     "Bela coloca a lenha na fornalha e aproxima a Lanterna do Coração, com cuidado.",
+     "O calor da lanterna acende o fogo. A caldeira começa a esquentar!"
+    ],
+    "missing": [
+     "A fornalha está vazia. Precisa de lenha antes de acender."
+    ]
+   },
+   {
+    "needs": [],
+    "sets": "",
+    "lines": [
+     "A Maria Fumaça está pronta. Falta só a Olívia dar o sinal!"
+    ],
+    "missing": []
+   }
+  ]
+ },
+ {
+  "kind": "task",
+  "tile": [
+   28,
+   13
+  ],
+  "name": "Galhos altos",
+  "steps": [
+   {
+    "needs": [
+     "lana"
+    ],
+    "sets": "lenha",
+    "lines": [
+     "Lá no alto do rochedo há uma árvore com galhos secos.",
+     "Lana escala as pedras como uma cabrita e joga a lenha lá de cima. Tum, tum, tum!",
+     "Bela recolhe a lenha para a fornalha."
+    ],
+    "missing": [
+     "Os galhos secos estão no alto do rochedo. Só uma boa escaladora chega lá."
+    ]
+   }
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   24,
+   20
+  ],
+  "name": "Olívia",
+  "sprite": "olivia_vento",
+  "joins": "olivia",
+  "requires": [
+   "canos",
+   "fogo"
+  ],
+  "cutscene": "train",
+  "missing": [
+   "Oi, meninas! Eu sou a Olívia. O vento não deixa ninguém subir a montanha a pé...",
+   "Mas esta Maria Fumaça sobe os trilhos até o castelo! Só que ela está parada.",
+   "Precisamos consertar os canos de vapor, buscar lenha nos galhos altos e acender a fornalha.",
+   "Quando estiver tudo pronto, eu toco minha flauta junto com o apito. Eu vou com vocês!"
+  ],
+  "lines": [
+   "Canos consertados e fornalha acesa! Agora é a minha vez.",
+   "Olívia toca a flauta... e a Maria Fumaça responde com o grande apito: \"Piiii-uíí!\"",
+   "Todas a bordo!"
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   34,
+   20
+  ],
+  "name": "Bruce",
+  "sprite": "bruce",
+  "lines": [
+   "Au! Eu sou o Bruce, chefe da estação. Esta Maria Fumaça é a mais charmosa do reino!",
+   "Ela é velhinha e pesada. Para andar, precisa de ajuda de todo mundo."
+  ],
+  "after": [
+   "Piiii-uíí! Adoro esse apito. Au!"
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   7,
+   16
+  ],
+  "name": "Placa",
+  "lines": [
+   "Trilha da Montanha. Perigo: ventos fortes! Use o trem."
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   14,
+   26
+  ],
+  "name": "Placa",
+  "lines": [
+   "Estação da Montanha dos Ventos. Destino: Castelo."
+  ]
+ }
+]

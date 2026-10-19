@@ -1,7 +1,7 @@
 """Texto do jogo com a fonte pixel Jersey 15 (SIL Open Font License; ver assets/fonts/OFL.txt).
 
-Os tamanhos pedidos pelo codigo (12..40) sao mapeados para 3 tamanhos nitidos da fonte:
-16 (texto comum, tamanho nativo), 32 (titulos) e 48 (destaques), sempre multiplos do nativo.
+O tamanho pedido pelo codigo e arredondado para um multiplo do tamanho nativo (16), para a
+fonte continuar nitida: 32 e o texto comum na tela de 640x360, 64 os titulos e 96 os destaques.
 """
 import pygame
 
@@ -12,11 +12,7 @@ _fonts = {}
 
 
 def _resolve(size):
-    if size <= 17:
-        return 16
-    if size <= 30:
-        return 32
-    return 48
+    return max(16, round(size / 16) * 16)
 
 
 def get_font(size):
@@ -36,13 +32,13 @@ def line_height(size):
 
 
 def draw_text(canvas, text, x, y, color, size=16, center=False, shadow=None):
-    """`shadow`: cor opcional de uma sombra de 1 px (melhora o contraste sobre o mapa)."""
+    """`shadow`: cor opcional de uma sombra de 2 px (melhora o contraste sobre o mapa)."""
     font = get_font(size)
     surf = font.render(text, False, color)
     if center:
         x = x - surf.get_width() // 2
     if shadow is not None:
-        canvas.blit(font.render(text, False, shadow), (x + 1, y + 1))
+        canvas.blit(font.render(text, False, shadow), (x + 2, y + 2))
     canvas.blit(surf, (x, y))
 
 

@@ -1,9 +1,9 @@
-"""Carrega os sprites de personagem (assets/sprites/<nome>_<direcao>.png, 3 frames lado a lado)."""
+"""Carrega os sprites (assets/sprites/*.png, quadros lado a lado) e compoe os veiculos com as meninas."""
 import pygame
 
 from src.world.tilemap import ROOT
 
-SPRITE_W, SPRITE_H = 16, 24
+SPRITE_W, SPRITE_H = 32, 48
 _cache = {}
 
 
@@ -34,59 +34,70 @@ def direction_of(facing):
     return "left" if fx < 0 else "right"
 
 
-# --- veiculos (32x32) com a Isabela montada ----------------------------------------
-VEHICLE_W = VEHICLE_H = 32
-# (linhas do sprite da Isabela mantidas, y do topo do cavaleiro, vehicle_em_cima_do_cavaleiro)
+# --- veiculos com a Isabela (e as amigas) montadas --------------------------------------
+VEHICLE_SIZE = {"boat": (96, 80), "unicorn": (64, 64)}
+# linhas do sprite das meninas que aparecem, y do topo delas, veiculo por cima delas?
 RIDER = {
-    "boat": (17, 6, True),       # casco cobre as pernas
-    "unicorn": (17, 4, False),   # cavaleiro por cima do corpo do unicornio
-    "pink_car": (13, 10, True),  # carroceria cobre o corpo dela
+    "boat": (34, 26, True),       # o casco cobre as pernas
+    "unicorn": (34, 8, False),    # as meninas por cima do corpo do unicornio
+}
+# lugar (x) da Isabela e das amigas em cada vista; vista de lado olhando para a esquerda
+SEATS = {
+    "boat": {"side": [36, 50, 62], "front": [32, 18, 46], "back": [32, 18, 46]},
+    "unicorn": {"side": [14, 26], "front": [16, 16], "back": [16, 16]},
 }
 _veh_cache = {}
 
 
 def _load_vehicle(key, view):
+    w, h = VEHICLE_SIZE[key]
     sheet = pygame.image.load(str(ROOT / "assets" / "sprites" / f"vehicle_{key}_{view}.png")).convert_alpha()
-    return [sheet.subsurface((i * VEHICLE_W, 0, VEHICLE_W, VEHICLE_H)).copy()
-            for i in range(sheet.get_width() // VEHICLE_W)]
+    return [sheet.subsurface((i * w, 0, w, h)).copy() for i in range(sheet.get_width() // w)]
 
 
-def vehicle_frame(key, facing, frame, rider_name="isabela"):
-    """Veiculo + cavaleira ja compostos (32x32). `frame` 0/1."""
+def vehicle_frame(key, facing, frame, rider_name="isabela", passengers=()):
+    """Veiculo com a cavaleira e as amigas ja compostos. `frame` 0/1."""
     direction = direction_of(facing)
-    ck = (key, direction, frame % 2, rider_name)
+    ck = (key, direction, frame % 2, rider_name, tuple(passengers))
     if ck in _veh_cache:
         return _veh_cache[ck]
     view = {"down": "front", "up": "back", "left": "side", "right": "side"}[direction]
+    w, h = VEHICLE_SIZE[key]
     frames = _load_vehicle(key, view)
     veh = frames[frame % len(frames)]
-    if direction == "right":
-        veh = pygame.transform.flip(veh, True, False)
     rows, top, veh_over = RIDER[key]
-    rider_full = character(rider_name)[direction][0]
-    rider = rider_full.subsurface((0, 0, SPRITE_W, rows)).copy()
-    out = pygame.Surface((VEHICLE_W, VEHICLE_H), pygame.SRCALPHA)
-    x = (VEHICLE_W - SPRITE_W) // 2
+    seats = SEATS[key][view]
+    out = pygame.Surface((w, h), pygame.SRCALPHA)
+    if not veh_over:
+        out.blit(veh if direction != "right" else pygame.transform.flip(veh, True, False), (0, 0))
+    riders = [rider_name] + list(passengers)
+    order = list(range(len(riders)))[::-1]          # as de tras primeiro; a Isabela por ultimo
+    for i in order:
+        if i >= len(seats):
+            continue
+        body = character(riders[i])[direction][0].subsurface((0, 0, SPRITE_W, rows))
+        x = seats[i]
+        if direction == "right":
+            x = w - x - SPRITE_W
+        lift = 0 if i == 0 or view == "side" else 6  # nas vistas de frente/costas, as amigas aparecem atras
+        out.blit(body, (x, top - lift - (2 if i and view == "side" else 0)))
     if veh_over:
-        out.blit(rider, (x, top))
-        out.blit(veh, (0, 0))
-    else:
-        out.blit(veh, (0, 0))
-        out.blit(rider, (x, top))
+        out.blit(veh if direction != "right" else pygame.transform.flip(veh, True, False), (0, 0))
     _veh_cache[ck] = out
     return out
 
 
-# --- folhas de sprites genericas (bichos) ----------------------------------------------
+# --- folhas de sprites genericas (bichos, objetos) -------------------------------------------
 _sheet_cache = {}
 
 
-def frames(name, fw, fh):
-    """Quadros fw x fh de assets/sprites/<name>.png (lado a lado), em cache."""
+def frames(name, fw, fh=None):
+    """Quadros fw x fh de assets/sprites/<name>.png (lado a lado), em cache. Sem fh: altura da folha."""
     key = (name, fw, fh)
     if key not in _sheet_cache:
         sheet = pygame.image.load(str(ROOT / "assets" / "sprites" / f"{name}.png")).convert_alpha()
-        _sheet_cache[key] = [sheet.subsurface((i * fw, 0, fw, fh)).copy() for i in range(sheet.get_width() // fw)]
+        h = fh or sheet.get_height()
+        _sheet_cache[key] = [sheet.subsurface((i * fw, 0, fw, h)).copy() for i in range(sheet.get_width() // fw)]
     return _sheet_cache[key]
 
 

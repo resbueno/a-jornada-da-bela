@@ -1,0 +1,121 @@
+[
+ {
+  "kind": "animal",
+  "tile": [
+   7,
+   9
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   12,
+   18
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   6,
+   27
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   36,
+   57
+  ]
+ },
+ {
+  "kind": "animal",
+  "tile": [
+   40,
+   59
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   10,
+   10
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   5,
+   23
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   16,
+   24
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   34,
+   53
+  ]
+ },
+ {
+  "kind": "bird",
+  "tile": [
+   41,
+   58
+  ]
+ },
+ {
+  "kind": "fish",
+  "tile": [
+   20,
+   5
+  ]
+ },
+ {
+  "kind": "fish",
+  "tile": [
+   24,
+   9
+  ]
+ },
+ {
+  "kind": "fish",
+  "tile": [
+   27,
+   20
+  ]
+ },
+ {
+  "kind": "fish",
+  "tile": [
+   21,
+   24
+  ]
+ },
+ {
+  "kind": "fish",
+  "tile": [
+   20,
+   56
+  ]
+ },
+ {
+  "kind": "fish",
+  "tile": [
+   26,
+   57
+  ]
+ },
+ {
+  "kind": "rainbow",
+  "tile": [
+   8,
+   3
+  ]
+ }
+]

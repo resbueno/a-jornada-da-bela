@@ -22,7 +22,7 @@ def _initial_size():
         except Exception:
             pass
     if w and h and h > w * 1.15:         # claramente vertical (celular em pe)
-        pw = config.LOGICAL_W * 2
+        pw = config.LOGICAL_W
         return (pw, round(pw * h / w))
     return landscape
 

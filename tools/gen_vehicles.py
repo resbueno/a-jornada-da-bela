@@ -1,92 +1,73 @@
 #!/usr/bin/env python3
-"""Gera os veiculos (32x32) como grades de caracteres em art/src/.
+"""Gera os veiculos como grades de caracteres em art/src/ (grade base; o build amplia 2x).
 
+Barco (48x40 na base): feito de madeira e blocos de montar, com mastro e vela. Unicornio (32x32).
 Vistas: side (olha para a esquerda; a direita e espelho), front (para baixo), back (para cima).
-2 frames por vista (balanco / galope / roda). A Isabela e composta por cima no jogo
-(src/sprites.py: RIDER), entao aqui o veiculo deixa transparente o lugar dela.
-Uso: python3 tools/gen_vehicles.py   (depois: build_sprites.py art/src assets/sprites)
+2 frames por vista (balanco / galope). A Isabela e as amigas sao compostas por cima no jogo
+(src/sprites.py: RIDER), entao aqui o veiculo deixa livre o lugar delas.
+Uso: python3 tools/gen_vehicles.py   (depois: tools/build_sprites.py)
 """
 from pathlib import Path
 
-W = H = 32
+import pixel
+
 OUT = Path(__file__).resolve().parent.parent / "art" / "src"
+BLOCKS = ("l", "o", "h", "2", "t")          # cores dos blocos de montar
 
 
-class Grid:
-    def __init__(self):
-        self.g = [["."] * W for _ in range(H)]
-
-    def px(self, x, y, c):
-        if 0 <= x < W and 0 <= y < H:
-            self.g[y][x] = c
-
-    def rect(self, x0, y0, x1, y1, c):
-        for y in range(y0, y1 + 1):
-            for x in range(x0, x1 + 1):
-                self.px(x, y, c)
-
-    def ellipse(self, cx, cy, rx, ry, c):
-        for y in range(H):
-            for x in range(W):
-                if ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1.0:
-                    self.px(x, y, c)
-
-    def outline(self, color="r"):
-        src = [row[:] for row in self.g]
-        for y in range(H):
-            for x in range(W):
-                if src[y][x] != ".":
-                    continue
-                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    nx, ny = x + dx, y + dy
-                    if 0 <= nx < W and 0 <= ny < H and src[ny][nx] != ".":
-                        self.g[y][x] = color
-                        break
-
-    def lines(self):
-        return ["".join(r) for r in self.g]
+class Grid(pixel.Grid):
+    def __init__(self, w=32, h=32):
+        super().__init__(w, h)
 
 
 # --------------------------------------------------------------- barco
+def blocks(g, x0, x1, y):
+    """Fileira de blocos de montar coloridos (com o pino claro em cima)."""
+    for i, x in enumerate(range(x0, x1 - 1, 4)):
+        c = BLOCKS[i % len(BLOCKS)]
+        g.rect(x, y, x + 2, y + 1, c)
+        g.px(x + 1, y - 1, pixel.LIGHT.get(c, c))
+
+
 def boat_side(frame):
-    g = Grid()
-    bob = frame  # sobe/desce 1 px
-    # ondas
-    for x in range(2, 30):
-        if (x + frame * 2) % 4 < 2:
-            g.px(x, 30 + 0, "i")
-    # casco
-    y0 = 22 + bob
-    g.rect(4, y0 + 2, 27, y0 + 6, "f")
-    g.rect(2, y0, 5, y0 + 3, "f")           # proa levantada
-    g.rect(26, y0, 29, y0 + 3, "f")         # popa
-    g.rect(5, y0 + 6, 26, y0 + 7, "e")      # quilha
-    g.rect(4, y0 + 3, 27, y0 + 3, "e")      # borda interna
-    for x in range(6, 26, 5):
-        g.px(x, y0 + 4, "e")
-        g.px(x, y0 + 5, "e")
-    g.px(3, y0, "a"); g.px(28, y0, "a")      # ponteiras claras
-    g.rect(2, y0 + 2, 3, y0 + 2, "o")        # fita dourada na proa
-    g.outline("r")
+    g = Grid(48, 40)
+    for x in range(2, 46):                   # ondas
+        if (x + frame * 2) % 5 < 2:
+            g.px(x, 39, "i")
+    y0 = 28 + frame
+    g.rect(4, y0 + 2, 43, y0 + 6, "f")       # casco
+    g.rect(1, y0 - 1, 6, y0 + 3, "f")        # proa levantada
+    g.rect(40, y0, 45, y0 + 3, "f")          # popa
+    g.rect(6, y0 + 7, 41, y0 + 8, "e")       # quilha
+    g.rect(4, y0 + 5, 43, y0 + 5, "e")       # tabuas
+    for x in range(8, 42, 6):
+        g.px(x, y0 + 3, "e"); g.px(x, y0 + 4, "e")
+    blocks(g, 7, 40, y0 + 1)
+    g.px(2, y0 - 1, "a"); g.rect(1, y0 + 1, 2, y0 + 1, "o")
+    g.rect(9, 5, 9, y0, "e")                 # mastro
+    g.rect(10, 5, 13, 6, "l")                # bandeirinha
+    for y in range(8, y0 - 2):               # vela branca com listras rosa
+        w = 1 + (y - 8) * 7 // max(y0 - 10, 1)
+        for x in range(10, 10 + w):
+            g.px(x, y, "t" if (y // 4) % 2 else "n")
+    g.outline(pixel.OUTLINE)
     return g.lines()
 
 
 def boat_front(frame, back=False):
-    g = Grid()
-    for x in range(8, 24):
-        if (x + frame * 2) % 4 < 2:
-            g.px(x, 30, "i")
-    y0 = 22 + frame
-    g.rect(9, y0, 22, y0 + 3, "f")
-    g.rect(9, y0, 22, y0, "e")
-    g.rect(10, y0 + 4, 21, y0 + 5, "f")
-    g.rect(12, y0 + 6, 19, y0 + 7, "e")
-    if back:
-        g.rect(11, y0 + 1, 20, y0 + 1, "e")
-    else:
-        g.px(15, y0 + 1, "o"); g.px(16, y0 + 1, "o")  # figura de proa
-        g.rect(14, y0 - 1, 17, y0, "a")
-    g.outline("r")
+    g = Grid(48, 40)
+    for x in range(10, 38):
+        if (x + frame * 2) % 5 < 2:
+            g.px(x, 39, "i")
+    y0 = 28 + frame
+    g.rect(12, y0, 35, y0 + 4, "f")
+    g.rect(14, y0 + 5, 33, y0 + 6, "f")
+    g.rect(18, y0 + 7, 29, y0 + 8, "e")
+    g.rect(12, y0 + 3, 35, y0 + 3, "e")
+    blocks(g, 13, 35, y0 + 1)
+    if not back:
+        g.rect(22, y0 + 4, 25, y0 + 5, "o")  # figura de proa dourada
+    g.outline(pixel.OUTLINE)
     return g.lines()
 
 
@@ -113,7 +94,7 @@ def unicorn_side(frame):
     g.rect(7, 12, 8, 19, "t")
     g.rect(24, 19, 29, 28, "s")
     g.rect(26, 20, 28, 27, "t")
-    g.outline("r")
+    g.outline(pixel.OUTLINE)
     return g.lines()
 
 
@@ -129,7 +110,7 @@ def unicorn_front(frame):
     g.rect(15, 7 + frame, 16, 11 + frame, "o")  # chifre
     g.rect(10, 12 + frame, 11, 22 + frame, "s")  # crina
     g.rect(20, 12 + frame, 21, 22 + frame, "s")
-    g.outline("r")
+    g.outline(pixel.OUTLINE)
     return g.lines()
 
 
@@ -142,66 +123,21 @@ def unicorn_back(frame):
     g.rect(13, 19, 18, 29, "s")               # cauda
     g.rect(15, 20, 16, 27, "t")
     g.rect(12 + frame, 28, 19 - frame, 29, "s")
-    g.outline("r")
-    return g.lines()
-
-
-# --------------------------------------------------------------- carro rosa
-def car_side(frame):
-    g = Grid()
-    g.rect(3, 21, 28, 27, "t")               # carroceria
-    g.rect(3, 25, 28, 27, "u")
-    g.rect(4, 20, 9, 20, "t")                # capo
-    g.rect(21, 20, 27, 20, "t")
-    g.rect(10, 20, 20, 21, "u")              # interior (banco)
-    g.rect(3, 22, 4, 24, "o")                # farol
-    g.rect(27, 22, 28, 23, "l")              # lanterna
-    g.rect(2, 26, 29, 26, "n")               # parachoques
-    for wx in (9, 23):                        # rodas
-        g.ellipse(wx, 28, 3.4, 3.4, "r")
-        g.px(wx, 28, "d")
-        g.px(wx + (frame * 2 - 1), 28 + (frame * 2 - 1), "n")
-    g.rect(14, 18, 14, 20, "d")              # para-brisa
-    g.px(15, 18, "i"); g.px(15, 19, "i")
-    g.outline("r")
-    return g.lines()
-
-
-def car_front(frame, back=False):
-    g = Grid()
-    g.rect(7, 22, 24, 28, "t")
-    g.rect(7, 26, 24, 28, "u")
-    g.rect(8, 20, 23, 21, "d")               # para-brisa / vidro
-    g.rect(9, 20, 22, 20, "i")
-    g.rect(6, 29, 25, 29, "n")
-    for wx in (6, 24):
-        g.rect(wx - 1, 25, wx + 1, 30, "r")
-        g.px(wx, 27 + frame, "d")
-    if back:
-        g.rect(9, 24, 11, 25, "l"); g.rect(20, 24, 22, 25, "l")
-        g.rect(14, 24, 17, 25, "n")
-    else:
-        g.rect(9, 24, 11, 25, "o"); g.rect(20, 24, 22, 25, "o")
-        g.rect(14, 24, 17, 25, "n")
-    g.outline("r")
+    g.outline(pixel.OUTLINE)
     return g.lines()
 
 
 VEHICLES = {
-    "boat":     {"side": boat_side, "front": lambda f: boat_front(f), "back": lambda f: boat_front(f, True)},
-    "unicorn":  {"side": unicorn_side, "front": unicorn_front, "back": unicorn_back},
-    "pink_car": {"side": car_side, "front": lambda f: car_front(f), "back": lambda f: car_front(f, True)},
+    "boat":    {"side": boat_side, "front": lambda f: boat_front(f), "back": lambda f: boat_front(f, True)},
+    "unicorn": {"side": unicorn_side, "front": unicorn_front, "back": unicorn_back},
 }
 
 
 def main():
-    OUT.mkdir(parents=True, exist_ok=True)
     for name, views in VEHICLES.items():
         for view, fn in views.items():
-            frames = [fn(f) for f in range(2)]
-            body = "\n---\n".join("\n".join(fr) for fr in frames)
-            (OUT / f"vehicle_{name}_{view}.sprite.txt").write_text(
-                f"# {name} vista {view} (32x32): 2 frames\n{body}\n", encoding="utf-8")
+            pixel.save(f"vehicle_{name}_{view}", [fn(f) for f in range(2)],
+                       f"{name} vista {view}: 2 frames (grade base)", hd_ready=False)
         print("gerado:", name)
 
 

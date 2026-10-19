@@ -3,18 +3,20 @@
 Jogo de aventura em pixel art vista de cima (estilo GBA), feito em **Python + Pygame** e
 publicado no navegador com **pygbag** (WebAssembly).
 
-A Princesa Isabela ("Bela") precisa reunir os Quatro Insumos Ancestrais (barco, unicórnio,
-carro rosa e dragão) para libertar o castelo da Sombra Cinzenta. Veja `STORY.md`.
+A Princesa Isabela ("Bela") e as melhores amigas (Lana, Lara e Olívia) atravessam o Bosque dos
+Sussurros, o Vale dos Córregos e a Montanha dos Ventos para chegar ao castelo a tempo do jantar,
+com um unicórnio, um barco de blocos de montar, uma Maria Fumaça e um dragão dorminhoco. Veja `STORY.md`.
 
-**Estado:** história completa jogável: floresta, lago e ilha, cavernas, estrada do pôr do sol e portões do castelo com a cena final.
+**Estado:** história completa jogável, em 640x360: abertura, os quatro mundos, a viagem de trem e
+o final com o banquete.
 
 ## Controles
 
 | Ação | Teclado | Toque |
 |---|---|---|
 | Mover | setas ou WASD | direcional |
-| Interagir / saltar (unicórnio) | Z, Espaço ou Enter | botão A |
-| Inventário (trocar transporte) | I ou Tab | botão I |
+| Interagir / pular (unicórnio) | Z, Espaço ou Enter | botão A |
+| Mochila (transportes, amigas, itens) | I ou Tab | botão I |
 | Pausa | Esc ou P | botão \|\| |
 
 ## Rodar localmente
@@ -43,11 +45,13 @@ use `tools/deploy_homolog.sh` com as variáveis `BELA_DEPLOY_HOST` e `BELA_DEPLO
 | `art/src/` | fontes da arte (grades de caracteres, paleta de 32 cores) |
 | `tools/` | geradores de arte e do mapa, build e deploy |
 | `DESIGN.md` | decisões de projeto |
-| `STORY.md` | enredo e personagens |
+| `STORY.md` | enredo, roupas por fase e personagens |
 
-A arte é gerada por código (`tools/gen_characters.py`, `tools/gen_dogs.py`, `tools/gen_critters.py`,
-`tools/gen_vehicles.py`, `tools/gen_dragon.py`,
-`tools/build_sprites.py` (grade de texto → PNG), `src/world/tileart.py`) a partir de uma paleta fixa de 32 cores.
+A arte é gerada por código a partir de uma paleta fixa de 32 cores: `tools/gen_characters.py`
+(meninas e roupas por fase), `tools/gen_dogs.py`, `tools/gen_gym.py`, `tools/gen_critters.py`,
+`tools/gen_vehicles.py`, `tools/gen_props.py` (Maria Fumaça e dragão), `src/world/tileart.py`
+(terreno) e `src/scenery.py` (paisagem). `tools/build_sprites.py` converte as grades de texto em
+PNG, ampliando 2x (`tools/pixel.py`). Os mapas saem de `tools/gen_world.py`.
 
 ## Créditos
 

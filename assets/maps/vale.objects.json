@@ -1,0 +1,118 @@
+[
+ {
+  "kind": "npc",
+  "tile": [
+   9,
+   6
+  ],
+  "name": "Rui",
+  "sprite": "rui",
+  "lines": [
+   "Eu sou o Rui, barqueiro. A ponte velha? A enchente levou embora!",
+   "Só sobraram os pilares. Para descer o vale agora, só de barco, pelas corredeiras.",
+   "A Lara está no cais. Ela é ótima para construir coisas!"
+  ],
+  "after": [
+   "Na neblina das corredeiras, a luz da sua lanterna vai mostrar as pedras."
+  ]
+ },
+ {
+  "kind": "npc",
+  "tile": [
+   15,
+   16
+  ],
+  "name": "Lara",
+  "sprite": "lara_chuva",
+  "joins": "lara",
+  "gives": "boat",
+  "requires": [
+   "tabuas",
+   "blocos",
+   "vela"
+  ],
+  "missing": [
+   "Bela! Lana! Eu sou a Lara. A ponte sumiu, mas eu sei construir um barco!",
+   "Preciso de três coisas: as tábuas velhas, a caixa de blocos de montar e um pano para a vela.",
+   "Está tudo espalhado pelo prado. Vocês me ajudam a achar?"
+  ],
+  "lines": [
+   "Tábuas, blocos e a vela! Agora é comigo.",
+   "Lara martela, encaixa os blocos coloridos e prende o mastro... Prontinho!",
+   "Lana: \"Eu amarro as velas!\"  Lara: \"E eu conserto o casco se bater em alguma pedra.\"",
+   "Entre na água pelo cais e o barco leva vocês. Cuidado com a neblina nas corredeiras!"
+  ],
+  "after": [
+   "Tudo a bordo! Desçam o rio até o cais lá embaixo."
+  ]
+ },
+ {
+  "kind": "pickup",
+  "tile": [
+   4,
+   20
+  ],
+  "name": "Tábuas",
+  "item": "tabuas",
+  "lines": [
+   "Bela encontrou as tábuas velhas da ponte. Elas ainda servem!"
+  ]
+ },
+ {
+  "kind": "pickup",
+  "tile": [
+   11,
+   3
+  ],
+  "name": "Blocos",
+  "item": "blocos",
+  "lines": [
+   "Uma caixa de blocos de montar coloridos! Perfeitos para o barco."
+  ]
+ },
+ {
+  "kind": "pickup",
+  "tile": [
+   12,
+   28
+  ],
+  "name": "Pano da vela",
+  "item": "vela",
+  "lines": [
+   "Um pano grande, branco e rosa, preso num galho. Vai virar a vela!"
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   6,
+   4
+  ],
+  "name": "Placa",
+  "lines": [
+   "Vale dos Córregos. Cuidado: o rio desce forte depois da curva."
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   13,
+   13
+  ],
+  "name": "Placa",
+  "lines": [
+   "Ponte do Vale. Interditada depois da enchente."
+  ]
+ },
+ {
+  "kind": "sign",
+  "tile": [
+   33,
+   54
+  ],
+  "name": "Placa",
+  "lines": [
+   "Fim das corredeiras! A estrada leva à Montanha dos Ventos."
+  ]
+ }
+]

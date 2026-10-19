@@ -4,22 +4,25 @@ from enum import Enum
 
 class Terrain(Enum):
     GRASS = "grass"            # grama
-    TALL_GRASS = "tall_grass"  # grama alta (carro nao entra)
-    DIRT = "dirt"              # terra / caminho
-    STONE = "stone"            # pedra (piso de caverna)
+    TALL_GRASS = "tall_grass"  # grama alta (so enfeite: da para andar)
+    DIRT = "dirt"              # terra / trilha
+    STONE = "stone"            # piso de pedra (patio do castelo, plataforma)
     WATER = "water"            # agua funda (so o barco)
-    TREE = "tree"              # arvore / parede: sempre bloqueia
-    CASTLE = "castle"          # castelo: chegar aqui e a vitoria
-    ROCK = "rock"              # pedra grande: sempre bloqueia
-    FISSURE = "fissure"        # fenda: ninguem entra; o unicornio salta por cima
-    CAVE = "cave"              # entrada da caverna: leva ao mapa das cavernas
-    WALL = "wall"              # parede de caverna: sempre bloqueia
-    CRYSTAL = "crystal"        # cristal de quartzo: bloqueia e ilumina
-    EXIT = "exit"              # saida da caverna de volta ao mapa anterior
-    GATE = "gate"              # portal para o proximo mapa
-    TENT = "tent"              # barraca do acampamento: bloqueia
-    THORN = "thorn"            # espinhos magicos da Sombra: bloqueiam
+    RAPIDS = "rapids"          # corredeira: agua que empurra o barco rio abaixo
+    TREE = "tree"              # arvore (pinheiro 2x2): sempre bloqueia
+    ROCK = "rock"              # pedra grande: sempre bloqueia (tambem no meio do rio)
+    FISSURE = "fissure"        # desfiladeiro: ninguem entra; o unicornio salta por cima
+    THORN = "thorn"            # espinheiro magico: bloqueia ate a Lana puxar os galhos
+    CLIFF = "cliff"            # paredao de rocha da montanha: bloqueia
+    WIND = "wind"              # trilha de vento forte: da para pisar, mas o vento empurra de volta
+    RAIL = "rail"              # trilhos da Maria Fumaca
+    PLANKS = "planks"          # tabuas de madeira (cais, plataforma da estacao, ponte)
+    POST = "post"              # pilar da ponte antiga, quebrada: bloqueia
+    LAMP = "lamp"              # poste com lampiao (ilumina o bosque): bloqueia
     CASTLE_WALL = "castle_wall"  # muralha do castelo: bloqueia
+    CASTLE_GATE = "castle_gate"  # portao do castelo (fechado): bloqueia
+    GATE = "gate"              # passagem para o proximo mapa
+    FLOWERS = "flowers"        # canteiro de flores (enfeite, da para andar)
 
 
 GLYPHS = {
@@ -28,37 +31,21 @@ GLYPHS = {
     "d": Terrain.DIRT,
     "s": Terrain.STONE,
     "~": Terrain.WATER,
+    "v": Terrain.RAPIDS,
     "#": Terrain.TREE,
-    "C": Terrain.CASTLE,
     "r": Terrain.ROCK,
     "x": Terrain.FISSURE,
-    "E": Terrain.CAVE,
-    "W": Terrain.WALL,
-    "q": Terrain.CRYSTAL,
-    "O": Terrain.EXIT,
-    "G": Terrain.GATE,
-    "T": Terrain.TENT,
     "Y": Terrain.THORN,
+    "W": Terrain.CLIFF,
+    "w": Terrain.WIND,
+    "=": Terrain.RAIL,
+    "k": Terrain.PLANKS,
+    "p": Terrain.POST,
+    "L": Terrain.LAMP,
     "K": Terrain.CASTLE_WALL,
+    "C": Terrain.CASTLE_GATE,
+    "G": Terrain.GATE,
+    "f": Terrain.FLOWERS,
 }
 
-# Cor provisoria de cada terreno (papel da paleta) ate existirem os sprites
-COLORS = {
-    Terrain.GRASS: "grama",
-    Terrain.TALL_GRASS: "folha_escura",
-    Terrain.DIRT: "madeira_terra_clara",
-    Terrain.STONE: "pedra_escura",
-    Terrain.WATER: "agua_lago",
-    Terrain.TREE: "folha_escura",
-    Terrain.CASTLE: "pedra_clara",
-    Terrain.ROCK: "pedra_escura",
-    Terrain.FISSURE: "contorno",
-    Terrain.CAVE: "pedra_escura",
-    Terrain.WALL: "contorno",
-    Terrain.CRYSTAL: "ceu",
-    Terrain.EXIT: "branco",
-    Terrain.GATE: "roxo",
-    Terrain.TENT: "vermelho",
-    Terrain.THORN: "roxo",
-    Terrain.CASTLE_WALL: "rocha_clara",
-}
+WATERS = frozenset({Terrain.WATER, Terrain.RAPIDS})
